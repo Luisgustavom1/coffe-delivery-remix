@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import styles from "@/styles/global.css";
+import { Header } from "@/components/UI/header";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -27,12 +28,13 @@ export const links: LinksFunction = () => [
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <Meta />
         <Links />
       </head>
       <body>
+        <Header />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
