@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply m-0 p-0 box-border;
+}
+
+html {
+  @apply font-text;
+}
+
+a,
+button,
+ul,
+ol, img {
+  @apply select-none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-header;
+}
