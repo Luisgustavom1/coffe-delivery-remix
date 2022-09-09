@@ -4,7 +4,7 @@ import { Chips } from "../chips";
 
 export const Header = () => {
   return (
-    <header className="max-w-screen-lg flex items-center justify-between mx-auto py-8 px-4">
+    <header className="max-w-screen-xl flex items-center justify-between mx-auto py-8 px-4">
       <img
         src={Logo}
         alt="Logo com um escrito Coffe delivery, 'coffe' em cima com fonte maior e em negrito e 'delivery' em baixo com fonte menor, além de um desenho de um copo de café ao lado na cor roxa clara"

@@ -20,7 +20,7 @@ module.exports = {
         'background': '#FAFAFA',
       },
       screens: {
-        lg: '820px'
+        xl: '1120px'
       }
     },
     fontFamily: {

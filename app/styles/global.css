@@ -556,6 +556,14 @@ video {
   margin-right: auto;
 }
 
+.mt-24 {
+  margin-top: 6rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .flex {
   display: flex;
 }
@@ -564,8 +572,24 @@ video {
   display: inline-flex;
 }
 
+.w-full {
+  width: 100%;
+}
+
+.min-w-\[320px\] {
+  min-width: 320px;
+}
+
 .max-w-screen-lg {
-  max-width: 820px;
+  max-width: 1024px;
+}
+
+.max-w-screen-xl {
+  max-width: 1120px;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .items-center {
@@ -580,6 +604,10 @@ video {
   justify-content: space-between;
 }
 
+.gap-9 {
+  gap: 2.25rem;
+}
+
 .gap-1 {
   gap: 0.25rem;
 }
@@ -592,9 +620,9 @@ video {
   border-radius: 0.375rem;
 }
 
-.bg-yellow-dark {
+.bg-yellow-light {
   --tw-bg-opacity: 1;
-  background-color: rgb(196 127 23 / var(--tw-bg-opacity));
+  background-color: rgb(241 233 201 / var(--tw-bg-opacity));
 }
 
 .bg-purple-light {
@@ -602,24 +630,9 @@ video {
   background-color: rgb(235 229 249 / var(--tw-bg-opacity));
 }
 
-.bg-yellow-light {
-  --tw-bg-opacity: 1;
-  background-color: rgb(241 233 201 / var(--tw-bg-opacity));
-}
-
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
-}
-
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 
 .py-\[10px\] {
@@ -627,14 +640,14 @@ video {
   padding-bottom: 10px;
 }
 
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .py-2 {
@@ -642,19 +655,38 @@ video {
   padding-bottom: 0.5rem;
 }
 
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.text-yellow-light {
-  --tw-text-opacity: 1;
-  color: rgb(241 233 201 / var(--tw-text-opacity));
-}
-
-.text-purple-light {
-  --tw-text-opacity: 1;
-  color: rgb(235 229 249 / var(--tw-text-opacity));
+.font-extrabold {
+  font-weight: 800;
 }
 
 .text-yellow-dark {
@@ -690,4 +722,14 @@ ol,  img {
 
 h1,  h2,  h3,  h4,  h5,  h6 {
   font-family: 'Baloo 2', cursive;
+}
+
+@media (min-width: 768px) {
+  .md\:w-3\/5 {
+    width: 60%;
+  }
+
+  .md\:flex-nowrap {
+    flex-wrap: nowrap;
+  }
 }
