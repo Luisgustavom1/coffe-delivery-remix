@@ -1,0 +1,121 @@
+{
+  "coffes": [
+    {
+      "id": 1,
+      "img": "../../assets/img/coffes/default.png",
+      "price": 660,
+      "title": "Expresso Tradicional",
+      "description": "O tradicional café feito com água quente e grãos moídos",
+      "categories": ["tradicional"],
+      "stok": 4
+    },
+    {
+      "id": 2,
+      "img": "app/assets/img/coffes/american.png",
+      "price": 990,
+      "title": "Expresso Americano",
+      "description": "Expresso diluído, menos intenso que o tradicional",
+      "categories": ["tradicional"],
+      "stok": 6
+    },
+    {
+      "id": 3,
+      "img": "app/assets/img/coffes/creamy-ice-cream.png",
+      "price": 1090,
+      "title": "Expresso Cremoso gelado",
+      "description": "Bebida preparada com café expresso e cubos de gelo",
+      "categories": ["tradicional", "gelado"],
+      "stok": 12
+    },
+    {
+      "id": 4,
+      "img": "app/assets/img/coffes/coffe-milk.png",
+      "price": 1190,
+      "title": "Café com Leite",
+      "description": "Meio a meio de expresso tradicional com leite vaporizado",
+      "categories": ["tradicional", "com leite"],
+      "stok": 8
+    },
+    {
+      "id": 5,
+      "img": "app/assets/img/coffes/latte.png",
+      "price": 1290,
+      "title": "Latte",
+      "description": "Uma dose de café expresso com o dobro de leite e espuma cremosa",
+      "categories": ["tradicional", "com leite"],
+      "stok": 8
+    },
+    {
+      "id": 6,
+      "img": "app/assets/img/coffes/creamy.png",
+      "price": 1090,
+      "title": "Expresso Cremoso",
+      "description": "Café expresso tradicional com espuma cremosa",
+      "categories": ["tradicional"],
+      "stok": 3
+    },
+    {
+      "id": 7,
+      "img": "app/assets/img/coffes/capuccino.png",
+      "price": 1190,
+      "title": "Cappucino",
+      "description": "Bebida com canela feita de doses iguais de café, leite e espuma",
+      "categories": ["tradicional", "com leite"],
+      "stok": 7
+    },
+    {
+      "id": 8,
+      "img": "app/assets/img/coffes/macchiato.png",
+      "price": 1090,
+      "title": "Macchiato",
+      "description": "Café expresso misturado com um pouco de leite quente e espuma",
+      "categories": ["tradicional", "com leite"],
+      "stok": 5
+    },
+    {
+      "id": 9,
+      "img": "app/assets/img/coffes/mocaccino.png",
+      "price": 1290,
+      "title": "Mocaccino",
+      "description": "Café expresso com calda de chocolate, pouco leite e espuma",
+      "categories": ["tradicional", "com leite"],
+      "stok": 6
+    },
+    {
+      "id": 10,
+      "img": "app/assets/img/coffes/cubano.png",
+      "price": 1690,
+      "title": "Cubano",
+      "description": "Bebida feita com chocolate dissolvido no leite quente e café",
+      "categories": ["especial", "alcoólico", "gelado"],
+      "stok": 8
+    },
+    {
+      "id": 11,
+      "img": "app/assets/img/coffes/havaiano.png",
+      "price": 1690,
+      "title": "Cubano",
+      "description": "Bebida adocicada preparada com café e leite de coco",
+      "categories": ["especial"],
+      "stok": 4
+    },
+    {
+      "id": 12,
+      "img": "app/assets/img/coffes/arabe.png",
+      "price": 1690,
+      "title": "Árabe",
+      "description": "Bebida preparada com grãos de café árabe e especiarias",
+      "categories": ["especial"],
+      "stok": 4
+    },
+    {
+      "id": 13,
+      "img": "app/assets/img/coffes/arabe.png",
+      "price": 1690,
+      "title": "Irlandês",
+      "description": "Bebida a base de café, uísque irlandês, açúcar e chantilly",
+      "categories": ["especial", "alcoólico"],
+      "stok": 6
+    }
+  ]
+}
