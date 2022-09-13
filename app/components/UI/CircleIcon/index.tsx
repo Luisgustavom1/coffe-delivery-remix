@@ -1,13 +1,13 @@
 import React from "react";
 
-interface IconChipsProps {
+interface CircleIconProps {
   color: "yellow-dark" | "yellow" | "purple" | "base-text";
 }
 
-export const IconChips = ({
+export const CircleIcon = ({
   children,
   color,
-}: React.PropsWithChildren<IconChipsProps>) => {
+}: React.PropsWithChildren<CircleIconProps>) => {
   const currentBgChip = {
     "yellow-dark": "bg-yellow-dark",
     yellow: "bg-yellow",
@@ -16,7 +16,9 @@ export const IconChips = ({
   }[color];
 
   return (
-    <span className={`w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-full ${currentBgChip} p-2 text-white`}>
+    <span
+      className={`w-8 h-8 flex items-center justify-center flex-shrink-0 rounded-full ${currentBgChip} p-2 text-white`}
+    >
       {children}
     </span>
   );

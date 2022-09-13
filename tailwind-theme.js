@@ -49,6 +49,14 @@ module.exports = {
           fontFamily: 'Baloo 2',
           fontWeight: 800
         },
+        s: {
+          fontSize: '20px',
+          lineHeight: '26px'
+        },
+        m: {
+          fontSize: '24px',
+          lineHeight: '18.2px'
+        },
         l: {
           fontSize: '32px',
           lineHeight: '41.6px'
@@ -56,6 +64,16 @@ module.exports = {
         xl: {
           fontSize: '48px',
           lineHeight: '62.4px'
+        }
+      },
+      tag: {
+        DEFAULT: {
+          fontFamily: 'Roboto',
+          fontWeight: '700'
+        },
+        main: {
+          fontSize: '10px',
+          lineHeight: '13px'
         }
       }
     },

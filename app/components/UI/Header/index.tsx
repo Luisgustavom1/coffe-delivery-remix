@@ -1,6 +1,6 @@
 import Logo from "@/assets/svg/Logo.svg";
 import { MapPin, ShoppingCart } from "phosphor-react";
-import { Chips } from "../chips";
+import { Chips } from "../Chips";
 
 export const Header = () => {
   return (
