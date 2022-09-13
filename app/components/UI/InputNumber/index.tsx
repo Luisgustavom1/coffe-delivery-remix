@@ -21,7 +21,7 @@ export const InputNumber = ({
         onClick={() => setCurrentValue((prevState) => prevState - 1)}
         size={14}
         weight="fill"
-        className="text-purple cursor-pointer"
+        className="text-purple cursor-pointer hover:text-purple-dark transition-colors"
       />
       <p className="text-base-title typography-regular-m leading-none">
         {currentValue}
@@ -30,7 +30,7 @@ export const InputNumber = ({
         onClick={() => setCurrentValue((prevState) => prevState + 1)}
         size={14}
         weight="fill"
-        className="text-purple cursor-pointer"
+        className="text-purple cursor-pointer hover:text-purple-dark transition-colors"
       />
     </span>
   );

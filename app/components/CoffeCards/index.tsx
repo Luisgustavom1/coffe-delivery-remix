@@ -29,7 +29,7 @@ export const CoffeCards = () => {
 
         <div className="flex gap-4">
           <InputNumber value={1} onChange={() => ({})} />
-          <span className="p-2 rounded-md flex bg-purple-dark">
+          <span className="p-2 rounded-md flex bg-purple-dark cursor-pointer hover:transition-all hover:brightness-90">
             <ShoppingCart size={22} weight="fill" color="#fff" />
           </span>
         </div>

@@ -920,6 +920,14 @@ video {
   color: rgb(128 71 248 / var(--tw-text-opacity));
 }
 
+.transition-colors {
+  transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 body {
   margin: 0px;
   box-sizing: border-box;
@@ -943,6 +951,32 @@ ol,  img {
 
 h1,  h2,  h3,  h4,  h5,  h6 {
   font-family: 'Baloo 2', cursive;
+}
+
+.hover\:text-purple-dark:hover {
+  --tw-text-opacity: 1;
+  color: rgb(75 41 149 / var(--tw-text-opacity));
+}
+
+.hover\:text-purple-light:hover {
+  --tw-text-opacity: 1;
+  color: rgb(235 229 249 / var(--tw-text-opacity));
+}
+
+.hover\:text-purple:hover {
+  --tw-text-opacity: 1;
+  color: rgb(128 71 248 / var(--tw-text-opacity));
+}
+
+.hover\:brightness-90:hover {
+  --tw-brightness: brightness(.9);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.hover\:transition-all:hover {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 @media (min-width: 768px) {
