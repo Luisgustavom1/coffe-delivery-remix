@@ -1,24 +1,9 @@
-import type { LoaderFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Outlet } from "@remix-run/react";
 import { Coffee, Package, ShoppingCart, Timer } from "phosphor-react";
 import { CircleIcon } from "@/components/UI/CircleIcon";
-import { CoffeCards } from "@/components/CoffeCards";
 import CoffeIlustration from "@/assets/svg/Coffe.svg";
-import api from "@/services/api";
-import type { Coffe } from "@/@types/api";
 
-type ApiCoffesResponse = Array<Coffe>;
-
-export const loader: LoaderFunction = async () => {
-  const { data } = await api.get<ApiCoffesResponse>("/coffes");
-
-  return json<ApiCoffesResponse>(data);
-};
-
-export default function Home() {
-  const coffes = useLoaderData<ApiCoffesResponse>();
-
+export default function CoffesRoute() {
   return (
     <div className="max-w-screen-xl mt-24 px-4 pb-6 mx-auto">
       <section className="flex items-center justify-center gap-9 flex-wrap md:flex-nowrap">
@@ -70,15 +55,7 @@ export default function Home() {
           />
         </aside>
       </section>
-      <main className="mt-32">
-        <h2 className="typography-title-l text-base-subtitle">Nossos cafés</h2>
-
-        <div className="mt-14 flex flex-wrap gap-x-8 gap-y-10">
-          {coffes.map(({ id, img, ...rest }) => (
-            <CoffeCards key={id} imgPath={img} {...rest} />
-          ))}
-        </div>
-      </main>
+      <Outlet />
     </div>
   );
 }
