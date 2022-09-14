@@ -20,7 +20,7 @@ export default function Home() {
   const coffes = useLoaderData<ApiCoffesResponse>();
 
   return (
-    <div className="max-w-screen-xl mt-24 px-4 mx-auto">
+    <div className="max-w-screen-xl mt-24 px-4 pb-6 mx-auto">
       <section className="flex items-center justify-center gap-9 flex-wrap md:flex-nowrap">
         <article className="w-full md:w-3/5">
           <div>
