@@ -1,4 +1,5 @@
 import type { Categories } from "@/@types/api";
+import { formatDecimals } from "@/utils/formats";
 import { ShoppingCart } from "phosphor-react";
 import { InputNumber } from "../UI/InputNumber";
 
@@ -19,15 +20,24 @@ export const CoffeCards = ({
 }: ICoffeCardsProps) => {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-5 w-64 bg-base-card rounded-tl-md rounded-br-md rounded-tr-[36px] rounded-bl-[36px]">
-      <header className="text-center -mt-14 mb-4">
-        <img src={imgPath} alt={`Foto do ${title} - ${description}`} />
-        <span className="bg-yellow-light text-yellow-dark inline-flex justify-center rounded-full py-1 px-2 mt-3">
-          {categories.map((categorie) => (
-            <p className="typography-tag-main" key={categorie}>
-              {categorie}
-            </p>
+      <header className="-mt-14 mb-4">
+        <img
+          src={imgPath}
+          alt={`Foto do ${title} - ${description}`}
+          className="mx-auto"
+        />
+        <div className="flex justify-center gap-1">
+          {categories.map((categorie, i) => (
+            <span
+              key={i}
+              className="bg-yellow-light text-yellow-dark inline-flex justify-center rounded-full py-1 px-2 mt-3"
+            >
+              <p className="typography-tag-main" key={categorie}>
+                {categorie}
+              </p>
+            </span>
           ))}
-        </span>
+        </div>
       </header>
 
       <article className="text-center mb-8">
@@ -38,7 +48,7 @@ export const CoffeCards = ({
       <footer className="flex items-center gap-6">
         <div className="text-base-text flex gap-1">
           <p className="typography-regular-s">R$</p>
-          <h6 className="typography-title-m">{price}</h6>
+          <h6 className="typography-title-m">{formatDecimals(price)}</h6>
         </div>
 
         <div className="flex gap-4">
