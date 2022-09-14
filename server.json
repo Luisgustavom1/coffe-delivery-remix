@@ -11,7 +11,7 @@
     },
     {
       "id": 2,
-      "img": "app/assets/img/coffes/american.png",
+      "img": "../../assets/img/coffes/american.png",
       "price": 990,
       "title": "Expresso Americano",
       "description": "Expresso diluído, menos intenso que o tradicional",
@@ -20,7 +20,7 @@
     },
     {
       "id": 3,
-      "img": "app/assets/img/coffes/creamy-ice-cream.png",
+      "img": "../../assets/img/coffes/creamy-ice-cream.png",
       "price": 1090,
       "title": "Expresso Cremoso gelado",
       "description": "Bebida preparada com café expresso e cubos de gelo",
@@ -29,7 +29,7 @@
     },
     {
       "id": 4,
-      "img": "app/assets/img/coffes/coffe-milk.png",
+      "img": "../../assets/img/coffes/coffe-milk.png",
       "price": 1190,
       "title": "Café com Leite",
       "description": "Meio a meio de expresso tradicional com leite vaporizado",
@@ -38,7 +38,7 @@
     },
     {
       "id": 5,
-      "img": "app/assets/img/coffes/latte.png",
+      "img": "../../assets/img/coffes/latte.png",
       "price": 1290,
       "title": "Latte",
       "description": "Uma dose de café expresso com o dobro de leite e espuma cremosa",
@@ -47,7 +47,7 @@
     },
     {
       "id": 6,
-      "img": "app/assets/img/coffes/creamy.png",
+      "img": "../../assets/img/coffes/creamy.png",
       "price": 1090,
       "title": "Expresso Cremoso",
       "description": "Café expresso tradicional com espuma cremosa",
@@ -56,7 +56,7 @@
     },
     {
       "id": 7,
-      "img": "app/assets/img/coffes/capuccino.png",
+      "img": "../../assets/img/coffes/capuccino.png",
       "price": 1190,
       "title": "Cappucino",
       "description": "Bebida com canela feita de doses iguais de café, leite e espuma",
@@ -65,7 +65,7 @@
     },
     {
       "id": 8,
-      "img": "app/assets/img/coffes/macchiato.png",
+      "img": "../../assets/img/coffes/macchiato.png",
       "price": 1090,
       "title": "Macchiato",
       "description": "Café expresso misturado com um pouco de leite quente e espuma",
@@ -74,7 +74,7 @@
     },
     {
       "id": 9,
-      "img": "app/assets/img/coffes/mocaccino.png",
+      "img": "../../assets/img/coffes/mocaccino.png",
       "price": 1290,
       "title": "Mocaccino",
       "description": "Café expresso com calda de chocolate, pouco leite e espuma",
@@ -83,7 +83,7 @@
     },
     {
       "id": 10,
-      "img": "app/assets/img/coffes/cubano.png",
+      "img": "../../assets/img/coffes/cubano.png",
       "price": 1690,
       "title": "Cubano",
       "description": "Bebida feita com chocolate dissolvido no leite quente e café",
@@ -92,7 +92,7 @@
     },
     {
       "id": 11,
-      "img": "app/assets/img/coffes/havaiano.png",
+      "img": "../../assets/img/coffes/havaiano.png",
       "price": 1690,
       "title": "Cubano",
       "description": "Bebida adocicada preparada com café e leite de coco",
@@ -101,7 +101,7 @@
     },
     {
       "id": 12,
-      "img": "app/assets/img/coffes/arabe.png",
+      "img": "../../assets/img/coffes/arabe.png",
       "price": 1690,
       "title": "Árabe",
       "description": "Bebida preparada com grãos de café árabe e especiarias",
@@ -110,7 +110,7 @@
     },
     {
       "id": 13,
-      "img": "app/assets/img/coffes/arabe.png",
+      "img": "../../assets/img/coffes/arabe.png",
       "price": 1690,
       "title": "Irlandês",
       "description": "Bebida a base de café, uísque irlandês, açúcar e chantilly",

@@ -18,7 +18,7 @@ module.exports = {
         'background': '#FAFAFA',
       },
       screens: {
-        xl: '1120px'
+        xl: '1152px'
       }
     },
     fontFamily: {

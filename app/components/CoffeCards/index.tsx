@@ -19,11 +19,8 @@ export const CoffeCards = ({
 }: ICoffeCardsProps) => {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-5 w-64 bg-base-card rounded-tl-md rounded-br-md rounded-tr-[36px] rounded-bl-[36px]">
-      <header className="text-center -mt-10 mb-4">
-        <img
-          src={"../../assets/img/coffes/default.png"}
-          alt={`Foto do ${title} - ${description}`}
-        />
+      <header className="text-center -mt-14 mb-4">
+        <img src={imgPath} alt={`Foto do ${title} - ${description}`} />
         <span className="bg-yellow-light text-yellow-dark inline-flex justify-center rounded-full py-1 px-2 mt-3">
           {categories.map((categorie) => (
             <p className="typography-tag-main" key={categorie}>
