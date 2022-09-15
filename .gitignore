@@ -5,7 +5,7 @@ node_modules
 /public/build
 .env
 
-/app/tailwind.css
+/app/styles/global.css
 
 /package-lock.json
 /yarn.lock
