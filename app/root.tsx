@@ -1,4 +1,5 @@
 import type { MetaFunction, LinksFunction } from "@remix-run/node";
+import { Provider } from "react-redux";
 import {
   Links,
   LiveReload,
@@ -7,8 +8,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import styles from "@/styles/global.css";
 import { Header } from "@/components/UI/Header";
+import { store } from '@/store'
+import styles from "@/styles/global.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -52,11 +54,13 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Header />
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <Provider store={store}>
+          <Header />
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </Provider>
       </body>
     </html>
   );

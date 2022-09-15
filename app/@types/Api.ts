@@ -15,3 +15,8 @@ export interface Coffe {
   categories: Array<Categories>,
   stok: number
 }
+
+export interface CartProduct {
+  product: Coffe,
+  quantity: number
+}

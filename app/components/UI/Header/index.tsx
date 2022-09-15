@@ -1,8 +1,12 @@
 import Logo from "@/assets/svg/Logo.svg";
+import { quantityOfProductsSelector } from "@/features/cart/selectores";
 import { MapPin, ShoppingCart } from "phosphor-react";
+import { useSelector } from "react-redux";
 import { Chips } from "../Chips";
 
 export const Header = () => {
+  const quantityOfProducts = useSelector(quantityOfProductsSelector);
+
   return (
     <header className="max-w-screen-xl flex items-center justify-between mx-auto py-8 px-4">
       <img
@@ -11,6 +15,7 @@ export const Header = () => {
       />
 
       <span className="flex gap-3">
+        <div className="w-5 h-5 bg-red-600">{quantityOfProducts}</div>
         <Chips
           variant="secondary"
           text="Porto Alegre, RS"
