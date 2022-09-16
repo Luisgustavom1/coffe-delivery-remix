@@ -74,6 +74,10 @@ module.exports = {
         main: {
           fontSize: '10px',
           lineHeight: '13px'
+        },
+        s: {
+          fontSize: '12px',
+          lineHeight: '15.6px'
         }
       }
     },
