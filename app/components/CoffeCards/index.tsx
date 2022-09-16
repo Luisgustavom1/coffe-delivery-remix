@@ -1,9 +1,10 @@
 import type { Coffe } from "@/@types/Api";
 import * as CartActions from "@/features/cart/actions";
+import { cartSelector } from "@/features/cart/selectors";
 import { formatDecimals } from "@/utils/formats";
 import { ShoppingCart } from "phosphor-react";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { InputNumber } from "../UI/InputNumber";
 
 interface ICoffeCardsProps {
@@ -12,16 +13,21 @@ interface ICoffeCardsProps {
 
 export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
   const dispatch = useDispatch();
+  const cart = useSelector(cartSelector);
+
+  const quantityInCart = cart.find(
+    ({ product }) => product.id === coffe.id
+  )?.quantity;
 
   const handleSubmit = <T extends HTMLFormElement>(e: React.FormEvent<T>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target as T)
+    const formData = new FormData(e.target as T);
 
     dispatch(
       CartActions.addCartProduct({
         product: coffe,
-        quantity: Number(formData.get('quantity')),
+        quantity: Number(formData.get("quantity")),
       })
     );
   };
@@ -64,7 +70,7 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
         </div>
 
         <form className="flex gap-4" onSubmit={handleSubmit}>
-          <InputNumber defaultValue={1} name='quantity' />
+          <InputNumber defaultValue={quantityInCart || 0} name="quantity" />
           <button
             className="p-2 rounded-md flex bg-purple-dark border-none hover:transition-all hover:brightness-90"
             type="submit"

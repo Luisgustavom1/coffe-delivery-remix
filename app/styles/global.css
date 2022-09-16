@@ -600,6 +600,13 @@ video {
   line-height: 13px;
 }
 
+.typography-tag-s {
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15.6px;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -610,6 +617,22 @@ video {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.-top-\[10px\] {
+  top: -10px;
+}
+
+.-right-\[10px\] {
+  right: -10px;
 }
 
 .mx-auto {
@@ -828,11 +851,6 @@ video {
   background-color: rgb(87 79 77 / var(--tw-bg-opacity));
 }
 
-.bg-red-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
 .bg-base-button {
   --tw-bg-opacity: 1;
   background-color: rgb(230 229 229 / var(--tw-bg-opacity));
@@ -942,6 +960,10 @@ video {
 .text-purple {
   --tw-text-opacity: 1;
   color: rgb(128 71 248 / var(--tw-text-opacity));
+}
+
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .transition-colors {

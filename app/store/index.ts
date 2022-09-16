@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
 import cartReducer from '@/features/cart/slice'
-import { cartSaga } from '@/features/cart/saga'
+import rootSaga from './rootSaga'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -12,6 +12,6 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware)
 })
 
-sagaMiddleware.run(cartSaga)
+sagaMiddleware.run(rootSaga)
 
 export type AppDispatch = typeof store.dispatch
