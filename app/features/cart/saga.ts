@@ -1,22 +1,22 @@
 import type { CartProduct } from '@/@types/Api';
-import api from '@/services/api';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { AxiosError, AxiosResponse } from 'axios';
-import { call, put, takeLatest } from 'redux-saga/effects'
+import type { AxiosError } from 'axios';
+import { call, takeLatest } from 'redux-saga/effects'
+import api from '@/services/api';
+import { handleError } from '@/utils/handlers'
 import { CartActions } from './actions';
-import { cartActions } from './slice'
+import { toast } from 'react-toastify';
 
 function* addCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
    try {
-      const { data }: AxiosResponse<T>= yield call((newProduct: T) => {
-         return api.put('/cart', {
-            product: newProduct
-         })
-      }, action.payload);
+      if (!action.payload.quantity) return;
 
-      yield put(cartActions.addCartProduct(data));
+      yield call((newProduct: T) => {
+         return api.put('/cart', newProduct)
+      }, action.payload);
    } catch (e) {
-      yield put({type: "ADD_CART_PRODUCT_FAILED", message: (e as AxiosError).response?.data});
+      const errorMessage: string = yield handleError(e as AxiosError<string>)      
+      yield toast.error(errorMessage)
    }
 }
 

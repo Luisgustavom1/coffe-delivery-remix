@@ -18,7 +18,7 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
   const quantityInCart = cart.find(
     ({ product }) => product.id === coffe.id
   )?.quantity;
-
+    
   const handleSubmit = <T extends HTMLFormElement>(e: React.FormEvent<T>) => {
     e.preventDefault();
 

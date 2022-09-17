@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { CartProduct, } from '@/@types/Api';
 
-interface CounterState {
+interface ICartState {
   cart: Array<CartProduct>
   quantityOfProducts: 0
 }
 
-const initialState: CounterState = {
+const initialState: ICartState = {
   cart: [],
   quantityOfProducts: 0
 }
@@ -44,11 +44,14 @@ const cartSlice = createSlice({
       state.cart = state.cart.concat(action.payload)
       state.quantityOfProducts += 1;
     },
+    setCart: (state, action: PayloadAction<Array<CartProduct>>) => {
+      state.cart = action.payload
+    }
   },
 })
 
 const { actions: cartActions } = cartSlice
 
-export type { CounterState }
+export type { ICartState }
 export { cartActions, cartSlice }
 export default cartSlice.reducer

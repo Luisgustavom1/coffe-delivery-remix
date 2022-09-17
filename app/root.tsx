@@ -1,5 +1,6 @@
 import type { MetaFunction, LinksFunction } from "@remix-run/node";
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import {
   Links,
   LiveReload,
@@ -9,7 +10,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import { Header } from "@/components/UI/Header";
-import { store } from '@/store'
+import { store } from "@/store";
 import styles from "@/styles/global.css";
 
 export const meta: MetaFunction = () => ({
@@ -60,6 +61,7 @@ export default function App() {
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
+          <ToastContainer />
         </Provider>
       </body>
     </html>
