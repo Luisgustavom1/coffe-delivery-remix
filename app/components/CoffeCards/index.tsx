@@ -1,7 +1,7 @@
 import type { Coffe } from "@/@types/Api";
 import * as CartActions from "@/features/cart/actions";
 import { cartSelector } from "@/features/cart/selectors";
-import { formatDecimals } from "@/utils/formats";
+import { formatPrice } from "@/utils/formats";
 import { ShoppingCart } from "phosphor-react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,7 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
   const quantityInCart = cart.find(
     ({ product }) => product.id === coffe.id
   )?.quantity;
-    
+
   const handleSubmit = <T extends HTMLFormElement>(e: React.FormEvent<T>) => {
     e.preventDefault();
 
@@ -66,7 +66,7 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
       <footer className="flex items-center gap-6">
         <div className="text-base-text flex gap-1">
           <p className="typography-regular-s">R$</p>
-          <h6 className="typography-title-m">{formatDecimals(coffe.price)}</h6>
+          <h6 className="typography-title-m">{formatPrice(coffe.price)}</h6>
         </div>
 
         <form className="flex gap-4" onSubmit={handleSubmit}>

@@ -61,6 +61,10 @@ module.exports = {
           fontSize: '32px',
           lineHeight: '41.6px'
         },
+        xs: {
+          fontSize: '18px',
+          lineHeight: '23.4px'
+        },
         xl: {
           fontSize: '48px',
           lineHeight: '62.4px'
@@ -78,6 +82,30 @@ module.exports = {
         s: {
           fontSize: '12px',
           lineHeight: '15.6px'
+        }
+      },
+      button: {
+        DEFAULT: {
+          fontFamily: 'Roboto',
+          fontWeight: '400'
+        },
+        s: {
+          fontSize: '12px',
+          lineHeight: '19.2px'
+        },
+      },
+      bold: {
+        DEFAULT: {
+          fontFamily: 'Roboto',
+          fontWeight: '700'
+        },
+        m: {
+          fontSize: '16px',
+          lineHeight: '20.8px'
+        },
+        l: {
+          fontSize: '20px',
+          lineHeight: '26px'
         }
       }
     },

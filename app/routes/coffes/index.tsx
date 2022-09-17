@@ -4,7 +4,6 @@ import { useLoaderData } from "@remix-run/react";
 import { CoffeCards } from "@/components/CoffeCards";
 import api from "@/services/api";
 import type { CartProduct, Coffe } from "@/@types/Api";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { cartActions } from "@/features/cart/slice";
 

@@ -17,7 +17,7 @@ export const InputNumber = ({
     if (onChange) onChange(currentValue);
   }, [currentValue, onChange]);
   return (
-    <span className="rounded-md bg-base-button p-2 flex gap-2 items-center">
+    <span className="rounded-md bg-base-button p-2 flex gap-2 items-cente w-min">
       <Minus
         onClick={() => setCurrentValue((prevState) => prevState - 1)}
         size={14}
