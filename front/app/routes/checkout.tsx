@@ -12,7 +12,7 @@ import {
 
 const CheckoutRoute = () => {
   return (
-    <div className="p-4 flex flex-wrap gap-8">
+    <div className="p-4 flex flex-wrap gap-8 max-w-screen-xl mx-auto">
       <section className="flex-1">
         <h1 className="text-base-subtitle typography-title-xs mb-4">
           Complete seu pedido

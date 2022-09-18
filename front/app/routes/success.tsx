@@ -1,10 +1,11 @@
-import { CircleIcon } from "@/components/UI/CircleIcon";
 import { Clock, CurrencyDollar, MapPin } from "phosphor-react";
+import { CircleIcon } from "@/components/UI/CircleIcon";
+import Illustration from "@/assets/svg/Illustration.svg";
 
 interface ISuccessRow {
-  title: string
-  subtitle: string
-  icon: JSX.Element
+  title: string;
+  subtitle: string;
+  icon: JSX.Element;
 }
 
 const SuccessRow = ({ title, subtitle, icon }: ISuccessRow) => {
@@ -21,8 +22,8 @@ const SuccessRow = ({ title, subtitle, icon }: ISuccessRow) => {
 
 const Success = () => {
   return (
-    <div className="p-4">
-      <article>
+    <div className="mt-20 px-4 flex flex-wrap items-end justify-center gap-4 max-w-screen-xl mx-auto">
+      <article className="flex-1 min-w-[340px]">
         <div className="mb-10">
           <h1 className="typography-title-l text-yellow-dark">
             Uhu! Pedido confirmado
@@ -65,7 +66,7 @@ const Success = () => {
           </div>
         </section>
       </article>
-      <aside></aside>
+      <img className="h-72" src={Illustration} alt="" />
     </div>
   );
 };

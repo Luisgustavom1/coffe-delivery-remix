@@ -2,11 +2,10 @@ import type { LoaderFunction } from "@remix-run/node";
 import type { CartProduct } from "@/@types/Api";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { Trash } from "phosphor-react";
 import api from "@/services/api";
 import { InputNumber } from "@/components/UI/InputNumber";
 import { formatPrice } from "@/utils/formats";
-import { Chips } from "@/components/UI/Chips";
-import { Trash } from "phosphor-react";
 import { Button } from "@/components/UI/Button";
 
 type LoaderResponse = Array<CartProduct>;
