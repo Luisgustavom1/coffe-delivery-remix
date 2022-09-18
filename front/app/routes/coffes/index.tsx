@@ -44,7 +44,7 @@ const CoffesIndexRoute = () => {
     <main className="mt-32">
       <h2 className="typography-title-l text-base-subtitle">Nossos cafés</h2>
 
-      <div className="mt-14 flex flex-wrap gap-x-8 gap-y-10">
+      <div className="mt-14 flex flex-wrap justify-center gap-x-8 gap-y-10">
         {coffes.map((coffe) => (
           <CoffeCards key={coffe.id} coffe={coffe} />
         ))}
