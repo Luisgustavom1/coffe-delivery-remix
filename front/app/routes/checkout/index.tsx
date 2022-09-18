@@ -36,7 +36,7 @@ const CheckoutIndexRoute = () => {
             <p className="typography-regular-m text-base-subtitle mb-2">
               {product.title}
             </p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 cursor-pointer">
               <InputNumber defaultValue={quantity} />
               <span className="p-2 flex gap-1 items-center bg-base-button rounded-md">
                 <Trash size={16} color="#8047F8" />
