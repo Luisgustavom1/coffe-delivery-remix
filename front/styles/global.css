@@ -37,6 +37,8 @@ h1, h2, h3, h4, h5, h6 {
   border: 0;
 }
 
-.border-success::after {
-  background: linear-gradient(102.89deg, #DBAC2C 2.61%, #8047F8 98.76%);
+.border-success {
+  background-image: linear-gradient(#FAFAFA, #FAFAFA),
+    linear-gradient(102.89deg, #DBAC2C 2.61%, #8047F8 98.76%);
+  background-clip: content-box, border-box;
 }
