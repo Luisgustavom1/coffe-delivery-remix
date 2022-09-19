@@ -1,9 +1,9 @@
 export enum Categories {
-  SPECIAL = 'especial',
-  TRADITIONAL = 'tradicional',
+  SPECIAL = "especial",
+  TRADITIONAL = "tradicional",
   ALCOHOLIC = "alcoólico",
   WITH_MILK = "com leite",
-  ICE_COLD = 'gelado'
+  ICE_COLD = "gelado"
 }
 
 export interface Coffe {
