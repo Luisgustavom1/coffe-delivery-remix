@@ -1,0 +1,12 @@
+version: "1.0"
+
+services:
+  db: 
+    container_name: api_coffe_delivery_remix
+    image: postgres:14.2-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "1459"
+      POSTGRES_USER: "user_coffe"
+    ports:
+      - "5432:5432"

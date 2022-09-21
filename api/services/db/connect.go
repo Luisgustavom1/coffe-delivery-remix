@@ -5,13 +5,14 @@ import (
 
 	"database/sql"
 	"fmt"
+
 	_ "github.com/lib/pq"
 )
 
 func OpenConnection() (*sql.DB, error) {
 	cfg := configs.GetDB()
 
-	stringConnection := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+	sc := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		cfg.Host,
 		cfg.Port,
 		cfg.User,
@@ -19,12 +20,13 @@ func OpenConnection() (*sql.DB, error) {
 		cfg.Database,
 	)
 
-	connection, err := sql.Open("postgres", stringConnection)
+	connection, err := sql.Open("postgres", sc)
 	if err != nil {
 		panic(err)
 	}
 
-	 err = connection.Ping()
+	err = connection.Ping()
+	fmt.Println("ddadsda", err)
 
-	 return connection, err
+	return connection, err
 }
