@@ -1,10 +1,11 @@
-package models
+package coffes
 
 import (
 	"coffe-delivery-remix/api/services/db"
+	"coffe-delivery-remix/api/entities"
 )
 
-func Insert(coffe Coffe) (id int64, err error) {
+func Insert(coffe entities.Coffe) (id int64, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return

@@ -1,7 +1,7 @@
-package handlers
+package coffes
 
 import (
-	"coffe-delivery-remix/api/models"
+	"coffe-delivery-remix/api/pkg/coffes/models"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -18,7 +18,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	coffe, err := models.GetBy(int64(id))
+	coffe, err := coffes.GetBy(int64(id))
 	if err != nil {
 		log.Printf("Erro ao trazer registro: %v", id)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)

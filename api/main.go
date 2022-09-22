@@ -2,7 +2,8 @@ package main
 
 import (
 	"coffe-delivery-remix/api/configs"
-	"coffe-delivery-remix/api/handlers"
+	"coffe-delivery-remix/api/cmd/routes"
+
 	"fmt"
 	"log"
 	"net/http"
@@ -18,20 +19,15 @@ func main() {
 		return
 	}
 
-	r := chi.NewRouter()
-
 	c := cors.New(cors.Options{
 		AllowCredentials: true,
 	})
 
+	r := chi.NewRouter()
+
 	r.Use(c.Handler)
 
-	r.Post("/coffes", handlers.Create)
-	r.Put("/coffes/{id}", handlers.Update)
-	r.Delete("/coffes/{id}", handlers.Delete)
-	r.Get("/coffes", handlers.List)
-	r.Get("/coffes/{id}", handlers.Get)
-	r.Get("/cart", handlers.List)
+	r.Mount("/v1", routes.Routes())
 
 	http.ListenAndServe(fmt.Sprintf(":%s", configs.GetApiServerPort()), r)
 }

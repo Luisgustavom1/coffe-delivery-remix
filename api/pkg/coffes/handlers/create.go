@@ -1,7 +1,8 @@
-package handlers
+package coffes
 
 import (
-	"coffe-delivery-remix/api/models"
+	"coffe-delivery-remix/api/entities"
+	"coffe-delivery-remix/api/pkg/coffes/models"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -9,7 +10,7 @@ import (
 )
 
 func Create(w http.ResponseWriter, request *http.Request) {
-	var coffe models.Coffe
+	var coffe entities.Coffe
 
 	err := json.NewDecoder(request.Body).Decode(&coffe)
 	if err != nil {
@@ -18,7 +19,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	id, err := models.Insert(coffe)
+	id, err := coffes.Insert(coffe)
 
 	var response map[string]any
 

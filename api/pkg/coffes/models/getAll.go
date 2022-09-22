@@ -1,11 +1,12 @@
-package models
+package coffes
 
 import (
+	"coffe-delivery-remix/api/entities"
 	"coffe-delivery-remix/api/services/db"
 	"log"
 )
 
-func GetAll() (coffes []Coffe, err error) {
+func GetAll() (coffes []entities.Coffe, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return
@@ -20,7 +21,7 @@ func GetAll() (coffes []Coffe, err error) {
 	}
 
 	for rows.Next() {
-		var coffe Coffe
+		var coffe entities.Coffe
 
 		err = rows.Scan(&coffe.ID, &coffe.Img, &coffe.Price, &coffe.Title, &coffe.Description, &coffe.Stok)
 		if err != nil {

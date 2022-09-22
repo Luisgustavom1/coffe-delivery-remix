@@ -1,14 +1,14 @@
-package handlers
+package coffes
 
 import (
-	"coffe-delivery-remix/api/models"
+	"coffe-delivery-remix/api/pkg/coffes/models"
 	"encoding/json"
 	"log"
 	"net/http"
 )
 
 func List(w http.ResponseWriter, request *http.Request) {
-	coffes, err := models.GetAll()
+	coffes, err := coffes.GetAll()
 	if err != nil {
 		log.Printf("Erro ao obter registros: %v", err)
 	}

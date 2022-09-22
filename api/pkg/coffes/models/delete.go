@@ -1,4 +1,4 @@
-package models
+package coffes
 
 import "coffe-delivery-remix/api/services/db"
 

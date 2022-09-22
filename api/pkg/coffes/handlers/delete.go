@@ -1,7 +1,7 @@
-package handlers
+package coffes
 
 import (
-	"coffe-delivery-remix/api/models"
+	"coffe-delivery-remix/api/pkg/coffes/models"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -18,7 +18,7 @@ func Delete(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	rowsAffected, err := models.DeleteBy(int64(id))
+	rowsAffected, err := coffes.DeleteBy(int64(id))
 	if err != nil {
 		log.Printf("Erro ao deletar registro: %v", id)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)

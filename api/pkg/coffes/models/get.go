@@ -1,8 +1,11 @@
-package models
+package coffes
 
-import "coffe-delivery-remix/api/services/db"
+import (
+	"coffe-delivery-remix/api/services/db"
+	"coffe-delivery-remix/api/entities"
+)
 
-func GetBy(id int64) (coffe Coffe, err error) {
+func GetBy(id int64) (coffe entities.Coffe, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return

@@ -1,7 +1,8 @@
-package handlers
+package coffes
 
 import (
-	"coffe-delivery-remix/api/models"
+	"coffe-delivery-remix/api/entities"
+	"coffe-delivery-remix/api/pkg/coffes/models"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -18,7 +19,7 @@ func Update(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	var coffe models.Coffe
+	var coffe entities.Coffe
 
 	err = json.NewDecoder(request.Body).Decode(&coffe)
 	if err != nil {
@@ -27,7 +28,7 @@ func Update(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	rowsAffected, err := models.UpdateBy(int64(id), coffe)
+	rowsAffected, err := coffes.UpdateBy(int64(id), coffe)
 	if err != nil {
 		log.Printf("Erro ao atualizar registro: %v", id)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
