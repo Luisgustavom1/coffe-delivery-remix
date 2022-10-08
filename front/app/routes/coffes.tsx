@@ -18,13 +18,13 @@ export default function CoffesRoute() {
             </p>
           </div>
           <div className="flex flex-wrap gap-4 mt-16 text-base-text">
-            <span className="flex items-center gap-3">
+            <span className="flex items-center gap-3 w-60">
               <CircleIcon color="yellow-dark">
                 <ShoppingCart size={16} weight="fill" />
               </CircleIcon>
               <p className="typography-regular-m">Compra simples e segura</p>
             </span>
-            <span className="flex items-center gap-3">
+            <span className="flex items-center gap-3 w-80">
               <CircleIcon color="base-text">
                 <Package size={22} weight="fill" />
               </CircleIcon>
@@ -32,13 +32,13 @@ export default function CoffesRoute() {
                 Embalagem mantém o café intacto
               </p>
             </span>
-            <span className="flex items-center gap-3">
+            <span className="flex items-center gap-3 w-60">
               <CircleIcon color="yellow">
                 <Timer size={22} weight="fill" />
               </CircleIcon>
               <p className="typography-regular-m">Entrega rápida e rastreada</p>
             </span>
-            <span className="flex items-center gap-3">
+            <span className="flex items-center gap-3 w-80">
               <CircleIcon color="purple">
                 <Coffee size={22} weight="fill" />
               </CircleIcon>
