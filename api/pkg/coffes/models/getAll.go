@@ -3,10 +3,11 @@ package coffes
 import (
 	"coffe-delivery-remix/api/entities"
 	"coffe-delivery-remix/api/services/db"
+	"encoding/json"
 	"log"
 )
 
-func GetAll() (coffes []entities.Coffe[string], err error) {
+func GetAll() (coffes []entities.Coffe[[]string], err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return
@@ -29,7 +30,23 @@ func GetAll() (coffes []entities.Coffe[string], err error) {
 			continue
 		}
 
-		coffes = append(coffes, coffe)
+		var categoriesAsArray []string
+		err := json.Unmarshal([]byte(coffe.Categories), &categoriesAsArray)
+		if err != nil {
+			log.Printf("Erro ao fazer o decode do categories: %w", err)
+			continue
+		}
+
+		coffeFormatted := entities.Coffe[[]string]{
+			ID: coffe.ID,
+			Img: coffe.Img,
+			Price: coffe.Price,
+			Title: coffe.Title,
+			Description: coffe.Description,
+			Stok: coffe.Stok,
+			Categories: categoriesAsArray,
+		}
+		coffes = append(coffes, coffeFormatted)
 	}
 
 	return coffes, err
