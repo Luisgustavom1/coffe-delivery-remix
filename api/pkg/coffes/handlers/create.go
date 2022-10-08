@@ -2,7 +2,7 @@ package coffes
 
 import (
 	"coffe-delivery-remix/api/entities"
-	"coffe-delivery-remix/api/pkg/coffes/models"
+	coffes "coffe-delivery-remix/api/pkg/coffes/models"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -25,14 +25,14 @@ func Create(w http.ResponseWriter, request *http.Request) {
 
 	if err != nil {
 		response = map[string]any{
-			"Error":   true,
 			"Message": fmt.Sprintf("Ocorreu um erro ao tentar inserir: %v", err),
 		}
+		w.WriteHeader(http.StatusInternalServerError)
 	} else {
 		response = map[string]any{
-			"Error":   false,
 			"Message": fmt.Sprintf("Café inserido com sucesso! ID: %d", id),
 		}
+		w.WriteHeader(http.StatusCreated)
 	}
 
 	w.Header().Add("Content-type", "application/json")

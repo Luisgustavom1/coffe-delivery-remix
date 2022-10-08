@@ -30,10 +30,10 @@ func Delete(w http.ResponseWriter, request *http.Request) {
 	}
 
 	response := map[string]any{
-		"Error":   false,
 		"Message": "registro foi deletado com sucesso!",
 	}
 
 	w.Header().Add("Content-type", "application/json")
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
 }

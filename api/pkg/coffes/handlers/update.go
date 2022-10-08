@@ -2,7 +2,7 @@ package coffes
 
 import (
 	"coffe-delivery-remix/api/entities"
-	"coffe-delivery-remix/api/pkg/coffes/models"
+	coffes "coffe-delivery-remix/api/pkg/coffes/models"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -40,10 +40,10 @@ func Update(w http.ResponseWriter, request *http.Request) {
 	}
 
 	response := map[string]any{
-		"Error":   false,
 		"Message": "dados foram atualizados com sucesso!",
 	}
 
 	w.Header().Add("Content-type", "application/json")
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
 }
