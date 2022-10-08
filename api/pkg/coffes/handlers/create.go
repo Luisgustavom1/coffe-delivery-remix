@@ -10,7 +10,7 @@ import (
 )
 
 func Create(w http.ResponseWriter, request *http.Request) {
-	var coffe entities.Coffe
+	var coffe entities.Coffe[[]string]
 
 	err := json.NewDecoder(request.Body).Decode(&coffe)
 	if err != nil {

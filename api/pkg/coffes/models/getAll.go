@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-func GetAll() (coffes []entities.Coffe, err error) {
+func GetAll() (coffes []entities.Coffe[string], err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return
@@ -21,9 +21,9 @@ func GetAll() (coffes []entities.Coffe, err error) {
 	}
 
 	for rows.Next() {
-		var coffe entities.Coffe
+		var coffe entities.Coffe[string]
 
-		err = rows.Scan(&coffe.ID, &coffe.Img, &coffe.Price, &coffe.Title, &coffe.Description, &coffe.Stok)
+		err = rows.Scan(&coffe.ID, &coffe.Img, &coffe.Price, &coffe.Title, &coffe.Description, &coffe.Stok, &coffe.Categories)
 		if err != nil {
 			log.Println("ERRO: $s", err.Error())
 			continue

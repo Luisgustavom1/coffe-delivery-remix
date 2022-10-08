@@ -8,5 +8,9 @@ services:
     environment:
       POSTGRES_PASSWORD: "1459"
       POSTGRES_USER: "user_coffe"
+    volumes:
+      - pgdata:/var/lib/postgresql/coffe-delivery-remix/data
     ports:
       - "5432:5432"
+volumes:
+  pgdata:

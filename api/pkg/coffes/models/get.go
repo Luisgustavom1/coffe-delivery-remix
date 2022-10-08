@@ -5,7 +5,7 @@ import (
 	"coffe-delivery-remix/api/entities"
 )
 
-func GetBy(id int64) (coffe entities.Coffe, err error) {
+func GetBy(id int64) (coffe entities.Coffe[string], err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return
@@ -16,7 +16,7 @@ func GetBy(id int64) (coffe entities.Coffe, err error) {
 
 	row := connection.QueryRow(sql, id)
 
-	err = row.Scan(&coffe.ID, &coffe.Img, &coffe.Price, &coffe.Title, &coffe.Description, &coffe.Stok)
+	err = row.Scan(&coffe.ID, &coffe.Img, &coffe.Price, &coffe.Title, &coffe.Description, &coffe.Stok, &coffe.Categories)
 
 	return coffe, err
 }
