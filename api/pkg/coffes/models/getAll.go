@@ -20,20 +20,20 @@ func GetAll() (coffes []entities.Coffe[[]string], err error) {
 	if err != nil {
 		return
 	}
-
+	log.Println(rows)
 	for rows.Next() {
 		var coffe entities.Coffe[string]
 
 		err = rows.Scan(&coffe.ID, &coffe.Img, &coffe.Price, &coffe.Title, &coffe.Description, &coffe.Stok, &coffe.Categories)
 		if err != nil {
-			log.Println("ERRO: $s", err.Error())
+			log.Printf("ERRO: %s\n", err.Error())
 			continue
 		}
 
 		var categoriesAsArray []string
 		err := json.Unmarshal([]byte(coffe.Categories), &categoriesAsArray)
 		if err != nil {
-			log.Printf("Erro ao fazer o decode do categories: %w", err)
+			log.Printf("Erro ao fazer o decode do categories: %v\n", err)
 			continue
 		}
 
