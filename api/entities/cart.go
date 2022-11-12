@@ -7,7 +7,7 @@ type CartProduct struct {
 }
 
 type CartProductSimple struct {
-	ProductId int64
-	Quantity  int64
-	ID        int64
+	ID int64 `json:"id"`
+	Quantity int64 `json:"quantity"`
+	ProductId  int64 `json:"productId"`
 }
