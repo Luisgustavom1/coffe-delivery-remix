@@ -16,13 +16,9 @@ func Insert(coffe entities.Coffe[[]string]) (id int64, err error) {
 
 	sql := `INSERT INTO coffes (img, price, title, description, stok, categories) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`
 
-	if err != nil {
-		log.Printf("Erro ao fazer o serialize do categories: %w", err)
-	}
-
 	categoriesSerialized, err := json.Marshal(coffe.Categories)
 	if err != nil {
-		log.Printf("Erro ao fazer o decode do json: %w", err)
+		log.Printf("Erro ao fazer o decode do json: %v", err)
 		return
 	}
 
