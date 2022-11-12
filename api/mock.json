@@ -1,0 +1,14 @@
+{
+  "coffe": {
+    "img": "../../assets/img/coffes/american.png",
+    "price": 990,
+    "title": "Expresso Americano",
+    "description": "Expresso diluído, menos intenso que o tradicional",
+    "stok": 6,
+    "categories": ["especial", "tradicional"]
+  },
+  "cart": {
+    "quantity": 3,
+    "productId": 1
+  }
+}
