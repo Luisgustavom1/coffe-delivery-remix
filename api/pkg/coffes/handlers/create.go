@@ -14,7 +14,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 
 	err := json.NewDecoder(request.Body).Decode(&coffe)
 	if err != nil {
-		log.Printf("Erro ao fazer o decode do json: %w", err)
+		log.Printf("Erro ao fazer o decode do json: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
