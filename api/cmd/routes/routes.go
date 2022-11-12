@@ -29,4 +29,5 @@ func cartRoutes(r *chi.Mux) {
 	r.Post("/cart", cart.Create)
 	r.Delete("/cart/{id}", cart.Delete)
 	r.Put("/cart/{id}", cart.UpdateBy)
+	r.Get("/cart/{id}", cart.Get)
 }
