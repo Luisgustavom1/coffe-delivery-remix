@@ -26,7 +26,6 @@ func OpenConnection() (*sql.DB, error) {
 	}
 
 	err = connection.Ping()
-	fmt.Println("ddadsda", err)
 
 	return connection, err
 }
