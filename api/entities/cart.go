@@ -1,6 +1,7 @@
 package entities
 
-type CartProduct  struct {
-	ProductId int64 `json:"productId"`
+type CartProduct struct {
+	Product  Coffe[[]string] `json:"product"`
 	Quantity int64 `json:"quantity"`
+	ID int64 `json:"id"`
 }
