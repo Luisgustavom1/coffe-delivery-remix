@@ -23,7 +23,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 	var response *entities.Coffe[string]
 
 	if err != nil && coffe.ID != 0 {
-		log.Printf("Erro ao trazer registro: %v", id)
+		log.Printf("Erro ao trazer registro: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
