@@ -23,14 +23,14 @@ func GetAll() (cart []entities.ProductCart, err error) {
 
 	for rows.Next() {
 		var productCart entities.ProductCart
-		var jsonObject []byte
+		var jsonProduct []byte
 
-		err = rows.Scan(&productCart.ID, &productCart.Quantity, &jsonObject)
+		err = rows.Scan(&productCart.ID, &productCart.Quantity, &jsonProduct)
 		if err != nil {
 			log.Printf("Error: %v\n", err.Error())
 			continue
 		}
-		serialize.Cart(jsonObject, &productCart)
+		serialize.Cart(jsonProduct, &productCart)
 
 		cart = append(cart, productCart)
 	}
