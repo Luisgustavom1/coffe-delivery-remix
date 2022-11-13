@@ -1,8 +1,8 @@
 package main
 
 import (
-	"coffe-delivery-remix/api/configs"
 	"coffe-delivery-remix/api/cmd/routes"
+	"coffe-delivery-remix/api/configs"
 
 	"fmt"
 	"log"
@@ -21,6 +21,7 @@ func main() {
 
 	c := cors.New(cors.Options{
 		AllowCredentials: true,
+		AllowedMethods: []string{"POST", "PUT", "DELETE", "GET"},
 	})
 
 	r := chi.NewRouter()
