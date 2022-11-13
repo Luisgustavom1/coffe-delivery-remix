@@ -2,8 +2,8 @@ package cart
 
 import (
 	"coffe-delivery-remix/api/entities"
+	"coffe-delivery-remix/api/pkg/serialize"
 	"coffe-delivery-remix/api/services/db"
-	"encoding/json"
 	"log"
 )
 
@@ -30,7 +30,7 @@ func GetAll() (cart []entities.ProductCart, err error) {
 			log.Printf("Error: %v\n", err.Error())
 			continue
 		}
-		json.Unmarshal([]byte(jsonObject), &productCart.Product)
+		serialize.Cart(jsonObject, &productCart)
 
 		cart = append(cart, productCart)
 	}
