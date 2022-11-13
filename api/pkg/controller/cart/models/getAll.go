@@ -7,10 +7,11 @@ import (
 	"log"
 )
 
-func GetAll() (cart []entities.ProductCart, err error) {
+func GetAll() ([]entities.ProductCart, error) {
+	cart := []entities.ProductCart{}
 	connection, err := db.OpenConnection()
 	if err != nil {
-		return
+		return cart, err
 	}
 	defer connection.Close()
 
@@ -18,7 +19,7 @@ func GetAll() (cart []entities.ProductCart, err error) {
 
 	rows, err := connection.Query(sql)
 	if err != nil {
-		return
+		return cart, err
 	}
 
 	for rows.Next() {

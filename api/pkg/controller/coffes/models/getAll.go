@@ -7,10 +7,11 @@ import (
 	"log"
 )
 
-func GetAll() (coffes []entities.Coffe, err error) {
+func GetAll() ([]entities.Coffe, error) {
+	coffes := []entities.Coffe{}
 	connection, err := db.OpenConnection()
 	if err != nil {
-		return
+		return coffes, err
 	}
 	defer connection.Close()
 
@@ -18,7 +19,7 @@ func GetAll() (coffes []entities.Coffe, err error) {
 
 	rows, err := connection.Query(sql)
 	if err != nil {
-		return
+		return coffes, err
 	}
 
 	for rows.Next() {
