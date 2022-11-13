@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-func Insert(coffe entities.Coffe[[]string]) (id int64, err error) {
+func Insert(coffe entities.Coffe) (id int64, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return

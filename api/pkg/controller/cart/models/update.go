@@ -5,7 +5,7 @@ import (
 	"coffe-delivery-remix/api/services/db"
 )
 
-func UpdateBy(id int64, cartUpdate entities.CartProductSimple) (int64, error) {
+func UpdateBy(id int64, cartUpdate entities.CartSimple) (int64, error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return 0, err

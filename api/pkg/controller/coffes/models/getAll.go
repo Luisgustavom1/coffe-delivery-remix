@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-func GetAll() (coffes []entities.Coffe[[]string], err error) {
+func GetAll() (coffes []entities.Coffe, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return
@@ -22,7 +22,7 @@ func GetAll() (coffes []entities.Coffe[[]string], err error) {
 	}
 	log.Println(rows)
 	for rows.Next() {
-		var coffe entities.Coffe[string]
+		var coffe entities.CoffeSimple
 
 		err = rows.Scan(&coffe.ID, &coffe.Img, &coffe.Price, &coffe.Title, &coffe.Description, &coffe.Stok, &coffe.Categories)
 		if err != nil {
@@ -37,7 +37,7 @@ func GetAll() (coffes []entities.Coffe[[]string], err error) {
 			continue
 		}
 
-		coffeFormatted := entities.Coffe[[]string]{
+		coffeFormatted := entities.Coffe{
 			ID: coffe.ID,
 			Img: coffe.Img,
 			Price: coffe.Price,

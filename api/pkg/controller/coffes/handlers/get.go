@@ -20,7 +20,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 	}
 
 	coffe, err := coffes.GetBy(int64(id))
-	var response *entities.Coffe[string]
+	var response *entities.CoffeSimple
 
 	if err != nil && coffe.ID != 0 {
 		log.Printf("Erro ao trazer registro: %v", err)
@@ -31,7 +31,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 	if coffe.ID != 0 {
 		response = &coffe
 	} else {
-		response = (*entities.Coffe[string])(nil)
+		response = (*entities.CoffeSimple)(nil)
 	}
 
 	w.Header().Add("Content-type", "application/json")

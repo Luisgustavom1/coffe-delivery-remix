@@ -20,7 +20,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 	}
 
 	cart, err := cart.GetBy(int64(id))
-	var response *entities.CartProductSimple
+	var response *entities.CartSimple
 
 	if err != nil && cart.ID != 0 {
 		log.Printf("Erro ao trazer registro: %v", err)
@@ -31,7 +31,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 	if cart.ID != 0 {
 		response = &cart
 	} else {
-		response = (*entities.CartProductSimple)(nil)
+		response = (*entities.CartSimple)(nil)
 	}
 
 	w.Header().Add("Content-type", "application/json")

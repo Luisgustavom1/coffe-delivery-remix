@@ -11,7 +11,7 @@ import (
 )
 
 func Create(w http.ResponseWriter, request *http.Request) {
-	var cartProduct entities.CartProductSimple
+	var cartProduct entities.CartSimple
 
 	err := json.NewDecoder(request.Body).Decode(&cartProduct)
 	if err != nil {

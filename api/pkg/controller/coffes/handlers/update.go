@@ -19,7 +19,7 @@ func Update(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	var coffe entities.Coffe[[]string]
+	var coffe entities.Coffe
 
 	err = json.NewDecoder(request.Body).Decode(&coffe)
 	if err != nil {
