@@ -11,9 +11,9 @@ import (
 )
 
 func Create(w http.ResponseWriter, request *http.Request) {
-	var cartProduct entities.CartSimple
+	var ProductCart entities.ProductCartSimple
 
-	err := json.NewDecoder(request.Body).Decode(&cartProduct)
+	err := json.NewDecoder(request.Body).Decode(&ProductCart)
 	if err != nil {
 		log.Printf("Error ao decodificar o json: %v", err)
 		return
@@ -22,7 +22,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
 	var response map[string]any
-	coffe, _ := coffes.GetBy(cartProduct.ProductId)
+	coffe, _ := coffes.GetBy(ProductCart.ProductId)
 	if coffe.ID == 0 {
 		response = map[string]any{
 			"Message": "Café não encontrado",
@@ -32,7 +32,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	id, err := cart.Insert(cartProduct)
+	id, err := cart.Insert(ProductCart)
 
 	if err != nil {
 		response = map[string]any{

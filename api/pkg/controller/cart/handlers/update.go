@@ -19,7 +19,7 @@ func UpdateBy(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	var cartUpdate entities.CartSimple
+	var cartUpdate entities.ProductCartSimple
 
 	err = json.NewDecoder(request.Body).Decode(&cartUpdate)
 	if err != nil {

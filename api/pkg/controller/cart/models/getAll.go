@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-func GetAll() (cart []entities.CartProduct, err error) {
+func GetAll() (cart []entities.ProductCart, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return
@@ -22,7 +22,7 @@ func GetAll() (cart []entities.CartProduct, err error) {
 	}
 
 	for rows.Next() {
-		var productCart entities.CartProduct
+		var productCart entities.ProductCart
 		var jsonObject []byte
 
 		err = rows.Scan(&productCart.ID, &productCart.Quantity, &jsonObject)
