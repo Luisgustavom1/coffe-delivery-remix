@@ -30,8 +30,8 @@ export const loader: LoaderFunction = async () => {
   const { data: cartProducts } = await api.get<ApiCartResponse>("/cart");
   
   return json<LoaderResponse>({
-    coffes: allCoffes || [],
-    cart: cartProducts || [],
+    coffes: allCoffes,
+    cart: cartProducts,
   });
 };
 
