@@ -37,7 +37,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 		response = map[string]any{
 			"Message": "Produto ja existente no carrinho",
 		}
-		w.WriteHeader(http.StatusNotAcceptable)
+		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(response)
 		return
 	}
