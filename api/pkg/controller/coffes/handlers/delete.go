@@ -1,7 +1,7 @@
 package coffes
 
 import (
-	"coffe-delivery-remix/api/pkg/coffes/models"
+	coffes "coffe-delivery-remix/api/pkg/controller/coffes/models"
 	"encoding/json"
 	"log"
 	"net/http"

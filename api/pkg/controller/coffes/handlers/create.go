@@ -2,7 +2,7 @@ package coffes
 
 import (
 	"coffe-delivery-remix/api/entities"
-	coffes "coffe-delivery-remix/api/pkg/coffes/models"
+	coffes "coffe-delivery-remix/api/pkg/controller/coffes/models"
 	"encoding/json"
 	"fmt"
 	"log"

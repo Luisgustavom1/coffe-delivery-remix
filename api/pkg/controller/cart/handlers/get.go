@@ -2,7 +2,7 @@ package cart
 
 import (
 	"coffe-delivery-remix/api/entities"
-	cart "coffe-delivery-remix/api/pkg/cart/models"
+	cart "coffe-delivery-remix/api/pkg/controller/cart/models"
 	"encoding/json"
 	"log"
 	"net/http"

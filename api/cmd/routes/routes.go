@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"coffe-delivery-remix/api/pkg/cart/handlers"
-	"coffe-delivery-remix/api/pkg/coffes/handlers"
+	cart "coffe-delivery-remix/api/pkg/controller/cart/handlers"
+	coffes "coffe-delivery-remix/api/pkg/controller/coffes/handlers"
 
 	"github.com/go-chi/chi/v5"
 )

@@ -2,8 +2,8 @@ package cart
 
 import (
 	"coffe-delivery-remix/api/entities"
-	cart "coffe-delivery-remix/api/pkg/cart/models"
-	coffes "coffe-delivery-remix/api/pkg/coffes/models"
+	cart "coffe-delivery-remix/api/pkg/controller/cart/models"
+	coffes "coffe-delivery-remix/api/pkg/controller/coffes/models"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -20,7 +20,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 	}
 
 	w.Header().Add("Content-Type", "application/json")
-	
+
 	var response map[string]any
 	coffe, _ := coffes.GetBy(cartProduct.ProductId)
 	if coffe.ID == 0 {

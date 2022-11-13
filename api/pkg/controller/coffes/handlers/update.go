@@ -1,8 +1,8 @@
-package cart
+package coffes
 
 import (
 	"coffe-delivery-remix/api/entities"
-	cart "coffe-delivery-remix/api/pkg/cart/models"
+	coffes "coffe-delivery-remix/api/pkg/controller/coffes/models"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -11,24 +11,24 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func UpdateBy(w http.ResponseWriter, request *http.Request) {
+func Update(w http.ResponseWriter, request *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(request, "id"))
 	if err != nil {
-		log.Printf("Erro ao fazer o parser do query param id: %v\n", err)
+		log.Printf("Erro ao fazer o parse do query param id: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
-	var cartUpdate entities.CartProductSimple
+	var coffe entities.Coffe[[]string]
 
-	err = json.NewDecoder(request.Body).Decode(&cartUpdate)
+	err = json.NewDecoder(request.Body).Decode(&coffe)
 	if err != nil {
-		log.Printf("Erro ao fazer o decode do json: %v\n", err)
+		log.Printf("Erro ao fazer o decode do json: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
-	rowsAffected, err := cart.UpdateBy(int64(id), cartUpdate)
+	rowsAffected, err := coffes.UpdateBy(int64(id), coffe)
 	if err != nil {
 		log.Printf("Erro ao atualizar registro: %v", id)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
@@ -39,9 +39,11 @@ func UpdateBy(w http.ResponseWriter, request *http.Request) {
 		log.Printf("Error: foram atualizadas %d registros", rowsAffected)
 	}
 
-	w.Header().Add("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]any{
+	response := map[string]any{
 		"Message": "dados foram atualizados com sucesso!",
-	})
+	}
+
+	w.Header().Add("Content-type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
 }
