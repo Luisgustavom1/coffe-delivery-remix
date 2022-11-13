@@ -30,15 +30,15 @@ export const loader: LoaderFunction = async () => {
   const { data: cartProducts } = await api.get<ApiCartResponse>("/cart");
   
   return json<LoaderResponse>({
-    coffes: allCoffes,
-    cart: cartProducts,
+    coffes: allCoffes || [],
+    cart: cartProducts || [],
   });
 };
 
 const CoffesIndexRoute = () => {
   const { cart, coffes } = useLoaderData<LoaderResponse>();
   const dispatch = useDispatch();
-
+  console.log('cart', cart)
   dispatch(cartActions.setCart(cart));
   return (
     <main className="mt-32">
