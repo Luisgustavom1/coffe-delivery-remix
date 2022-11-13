@@ -22,12 +22,22 @@ func Create(w http.ResponseWriter, request *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
 	var response map[string]any
-	coffe, _ := coffes.GetBy(ProductCart.ProductId)
+	coffe, _ := coffes.GetById(ProductCart.ProductId)
 	if coffe.ID == 0 {
 		response = map[string]any{
 			"Message": "Café não encontrado",
 		}
 		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	productAlreadyExistsInCart, _ := cart.GetByProductId(ProductCart.ProductId)
+	if productAlreadyExistsInCart.ID == 0 {
+		response = map[string]any{
+			"Message": "Produto ja existente no carrinho",
+		}
+		w.WriteHeader(http.StatusNotAcceptable)
 		json.NewEncoder(w).Encode(response)
 		return
 	}
