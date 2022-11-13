@@ -33,7 +33,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 	}
 
 	productAlreadyExistsInCart, _ := cart.GetByProductId(ProductCart.ProductId)
-	if productAlreadyExistsInCart.ID == 0 {
+	if productAlreadyExistsInCart.ID != 0 {
 		response = map[string]any{
 			"Message": "Produto ja existente no carrinho",
 		}
