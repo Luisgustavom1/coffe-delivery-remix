@@ -19,7 +19,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	coffe, err := coffes.GetBy(int64(id))
+	coffe, err := coffes.GetById(int64(id))
 	var response *entities.Coffe
 
 	if err != nil && coffe.ID != 0 {
