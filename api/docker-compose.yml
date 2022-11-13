@@ -1,16 +1,20 @@
-version: "1.0"
+version: "1.1"
 
 services:
   db: 
-    container_name: api_coffe_delivery_remix
-    image: postgres:14.2-alpine
+    container_name: coffe_delivery_remix_db
+    image: coffe_delivery_remix/database
     restart: always
+    build:
+      context: ./Docker
+      dockerfile: db.Dockerfile
     environment:
       POSTGRES_PASSWORD: "1459"
       POSTGRES_USER: "user_coffe"
     volumes:
-      - pgdata:/var/lib/postgresql/coffe-delivery-remix/data
+      - coffe_delivery_remix_db:/var/lib/postgresql/coffe-delivery-remix/data
     ports:
       - "5432:5432"
 volumes:
-  pgdata:
+  coffe_delivery_remix_db:
+    external: true
