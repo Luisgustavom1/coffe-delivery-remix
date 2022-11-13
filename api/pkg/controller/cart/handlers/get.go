@@ -19,7 +19,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	cart, err := cart.GetBy(int64(id))
+	cart, err := cart.GetById(int64(id))
 	var response *entities.ProductCart
 
 	if err != nil && cart.ID != 0 {
