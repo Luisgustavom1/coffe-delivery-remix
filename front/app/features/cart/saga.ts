@@ -12,7 +12,36 @@ function* addCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
       if (!action.payload.quantity) return;
 
       yield call((newProduct: T) => {
-         return api.put('/cart', newProduct)
+         return api.post('/cart', {
+            quantity: newProduct.quantity,
+            productId: newProduct.product.id
+         })
+      }, action.payload);
+   } catch (e) {
+      const errorMessage: string = yield handleError(e as AxiosError<string>)      
+      yield toast.error(errorMessage)
+   }
+}
+
+function* updateCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
+   try {
+      yield call((productUpdated: T) => {
+         return api.put(`/cart/${productUpdated.id}`, {
+            id: productUpdated.id,
+            productId: productUpdated.product.id,
+            quantity: productUpdated.quantity,
+         })
+      }, action.payload);
+   } catch (e) {
+      const errorMessage: string = yield handleError(e as AxiosError<string>)      
+      yield toast.error(errorMessage)
+   }
+}
+
+function* deleteCartProduct<T extends number>(action: PayloadAction<T>) {
+   try {
+      yield call((productId: T) => {
+         return api.delete(`/cart/${productId}`)
       }, action.payload);
    } catch (e) {
       const errorMessage: string = yield handleError(e as AxiosError<string>)      
@@ -22,4 +51,6 @@ function* addCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
 
 export function* cartSaga() {
   yield takeLatest(CartActions.ADD_CART_PRODUCT, addCartProduct);
+  yield takeLatest(CartActions.UPDATE_CART_PRODUCT, updateCartProduct);
+  yield takeLatest(CartActions.DELETE_CART_PRODUCT, deleteCartProduct);
 }

@@ -38,8 +38,9 @@ export const loader: LoaderFunction = async () => {
 const CoffesIndexRoute = () => {
   const { cart, coffes } = useLoaderData<LoaderResponse>();
   const dispatch = useDispatch();
-  console.log('cart', cart)
+
   dispatch(cartActions.setCart(cart));
+  dispatch(cartActions.setCartQuantity(cart.length));
   return (
     <main className="mt-32">
       <h2 className="typography-title-l text-base-subtitle">Nossos cafés</h2>

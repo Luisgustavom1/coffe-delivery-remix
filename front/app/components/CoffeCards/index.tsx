@@ -2,10 +2,11 @@ import type { Coffe } from "@/@types/Api";
 import * as CartActions from "@/features/cart/actions";
 import { cartSelector } from "@/features/cart/selectors";
 import { formatPrice } from "@/utils/formats";
+import classNames from "classnames";
 import { ShoppingCart } from "phosphor-react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { InputNumber } from "../UI/InputNumber";
+import { InputNumber } from "@/components/UI/InputNumber";
 
 interface ICoffeCardsProps {
   coffe: Coffe;
@@ -15,25 +16,47 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
   const dispatch = useDispatch();
   const cart = useSelector(cartSelector);
 
-  const quantityInCart = cart.find(
-    ({ product }) => product?.id === coffe.id
-  )?.quantity;
-
+  const cartProduct = cart.find(({ product }) => product?.id === coffe.id);
+  const quantityInCart = cartProduct?.quantity;
+  console.log(cart);
   const handleSubmit = <T extends HTMLFormElement>(e: React.FormEvent<T>) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as T);
+    const quantity = Number(formData.get("quantity"));
 
-    dispatch(
-      CartActions.addCartProduct({
-        product: coffe,
-        quantity: Number(formData.get("quantity")),
-      })
-    );
+    if (cartProduct && !quantity) {
+      dispatch(CartActions.deleteCartProduct(cartProduct.id));
+      return;
+    }
+
+    if (!cartProduct) {
+      dispatch(
+        CartActions.addCartProduct({
+          product: coffe,
+          quantity: quantity,
+        })
+      );
+    }
+
+    if (cartProduct) {
+      dispatch(
+        CartActions.updateCartProduct({
+          quantity: quantity,
+          id: cartProduct.id,
+          product: coffe,
+        })
+      );
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-5 w-64 bg-base-card rounded-tl-md rounded-br-md rounded-tr-[36px] rounded-bl-[36px]">
+    <div
+      className={classNames(
+        "flex flex-col items-center justify-center px-6 py-5 w-64 bg-base-card rounded-tl-md rounded-br-md rounded-tr-[36px] rounded-bl-[36px]",
+        cartProduct && "coffe-card-selected"
+      )}
+    >
       <header className="-mt-14 mb-4">
         <img
           src={coffe.img}

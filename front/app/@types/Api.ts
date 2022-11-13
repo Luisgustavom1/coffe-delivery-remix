@@ -18,5 +18,6 @@ export interface Coffe {
 
 export interface CartProduct {
   product: Coffe,
-  quantity: number
+  quantity: number,
+  id: number
 }
