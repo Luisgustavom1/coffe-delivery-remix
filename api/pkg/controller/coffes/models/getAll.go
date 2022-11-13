@@ -2,8 +2,8 @@ package coffes
 
 import (
 	"coffe-delivery-remix/api/entities"
+	"coffe-delivery-remix/api/pkg/serialize"
 	"coffe-delivery-remix/api/services/db"
-	"encoding/json"
 	"log"
 )
 
@@ -20,9 +20,10 @@ func GetAll() (coffes []entities.Coffe, err error) {
 	if err != nil {
 		return
 	}
-	log.Println(rows)
+
 	for rows.Next() {
 		var coffe entities.CoffeSimple
+		var coffeSerialized entities.Coffe
 
 		err = rows.Scan(&coffe.ID, &coffe.Img, &coffe.Price, &coffe.Title, &coffe.Description, &coffe.Stok, &coffe.Categories)
 		if err != nil {
@@ -30,23 +31,9 @@ func GetAll() (coffes []entities.Coffe, err error) {
 			continue
 		}
 
-		var categoriesAsArray []string
-		err := json.Unmarshal([]byte(coffe.Categories), &categoriesAsArray)
-		if err != nil {
-			log.Printf("Erro ao fazer o decode do categories: %v\n", err)
-			continue
-		}
+		err = serialize.Coffe(coffe, &coffeSerialized)
 
-		coffeFormatted := entities.Coffe{
-			ID: coffe.ID,
-			Img: coffe.Img,
-			Price: coffe.Price,
-			Title: coffe.Title,
-			Description: coffe.Description,
-			Stok: coffe.Stok,
-			Categories: categoriesAsArray,
-		}
-		coffes = append(coffes, coffeFormatted)
+		coffes = append(coffes, coffeSerialized)
 	}
 
 	return coffes, err
