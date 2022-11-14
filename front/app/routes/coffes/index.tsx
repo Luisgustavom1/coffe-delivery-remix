@@ -39,8 +39,7 @@ const CoffesIndexRoute = () => {
   const { cart, coffes } = useLoaderData<LoaderResponse>();
   const dispatch = useDispatch();
 
-  dispatch(cartActions.setCart(cart));
-  dispatch(cartActions.setCartQuantity(cart.length));
+  dispatch(cartActions.setCartProduct(cart));
   return (
     <main className="mt-32">
       <h2 className="typography-title-l text-base-subtitle">Nossos cafés</h2>

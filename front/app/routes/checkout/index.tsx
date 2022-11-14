@@ -7,6 +7,10 @@ import api from "@/services/api";
 import { InputNumber } from "@/components/UI/InputNumber";
 import { formatPrice } from "@/utils/formats";
 import { Button } from "@/components/UI/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { cartTotalSelector } from "@/features/cart/selectors";
+import { cartActions } from "@/features/cart/slice";
+import { useEffect } from "react";
 
 type LoaderResponse = Array<CartProduct>;
 
@@ -18,10 +22,15 @@ export const loader: LoaderFunction = async () => {
 
 const CheckoutIndexRoute = () => {
   const cart = useLoaderData<LoaderResponse>();
+  const dispatch = useDispatch();
+  const cartTotal = useSelector(cartTotalSelector);
 
+  useEffect(() => {
+    dispatch(cartActions.setCartProduct(cart));
+  }, []);
   return (
     <>
-      {cart.map(({ product, quantity }) => (
+      {cart.map(({ product, quantity, id }) => (
         <section
           key={product.id}
           className="flex pb-8 border-b border-base-button mb-6"
@@ -36,11 +45,29 @@ const CheckoutIndexRoute = () => {
               {product.title}
             </p>
             <div className="flex gap-2 cursor-pointer">
-              <InputNumber defaultValue={quantity} />
-              <span className="p-2 flex gap-1 items-center bg-base-button rounded-md">
-                <Trash size={16} color="#8047F8" />
-                <p className="typography-button-s text-base-text">Remover</p>
-              </span>
+              <InputNumber
+                min={1}
+                defaultValue={quantity}
+                onChange={(quantityUpdated) => {
+                  dispatch(
+                    cartActions.updateCartProduct({
+                      id,
+                      product,
+                      quantity: Number(quantityUpdated),
+                    })
+                  );
+                }}
+              />
+              <button
+                onClick={() => {
+                  dispatch(cartActions.deleteCartProduct(id));
+                }}
+              >
+                <span className="p-2 flex gap-1 items-center bg-base-button rounded-md">
+                  <Trash size={16} color="#8047F8" />
+                  <p className="typography-button-s text-base-text">Remover</p>
+                </span>
+              </button>
             </div>
           </div>
           <p className="typography-bold-m text-base-text ml-auto">
@@ -51,20 +78,18 @@ const CheckoutIndexRoute = () => {
       <article className="mb-6">
         <span className="typography-regular-s text-base-text flex justify-between mb-3">
           <p>Total de itens</p>
-          <p>R$ 29,70</p>
+          <p>R$ {formatPrice(cartTotal.items)}</p>
         </span>
         <span className="typography-regular-s text-base-text flex justify-between mb-3">
           <p>Entrega</p>
-          <p>R$ 3,70</p>
+          <p>R$ {formatPrice(cartTotal.freight)}</p>
         </span>
         <span className="typography-bold-l text-base-subtitle flex justify-between mb-3">
           <p>Total</p>
-          <p>R$ 33,70</p>
+          <p>R$ {formatPrice(cartTotal.items + cartTotal.freight)}</p>
         </span>
       </article>
-      <Button variant="secondary">
-        Confirmar pedido
-      </Button>
+      <Button variant="secondary">Confirmar pedido</Button>
     </>
   );
 };

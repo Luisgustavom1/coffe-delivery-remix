@@ -1,12 +1,12 @@
 import Logo from "@/assets/svg/Logo.svg";
-import { quantityOfProductsSelector } from "@/features/cart/selectors";
+import { cartSelector } from "@/features/cart/selectors";
 import { MapPin, ShoppingCart } from "phosphor-react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Chips } from "../Chips";
 
 export const Header = () => {
-  const quantityOfProducts = useSelector(quantityOfProductsSelector);
+  const cart = useSelector(cartSelector);
 
   return (
     <header className="max-w-screen-xl flex items-center justify-between mx-auto py-8 px-4">
@@ -25,7 +25,7 @@ export const Header = () => {
         />
         <div className="relative">
           <span className="typography-tag-s leading-none w-5 h-5 bg-yellow-dark py-1 text-white rounded-full flex items-center justify-center absolute -top-[10px] -right-[10px]">
-            {quantityOfProducts}
+            {cart.length}
           </span>
           <Link to="/checkout">
             <Chips

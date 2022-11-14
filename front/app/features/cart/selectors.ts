@@ -8,11 +8,6 @@ export const cartSelector = createDraftSafeSelector(
   (state) => state.cart
 )
 
-export const quantityOfProductsSelector = createDraftSafeSelector(
-  selectSelfSlice,
-  (state) => state.quantityOfProducts
-)
-
 export const cartTotalSelector = createDraftSafeSelector(
   selectSelfSlice,
   (state) => state.cartTotal

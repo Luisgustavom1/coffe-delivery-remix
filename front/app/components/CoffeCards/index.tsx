@@ -17,8 +17,7 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
   const cart = useSelector(cartSelector);
 
   const cartProduct = cart.find(({ product }) => product?.id === coffe.id);
-  const quantityInCart = cartProduct?.quantity;
-  console.log(cart);
+
   const handleSubmit = <T extends HTMLFormElement>(e: React.FormEvent<T>) => {
     e.preventDefault();
 
@@ -93,7 +92,11 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
         </div>
 
         <form className="flex gap-4" onSubmit={handleSubmit}>
-          <InputNumber defaultValue={quantityInCart || 0} name="quantity" />
+          <InputNumber
+            defaultValue={cartProduct?.quantity || 0}
+            name="quantity"
+            min={0}
+          />
           <button
             className="p-2 rounded-md flex bg-purple-dark border-none hover:transition-all hover:brightness-90"
             type="submit"

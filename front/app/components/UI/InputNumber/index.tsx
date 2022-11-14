@@ -19,7 +19,10 @@ export const InputNumber = ({
   return (
     <span className="rounded-md bg-base-button p-2 flex gap-2 items-cente w-min">
       <Minus
-        onClick={() => setCurrentValue((prevState) => prevState - 1)}
+        onClick={() => {
+          if (rest.min !== undefined && rest.min === currentValue) return;
+          setCurrentValue((prevState) => prevState - 1);
+        }}
         size={14}
         weight="fill"
         className="text-purple cursor-pointer hover:text-purple-dark transition-colors"

@@ -4,7 +4,6 @@ import type { CartProduct, } from '@/@types/Api';
 
 interface ICartState {
   cart: Array<CartProduct>
-  quantityOfProducts: number
   cartTotal: {
     items: number
     freight: number
@@ -13,7 +12,6 @@ interface ICartState {
 
 const initialState: ICartState = {
   cart: [],
-  quantityOfProducts: 0,
   cartTotal: {
     items: 0,
     freight: 0
@@ -34,7 +32,6 @@ const cartSlice = createSlice({
       if (productAlreadyExistsInCart) return
 
       state.cart = state.cart.concat(action.payload)
-      state.quantityOfProducts += 1;
     },
     updateCartProduct: (state, action: PayloadAction<CartProduct>) => {      
       const { product } = action.payload
@@ -53,14 +50,17 @@ const cartSlice = createSlice({
       const cartId = action.payload
       
       state.cart = state.cart.filter(({ id }) => id !== cartId)
-      state.quantityOfProducts -= 1;
       return;
     },
-    setCart: (state, action: PayloadAction<Array<CartProduct>>) => {
+    setCartProduct: (state, action: PayloadAction<Array<CartProduct>>) => {
       state.cart = action.payload
     },
-    setCartQuantity: (state, action: PayloadAction<number>) => {
-      state.quantityOfProducts = action.payload
+    calculateCartTotal: (state) => {
+      const cart = state.cart
+      const totalItems = cart.reduce((acc, currentProduct) => acc + (currentProduct.product.price * currentProduct.quantity), 0)
+
+      state.cartTotal.items = totalItems;
+      state.cartTotal.freight = 350 * cart.length;
     }
   },
 })

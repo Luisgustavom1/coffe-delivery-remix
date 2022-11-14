@@ -1,11 +1,21 @@
 import type { CartProduct } from '@/@types/Api';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { AxiosError } from 'axios';
-import { call, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import api from '@/services/api';
 import { handleError } from '@/utils/handlers'
 import { CartActions } from './actions';
 import { toast } from 'react-toastify';
+import { cartActions } from './slice';
+
+function* setCartProduct() {
+   try {
+      yield put(cartActions.calculateCartTotal())
+   } catch (e) {
+      const errorMessage: string = yield handleError(e as AxiosError<string>)      
+      yield toast.error(errorMessage)
+   }
+}
 
 function* addCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
    try {
@@ -17,6 +27,7 @@ function* addCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
             productId: newProduct.product.id
          })
       }, action.payload);
+      yield put(cartActions.calculateCartTotal())
    } catch (e) {
       const errorMessage: string = yield handleError(e as AxiosError<string>)      
       yield toast.error(errorMessage)
@@ -32,6 +43,7 @@ function* updateCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
             quantity: productUpdated.quantity,
          })
       }, action.payload);
+      yield put(cartActions.calculateCartTotal())
    } catch (e) {
       const errorMessage: string = yield handleError(e as AxiosError<string>)      
       yield toast.error(errorMessage)
@@ -43,6 +55,7 @@ function* deleteCartProduct<T extends number>(action: PayloadAction<T>) {
       yield call((productId: T) => {
          return api.delete(`/cart/${productId}`)
       }, action.payload);
+      yield put(cartActions.calculateCartTotal())
    } catch (e) {
       const errorMessage: string = yield handleError(e as AxiosError<string>)      
       yield toast.error(errorMessage)
@@ -50,6 +63,7 @@ function* deleteCartProduct<T extends number>(action: PayloadAction<T>) {
 }
 
 export function* cartSaga() {
+  yield takeLatest(CartActions.SET_CART_PRODUCT, setCartProduct);
   yield takeLatest(CartActions.ADD_CART_PRODUCT, addCartProduct);
   yield takeLatest(CartActions.UPDATE_CART_PRODUCT, updateCartProduct);
   yield takeLatest(CartActions.DELETE_CART_PRODUCT, deleteCartProduct);
