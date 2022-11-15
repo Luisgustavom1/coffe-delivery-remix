@@ -7,6 +7,8 @@ import type { CartProduct, Coffe } from "@/@types/Api";
 import { useDispatch } from "react-redux";
 import { cartActions } from "@/features/cart/slice";
 
+let didInit = false;
+
 type ApiCoffesResponse = Array<Coffe>;
 type ApiCartResponse = Array<CartProduct>;
 
@@ -39,7 +41,10 @@ const CoffesIndexRoute = () => {
   const { cart, coffes } = useLoaderData<LoaderResponse>();
   const dispatch = useDispatch();
 
-  dispatch(cartActions.setCartProduct(cart));
+  if (!didInit) {
+    didInit = true
+    dispatch(cartActions.setCartProduct(cart));
+  }
   return (
     <main className="mt-32">
       <h2 className="typography-title-l text-base-subtitle">Nossos cafés</h2>

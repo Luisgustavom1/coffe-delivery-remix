@@ -10,7 +10,8 @@ import { Button } from "@/components/UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { cartTotalSelector } from "@/features/cart/selectors";
 import { cartActions } from "@/features/cart/slice";
-import { useEffect } from "react";
+
+let didInit = false
 
 type LoaderResponse = Array<CartProduct>;
 
@@ -25,9 +26,10 @@ const CheckoutIndexRoute = () => {
   const dispatch = useDispatch();
   const cartTotal = useSelector(cartTotalSelector);
 
-  useEffect(() => {
+  if (!didInit) {
+    didInit = true
     dispatch(cartActions.setCartProduct(cart));
-  }, []);
+  }
   return (
     <>
       {cart.map(({ product, quantity, id }) => (
