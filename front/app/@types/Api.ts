@@ -21,3 +21,9 @@ export interface CartProduct {
   quantity: number,
   id: number
 }
+
+export enum CartPaymentType {
+  "Crédito" = "credit_card",
+  "Débito" = "debit_card",
+  "Dinheiro" = "money"
+}

@@ -16,7 +16,7 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
   const dispatch = useDispatch();
   const cart = useSelector(cartSelector);
 
-  const cartProduct = cart.find(({ product }) => product?.id === coffe.id);
+  const productAlreadyExistsInCart = cart.find(({ product }) => product?.id === coffe.id);
 
   const handleSubmit = <T extends HTMLFormElement>(e: React.FormEvent<T>) => {
     e.preventDefault();
@@ -24,12 +24,12 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
     const formData = new FormData(e.target as T);
     const quantity = Number(formData.get("quantity"));
 
-    if (cartProduct && !quantity) {
-      dispatch(CartActions.deleteCartProduct(cartProduct.id));
+    if (productAlreadyExistsInCart && !quantity) {
+      dispatch(CartActions.deleteCartProduct(productAlreadyExistsInCart.id));
       return;
     }
 
-    if (!cartProduct) {
+    if (!productAlreadyExistsInCart) {
       dispatch(
         CartActions.addCartProduct({
           product: coffe,
@@ -38,11 +38,11 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
       );
     }
 
-    if (cartProduct) {
+    if (productAlreadyExistsInCart) {
       dispatch(
         CartActions.updateCartProduct({
           quantity: quantity,
-          id: cartProduct.id,
+          id: productAlreadyExistsInCart.id,
           product: coffe,
         })
       );
@@ -53,7 +53,7 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
     <div
       className={classNames(
         "flex flex-col items-center justify-center px-6 py-5 w-64 bg-base-card rounded-tl-md rounded-br-md rounded-tr-[36px] rounded-bl-[36px]",
-        cartProduct && "coffe-card-selected"
+        productAlreadyExistsInCart && "coffe-card-selected"
       )}
     >
       <header className="-mt-14 mb-4">
@@ -93,13 +93,17 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
 
         <form className="flex gap-4" onSubmit={handleSubmit}>
           <InputNumber
-            defaultValue={cartProduct?.quantity || 0}
+            defaultValue={productAlreadyExistsInCart?.quantity || 0}
             name="quantity"
             min={0}
           />
           <button
-            className="p-2 rounded-md flex bg-purple-dark border-none hover:transition-all hover:brightness-90"
+            className={classNames(
+              "p-2 rounded-md flex bg-purple-dark border-none hover:transition-all hover:brightness-90",
+              productAlreadyExistsInCart && 'bg-opacity-70 hover:brightness-100'
+            )}
             type="submit"
+            disabled={!!productAlreadyExistsInCart}
           >
             <ShoppingCart size={22} weight="fill" color="#fff" />
           </button>
