@@ -12,9 +12,9 @@ services:
       POSTGRES_PASSWORD: "1459"
       POSTGRES_USER: "user_coffe"
     volumes:
-      - coffe_delivery_remix_db:/var/lib/postgresql/coffe-delivery-remix/data
+      - coffe_delivery_remix:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 volumes:
-  coffe_delivery_remix_db:
+  coffe_delivery_remix:
     external: true
