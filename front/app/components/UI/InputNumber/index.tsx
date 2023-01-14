@@ -2,9 +2,9 @@ import React from "react";
 import { Plus, Minus } from "phosphor-react";
 
 type InputNumberProps = {
-  defaultValue: number;
+  defaultValue?: number;
   onChange?: (value: number) => void;
-} & React.ComponentPropsWithoutRef<"input">;
+} & Omit<React.ComponentPropsWithoutRef<"input">, 'onChange'>;
 
 export const InputNumber = ({
   defaultValue: value,
@@ -14,10 +14,10 @@ export const InputNumber = ({
   const [currentValue, setCurrentValue] = React.useState(value || 0);
 
   React.useEffect(() => {
-    if (onChange) onChange(currentValue);
-  }, [currentValue, onChange]);
+    if (onChange && currentValue !== value) onChange(currentValue);
+  }, [currentValue, onChange, value]);
   return (
-    <span className="rounded-md bg-base-button p-2 flex gap-2 items-cente w-min">
+    <span className="rounded-md bg-base-button p-2 flex gap-2 w-min">
       <Minus
         onClick={() => {
           if (rest.min !== undefined && rest.min === currentValue) return;

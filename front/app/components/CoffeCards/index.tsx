@@ -4,7 +4,7 @@ import { cartSelector } from "@/features/cart/selectors";
 import { formatPrice } from "@/utils/formats";
 import classNames from "classnames";
 import { ShoppingCart } from "phosphor-react";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InputNumber } from "@/components/UI/InputNumber";
 
@@ -15,16 +15,15 @@ interface ICoffeCardsProps {
 export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
   const dispatch = useDispatch();
   const cart = useSelector(cartSelector);
-
+  
   const productAlreadyExistsInCart = cart.find(({ product }) => product?.id === coffe.id);
+
+  const [quantityInputValue, setQuantityInputValue] = useState(productAlreadyExistsInCart?.quantity || 0)
 
   const handleSubmit = <T extends HTMLFormElement>(e: React.FormEvent<T>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target as T);
-    const quantity = Number(formData.get("quantity"));
-
-    if (productAlreadyExistsInCart && !quantity) {
+    if (productAlreadyExistsInCart && !quantityInputValue) {
       dispatch(CartActions.deleteCartProduct(productAlreadyExistsInCart.id));
       return;
     }
@@ -33,7 +32,7 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
       dispatch(
         CartActions.addCartProduct({
           product: coffe,
-          quantity: quantity,
+          quantity: quantityInputValue,
         })
       );
     }
@@ -41,7 +40,7 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
     if (productAlreadyExistsInCart) {
       dispatch(
         CartActions.updateCartProduct({
-          quantity: quantity,
+          quantity: quantityInputValue,
           id: productAlreadyExistsInCart.id,
           product: coffe,
         })
@@ -96,14 +95,16 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
             defaultValue={productAlreadyExistsInCart?.quantity || 0}
             name="quantity"
             min={0}
+            onChange={(newQuantity) => setQuantityInputValue(newQuantity)}
+            value={quantityInputValue}
           />
           <button
             className={classNames(
               "p-2 rounded-md flex bg-purple-dark border-none hover:transition-all hover:brightness-90",
-              productAlreadyExistsInCart && 'bg-opacity-70 hover:brightness-100'
+              productAlreadyExistsInCart && quantityInputValue === productAlreadyExistsInCart.quantity && 'bg-opacity-70 brightness-75 hover:brightness-75'
             )}
             type="submit"
-            disabled={!!productAlreadyExistsInCart}
+            disabled={!!productAlreadyExistsInCart && quantityInputValue === productAlreadyExistsInCart.quantity}
           >
             <ShoppingCart size={22} weight="fill" color="#fff" />
           </button>

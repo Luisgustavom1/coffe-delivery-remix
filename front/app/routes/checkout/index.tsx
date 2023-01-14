@@ -1,14 +1,14 @@
 import type { LoaderFunction } from "@remix-run/node";
 import type { CartProduct } from "@/@types/Api";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { Trash } from "phosphor-react";
 import api from "@/services/api";
 import { InputNumber } from "@/components/UI/InputNumber";
 import { formatPrice } from "@/utils/formats";
 import { Button } from "@/components/UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { cartTotalSelector } from "@/features/cart/selectors";
+import { cartSelector, cartTotalSelector } from "@/features/cart/selectors";
 import { cartActions } from "@/features/cart/slice";
 
 let didInit = false
@@ -24,6 +24,7 @@ export const loader: LoaderFunction = async () => {
 const CheckoutIndexRoute = () => {
   const cart = useLoaderData<LoaderResponse>();
   const dispatch = useDispatch();
+  const cartState = useSelector(cartSelector);
   const cartTotal = useSelector(cartTotalSelector);
 
   if (!didInit) {
@@ -32,7 +33,7 @@ const CheckoutIndexRoute = () => {
   }
   return (
     <>
-      {cart.map(({ product, quantity, id }) => (
+      {(cartState || cart).map(({ product, quantity, id }) => (
         <section
           key={product.id}
           className="flex pb-8 border-b border-base-button mb-6"
@@ -64,6 +65,8 @@ const CheckoutIndexRoute = () => {
                 onClick={() => {
                   dispatch(cartActions.deleteCartProduct(id));
                 }}
+                disabled={quantity === 1}
+                className="disabled:brightness-75 disabled:opacity-80"
               >
                 <span className="p-2 flex gap-1 items-center bg-base-button rounded-md">
                   <Trash size={16} color="#8047F8" />
@@ -91,7 +94,17 @@ const CheckoutIndexRoute = () => {
           <p>R$ {formatPrice(cartTotal.items + cartTotal.freight)}</p>
         </span>
       </article>
-      <Button variant="secondary">Confirmar pedido</Button>
+      {cartState.length === 0 ? 
+        <p className="typography-bold-m text-yellow-dark text-center mt-2">
+          Ops! Parece que você não tem produtos no carrinho{' '}
+          <Link to="/coffes" className="typography-bold-m text-purple hover:underline"> 
+            clique aqui 
+          </Link>
+          {' '}
+          para fazer seu pedido
+        </p> 
+        : <Button variant="secondary">Confirmar pedido</Button>
+      }
     </>
   );
 };

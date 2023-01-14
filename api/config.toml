@@ -2,7 +2,7 @@
 port = "9000"
 
 [database]
-port = "5432"
+port = "6000"
 host = "localhost"
 user = "user_coffe"
 pass = "1459"

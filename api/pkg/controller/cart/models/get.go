@@ -1,12 +1,12 @@
 package cart
 
 import (
-	"coffe-delivery-remix/api/entities"
+	"coffe-delivery-remix/api/models"
 	"coffe-delivery-remix/api/pkg/serialize"
 	"coffe-delivery-remix/api/services/db"
 )
 
-func GetById(id int64) (cart entities.ProductCart, err error) {
+func GetById(id int64) (cart models.ProductCart, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return
@@ -25,7 +25,7 @@ func GetById(id int64) (cart entities.ProductCart, err error) {
 	return cart, err
 }
 
-func GetByProductId(id int64) (cart entities.ProductCart, err error) {
+func GetByProductId(id int64) (cart models.ProductCart, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return

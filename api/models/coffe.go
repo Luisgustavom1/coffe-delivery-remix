@@ -1,4 +1,4 @@
-package entities
+package models
 
 const (
 	SPECIAL     = "especial"
