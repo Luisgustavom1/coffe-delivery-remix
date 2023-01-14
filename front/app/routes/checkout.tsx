@@ -1,4 +1,5 @@
 import { CartPaymentType } from "@/@types/Api";
+import Formulary from "@/components/Form/Formulary";
 import { Button } from "@/components/UI/Button";
 import { Card } from "@/components/UI/Card";
 import { InputText } from "@/components/UI/InputText";
@@ -50,18 +51,22 @@ const CheckoutRoute = () => {
               </p>
             </div>
           </span>
-          <div className="flex flex-col gap-4">
-            <InputText name="cep" placeholder="CEP" />
-            <InputText name="street" placeholder="Rua" />
-            <span className="flex flex-wrap gap-3">
-              <InputText name="number" placeholder="Número" />
-              <InputText name="complement" placeholder="Complemento" />
-            </span>
-            <span className="flex flex-wrap gap-3">
-              <InputText name="neighbordhood" placeholder="Bairro" />
-              <InputText name="city" placeholder="Cidade" />
-            </span>
-          </div>
+          <Formulary
+            onSubmit={(a) => console.log(a)}
+          >
+            <div className="flex flex-col gap-4">
+              <InputText name="cep" placeholder="CEP" />
+              <InputText name="street" placeholder="Rua" />
+              <span className="flex flex-wrap gap-3">
+                <InputText name="number" placeholder="Número" />
+                <InputText name="complement" placeholder="Complemento" />
+              </span>
+              <span className="flex flex-wrap gap-3">
+                <InputText name="neighbordhood" placeholder="Bairro" />
+                <InputText name="city" placeholder="Cidade" />
+              </span>
+            </div>
+          </Formulary>
         </Card>
         <Card>
           <span className="flex items-start gap-2 mb-8">

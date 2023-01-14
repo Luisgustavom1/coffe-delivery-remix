@@ -1,7 +1,9 @@
 import classNames from "classnames";
 import type { ComponentPropsWithoutRef } from "react";
 
-interface IInputTextProps extends ComponentPropsWithoutRef<"input"> {}
+interface IInputTextProps extends ComponentPropsWithoutRef<"input"> {
+  error?: string
+}
 
 export const InputText = ({ className, ...rest }: IInputTextProps) => {
   return (
