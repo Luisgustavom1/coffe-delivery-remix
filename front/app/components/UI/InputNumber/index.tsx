@@ -2,9 +2,9 @@ import React from "react";
 import { Plus, Minus } from "phosphor-react";
 
 type InputNumberProps = {
-  defaultValue: number;
+  defaultValue?: number;
   onChange?: (value: number) => void;
-} & React.ComponentPropsWithoutRef<"input">;
+} & Omit<React.ComponentPropsWithoutRef<"input">, 'onChange'>;
 
 export const InputNumber = ({
   defaultValue: value,
