@@ -1,7 +1,7 @@
 package cart
 
 import (
-	"coffe-delivery-remix/api/entities"
+	"coffe-delivery-remix/api/models"
 	cart "coffe-delivery-remix/api/pkg/controller/cart/models"
 	coffes "coffe-delivery-remix/api/pkg/controller/coffes/models"
 	"encoding/json"
@@ -11,7 +11,7 @@ import (
 )
 
 func Create(w http.ResponseWriter, request *http.Request) {
-	var ProductCart entities.ProductCartSimple
+	var ProductCart models.ProductCartSimple
 
 	err := json.NewDecoder(request.Body).Decode(&ProductCart)
 	if err != nil {

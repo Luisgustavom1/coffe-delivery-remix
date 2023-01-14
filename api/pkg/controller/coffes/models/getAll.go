@@ -1,14 +1,14 @@
 package coffes
 
 import (
-	"coffe-delivery-remix/api/entities"
+	"coffe-delivery-remix/api/models"
 	"coffe-delivery-remix/api/pkg/serialize"
 	"coffe-delivery-remix/api/services/db"
 	"log"
 )
 
-func GetAll() ([]entities.Coffe, error) {
-	coffes := []entities.Coffe{}
+func GetAll() ([]models.Coffe, error) {
+	coffes := []models.Coffe{}
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return coffes, err
@@ -23,8 +23,8 @@ func GetAll() ([]entities.Coffe, error) {
 	}
 
 	for rows.Next() {
-		var coffe entities.CoffeSimple
-		var coffeSerialized entities.Coffe
+		var coffe models.CoffeSimple
+		var coffeSerialized models.Coffe
 
 		err = rows.Scan(&coffe.ID, &coffe.Img, &coffe.Price, &coffe.Title, &coffe.Description, &coffe.Stok, &coffe.Categories)
 		if err != nil {

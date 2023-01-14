@@ -1,23 +1,23 @@
 package serialize
 
 import (
-	"coffe-delivery-remix/api/entities"
+	"coffe-delivery-remix/api/models"
 	"encoding/json"
 )
 
-func Coffe(coffe entities.CoffeSimple, coffeSerialized *entities.Coffe) error {
+func Coffe(coffe models.CoffeSimple, coffeSerialized *models.Coffe) error {
 	var coffeCategoriesAsArray []string
 
 	err := json.Unmarshal([]byte(coffe.Categories), &coffeCategoriesAsArray)
 
-	*coffeSerialized = entities.Coffe{
-		ID: coffe.ID,
-		Img: coffe.Img,
-		Price: coffe.Price,
-		Title: coffe.Title,
+	*coffeSerialized = models.Coffe{
+		ID:          coffe.ID,
+		Img:         coffe.Img,
+		Price:       coffe.Price,
+		Title:       coffe.Title,
 		Description: coffe.Description,
-		Stok: coffe.Stok,
-		Categories: coffeCategoriesAsArray,
+		Stok:        coffe.Stok,
+		Categories:  coffeCategoriesAsArray,
 	}
 
 	return err
