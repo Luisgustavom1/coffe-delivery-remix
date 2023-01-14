@@ -1,8 +1,10 @@
+import React from "react";
+import { zodResolver } from '@hookform/resolvers/zod';
 import { CartPaymentType } from "@/@types/Api";
 import Formulary from "@/components/Form/Formulary";
+import Input from "@/components/Form/Input";
 import { Button } from "@/components/UI/Button";
 import { Card } from "@/components/UI/Card";
-import { InputText } from "@/components/UI/InputText";
 import { Outlet } from "@remix-run/react";
 import {
   Bank,
@@ -11,7 +13,7 @@ import {
   MapPinLine,
   Money,
 } from "phosphor-react";
-import React from "react";
+import { address } from "@/schemas/address";
 
 interface ICheckoutPaymenyTypeButton extends React.ComponentPropsWithoutRef<'button'> {
   active: boolean
@@ -52,19 +54,29 @@ const CheckoutRoute = () => {
             </div>
           </span>
           <Formulary
-            onSubmit={(a) => console.log(a)}
+            onSubmit={(a) => console.log('a ', a)}
+            defaultValues={{
+              cep: '',
+              street: '',
+              number: '',
+              complement: '',
+              neighborhood: '',
+              city: ''
+            }}
+            resolver={zodResolver(address)}
           >
             <div className="flex flex-col gap-4">
-              <InputText name="cep" placeholder="CEP" />
-              <InputText name="street" placeholder="Rua" />
+              <Input required name="cep" placeholder="CEP" />
+              <Input required name="street" placeholder="Rua" />
               <span className="flex flex-wrap gap-3">
-                <InputText name="number" placeholder="Número" />
-                <InputText name="complement" placeholder="Complemento" />
+                <Input required name="number" placeholder="Número" />
+                <Input required name="complement" placeholder="Complemento" />
               </span>
               <span className="flex flex-wrap gap-3">
-                <InputText name="neighbordhood" placeholder="Bairro" />
-                <InputText name="city" placeholder="Cidade" />
+                <Input required name="neighborhood" placeholder="Bairro" />
+                <Input required name="city" placeholder="Cidade" />
               </span>
+              <button type='submit'>dd</button>
             </div>
           </Formulary>
         </Card>

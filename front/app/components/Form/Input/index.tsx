@@ -13,17 +13,17 @@ interface IInput extends ComponentPropsWithoutRef<"input"> {
 }
 
 export default function Input({
-  name,
   defaultValue,
   onChange,
   onBlur,
-  required = false,
   rules,
-  ...rest
+  required,
+  placeholder,
+  ...props
 }: IInput) {
   return (
     <Controller
-      name={name}
+      name={props.name}
       defaultValue={defaultValue || ""}
       rules={{
         required: required ? "Este campo é obrigatório" : false,
@@ -31,7 +31,6 @@ export default function Input({
       }}
       render={({ field, fieldState }) => (
         <InputText
-          name={name}
           onBlur={(e) => {
             field.onBlur();
 
@@ -48,7 +47,8 @@ export default function Input({
           }}
           value={field.value}
           error={fieldState.error?.message}
-          {...rest}
+          placeholder={required ? `${placeholder}*` : placeholder}
+          {...props}
         />
       )}
     />
