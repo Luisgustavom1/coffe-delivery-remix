@@ -1,25 +1,28 @@
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import type { FieldValues} from "react-hook-form";
+import type { ReactNode } from "react";
+import type { FieldValues, UseFormProps} from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 
-interface IFormularyProps extends ComponentPropsWithoutRef<'form'> {
+interface IFormularyProps<TFieldValues extends FieldValues> extends UseFormProps<TFieldValues> {
   children: ReactNode;
-  onSubmit: (data: FieldValues) => void;
+  onSubmit: (data: TFieldValues) => void;
 }
 
-export default function Formulary({
+export default function Formulary<TFieldValues extends FieldValues>({
   children,
   onSubmit,
+  defaultValues,
   ...rest
-}: IFormularyProps) {
+}: IFormularyProps<TFieldValues>) {
   const methods = useForm({
     reValidateMode: "onSubmit",
     mode: "onSubmit",
+    defaultValues,
+    ...rest
   });
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} {...rest}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
         {children}
       </form>
     </FormProvider>
