@@ -65,6 +65,8 @@ const CheckoutIndexRoute = () => {
                 onClick={() => {
                   dispatch(cartActions.deleteCartProduct(id));
                 }}
+                disabled={quantity === 1}
+                className="disabled:brightness-75 disabled:opacity-80"
               >
                 <span className="p-2 flex gap-1 items-center bg-base-button rounded-md">
                   <Trash size={16} color="#8047F8" />
