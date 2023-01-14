@@ -8,7 +8,7 @@ import { InputNumber } from "@/components/UI/InputNumber";
 import { formatPrice } from "@/utils/formats";
 import { Button } from "@/components/UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { cartTotalSelector } from "@/features/cart/selectors";
+import { cartSelector, cartTotalSelector } from "@/features/cart/selectors";
 import { cartActions } from "@/features/cart/slice";
 
 let didInit = false
@@ -24,6 +24,7 @@ export const loader: LoaderFunction = async () => {
 const CheckoutIndexRoute = () => {
   const cart = useLoaderData<LoaderResponse>();
   const dispatch = useDispatch();
+  const cartState = useSelector(cartSelector);
   const cartTotal = useSelector(cartTotalSelector);
 
   if (!didInit) {
@@ -32,7 +33,7 @@ const CheckoutIndexRoute = () => {
   }
   return (
     <>
-      {cart.map(({ product, quantity, id }) => (
+      {(cartState || cart).map(({ product, quantity, id }) => (
         <section
           key={product.id}
           className="flex pb-8 border-b border-base-button mb-6"

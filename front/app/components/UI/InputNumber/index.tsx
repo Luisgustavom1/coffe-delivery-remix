@@ -14,10 +14,10 @@ export const InputNumber = ({
   const [currentValue, setCurrentValue] = React.useState(value || 0);
 
   React.useEffect(() => {
-    if (onChange) onChange(currentValue);
-  }, [currentValue, onChange]);
+    if (onChange && currentValue !== value) onChange(currentValue);
+  }, [currentValue, onChange, value]);
   return (
-    <span className="rounded-md bg-base-button p-2 flex gap-2 items-cente w-min">
+    <span className="rounded-md bg-base-button p-2 flex gap-2 w-min">
       <Minus
         onClick={() => {
           if (rest.min !== undefined && rest.min === currentValue) return;
