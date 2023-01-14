@@ -1,5 +1,5 @@
 import type { Coffe } from "@/@types/Api";
-import * as CartActions from "@/features/cart/actions";
+import * as CartActions from "@/features/cart/slice/actions";
 import { cartSelector } from "@/features/cart/selectors";
 import { formatPrice } from "@/utils/formats";
 import classNames from "classnames";

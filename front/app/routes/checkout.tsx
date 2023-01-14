@@ -13,7 +13,7 @@ import {
   MapPinLine,
   Money,
 } from "phosphor-react";
-import { address } from "@/schemas/address";
+import { address } from "@/features/cart/schemas/address";
 
 interface ICheckoutPaymenyTypeButton extends React.ComponentPropsWithoutRef<'button'> {
   active: boolean
