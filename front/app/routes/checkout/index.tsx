@@ -1,7 +1,7 @@
 import type { LoaderFunction } from "@remix-run/node";
 import type { CartProduct } from "@/@types/Api";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { Trash } from "phosphor-react";
 import api from "@/services/api";
 import { InputNumber } from "@/components/UI/InputNumber";
@@ -92,7 +92,17 @@ const CheckoutIndexRoute = () => {
           <p>R$ {formatPrice(cartTotal.items + cartTotal.freight)}</p>
         </span>
       </article>
-      <Button variant="secondary">Confirmar pedido</Button>
+      {cartState.length === 0 ? 
+        <p className="typography-bold-m text-yellow-dark text-center mt-2">
+          Ops! Parece que você não tem produtos no carrinho{' '}
+          <Link to="/coffes" className="typography-bold-m text-purple hover:underline"> 
+            clique aqui 
+          </Link>
+          {' '}
+          para fazer seu pedido
+        </p> 
+        : <Button variant="secondary">Confirmar pedido</Button>
+      }
     </>
   );
 };
