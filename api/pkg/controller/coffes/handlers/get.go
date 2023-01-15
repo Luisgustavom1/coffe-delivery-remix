@@ -1,7 +1,7 @@
 package coffes
 
 import (
-	"coffe-delivery-remix/api/models"
+	"coffe-delivery-remix/api/entities"
 	coffes "coffe-delivery-remix/api/pkg/controller/coffes/models"
 	"encoding/json"
 	"log"
@@ -20,7 +20,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 	}
 
 	coffe, err := coffes.GetById(int64(id))
-	var response *models.Coffe
+	var response *entities.Coffe
 
 	if err != nil && coffe.ID != 0 {
 		log.Printf("Erro ao trazer registro: %v", err)
@@ -31,7 +31,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 	if coffe.ID != 0 {
 		response = &coffe
 	} else {
-		response = (*models.Coffe)(nil)
+		response = (*entities.Coffe)(nil)
 	}
 
 	w.Header().Add("Content-type", "application/json")

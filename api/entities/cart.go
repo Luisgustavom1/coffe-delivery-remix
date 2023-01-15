@@ -1,4 +1,4 @@
-package models
+package entities
 
 type ProductCart struct {
 	ID       int64 `json:"id"`

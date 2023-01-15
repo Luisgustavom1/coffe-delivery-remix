@@ -1,7 +1,7 @@
 package coffes
 
 import (
-	"coffe-delivery-remix/api/models"
+	"coffe-delivery-remix/api/entities"
 	coffes "coffe-delivery-remix/api/pkg/controller/coffes/models"
 	"encoding/json"
 	"log"
@@ -19,7 +19,7 @@ func Update(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	var coffe models.Coffe
+	var coffe entities.Coffe
 
 	err = json.NewDecoder(request.Body).Decode(&coffe)
 	if err != nil {
