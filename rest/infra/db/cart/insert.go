@@ -2,7 +2,7 @@ package cart
 
 import (
 	"coffe-delivery-remix/rest/entity"
-	"coffe-delivery-remix/rest/infrastructure/db"
+	"coffe-delivery-remix/rest/infra/db"
 )
 
 func Insert(cart entity.ProductCart) (id int64, err error) {

@@ -1,6 +1,6 @@
 package cart
 
-import "coffe-delivery-remix/rest/infrastructure/db"
+import "coffe-delivery-remix/rest/infra/db"
 
 func DeleteBy(id int64) (int64, error) {
 	connection, err := db.OpenConnection()

@@ -1,7 +1,7 @@
 package coffes
 
 import (
-	coffes "coffe-delivery-remix/rest/infrastructure/db/coffes"
+	coffes "coffe-delivery-remix/rest/infra/db/coffes"
 	"encoding/json"
 	"log"
 	"net/http"

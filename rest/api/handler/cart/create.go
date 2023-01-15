@@ -2,8 +2,8 @@ package cart
 
 import (
 	"coffe-delivery-remix/rest/entity"
-	cart "coffe-delivery-remix/rest/infrastructure/db/cart"
-	coffes "coffe-delivery-remix/rest/infrastructure/db/coffes"
+	cart "coffe-delivery-remix/rest/infra/db/cart"
+	coffes "coffe-delivery-remix/rest/infra/db/coffes"
 	"encoding/json"
 	"fmt"
 	"log"

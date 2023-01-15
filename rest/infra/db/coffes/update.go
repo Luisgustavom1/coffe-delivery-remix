@@ -2,7 +2,7 @@ package coffes
 
 import (
 	"coffe-delivery-remix/rest/api/presenter"
-	"coffe-delivery-remix/rest/infrastructure/db"
+	"coffe-delivery-remix/rest/infra/db"
 )
 
 func UpdateBy(id int64, coffe presenter.Coffe) (int64, error) {

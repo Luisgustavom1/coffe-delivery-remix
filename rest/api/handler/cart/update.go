@@ -2,7 +2,7 @@ package cart
 
 import (
 	"coffe-delivery-remix/rest/entity"
-	cart "coffe-delivery-remix/rest/infrastructure/db/cart"
+	cart "coffe-delivery-remix/rest/infra/db/cart"
 	"encoding/json"
 	"log"
 	"net/http"

@@ -2,7 +2,7 @@ package coffes
 
 import (
 	"coffe-delivery-remix/rest/api/presenter"
-	coffes "coffe-delivery-remix/rest/infrastructure/db/coffes"
+	coffes "coffe-delivery-remix/rest/infra/db/coffes"
 	"encoding/json"
 	"log"
 	"net/http"

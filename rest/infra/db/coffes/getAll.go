@@ -4,7 +4,7 @@ import (
 	"coffe-delivery-remix/rest/adapters"
 	"coffe-delivery-remix/rest/api/presenter"
 	"coffe-delivery-remix/rest/entity"
-	"coffe-delivery-remix/rest/infrastructure/db"
+	"coffe-delivery-remix/rest/infra/db"
 	"log"
 )
 
