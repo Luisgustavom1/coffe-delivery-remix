@@ -3,6 +3,7 @@ package email
 import (
 	"coffe-delivery-remix/api/models"
 	"errors"
+	"fmt"
 	"net/smtp"
 	"os"
 )
@@ -39,15 +40,21 @@ func SendMail(email models.Email) error {
 
 	auth := LoginAuth(from, password)
 
+	message := generateEmailMessage(email, from)
+
 	err := smtp.SendMail(
-		smtpHost+":"+smtpPort, 
-		auth, 
-		from, 
-		email.To, 
-		email.Message,
+		smtpHost+":"+smtpPort,
+		auth,
+		from,
+		[]string{email.To},
+		message,
 	)
 
 	return err
+}
+
+func generateEmailMessage(e models.Email, from string) []byte {
+	return []byte(fmt.Sprintf("From: %s\nTo: %s\nSubject: %s\n\n\n%s", from, e.To, e.Subject, e.Message))
 }
 
 func LoginAuth(username, password string) smtp.Auth {
