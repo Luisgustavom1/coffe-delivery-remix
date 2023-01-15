@@ -25,7 +25,7 @@ func Checkout(w http.ResponseWriter, request *http.Request) {
 	err = email.SendMail(emailSerialized)
 
 	if err != nil {
-		log.Printf("Erro ao fazer enviar o email: %v", err)
+		log.Printf("Erro ao enviar o email: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
