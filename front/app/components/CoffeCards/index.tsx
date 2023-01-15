@@ -1,6 +1,6 @@
 import type { Coffe } from "@/@types/Api";
 import * as CartActions from "@/features/cart/slice/actions";
-import { cartSelector } from "@/features/cart/selectors";
+import { cartSelector } from "@/features/cart/slice/selectors";
 import { formatPrice } from "@/utils/formats";
 import classNames from "classnames";
 import { ShoppingCart } from "phosphor-react";

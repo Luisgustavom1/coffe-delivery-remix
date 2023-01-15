@@ -6,7 +6,7 @@ import api from '@/services/api';
 import { handleError } from '@/utils/handlers'
 import { CartActions } from './actions';
 import { toast } from 'react-toastify';
-import { cartActions } from './slice';
+import { cartActions } from '.';
 
 function* setCartProduct() {
    try {

@@ -1,5 +1,5 @@
 import Logo from "@/assets/svg/Logo.svg";
-import { cartSelector } from "@/features/cart/selectors";
+import { cartSelector } from "@/features/cart/slice/selectors";
 import { MapPin, ShoppingCart } from "phosphor-react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
