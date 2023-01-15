@@ -103,7 +103,7 @@ const CheckoutIndexRoute = () => {
           {' '}
           para fazer seu pedido
         </p> 
-        : <Button variant="secondary">Confirmar pedido</Button>
+        : <Button variant="secondary" type='submit'>Confirmar pedido</Button>
       }
     </>
   );

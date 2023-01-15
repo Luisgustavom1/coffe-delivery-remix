@@ -36,6 +36,18 @@ const CheckoutRoute = () => {
   const [paymentType, setPaymentType] = React.useState<CartPaymentType>(CartPaymentType.Crédito)
 
   return (
+    <Formulary
+    onSubmit={(a) => console.log('a ', a)}
+    defaultValues={{
+      cep: '',
+      street: '',
+      number: '',
+      complement: '',
+      neighborhood: '',
+      city: ''
+    }}
+    resolver={zodResolver(address)}
+  >
     <div className="p-4 flex flex-wrap gap-8 max-w-screen-xl mx-auto">
       <section className="flex-1">
         <h1 className="text-base-subtitle typography-title-xs mb-4">
@@ -53,18 +65,7 @@ const CheckoutRoute = () => {
               </p>
             </div>
           </span>
-          <Formulary
-            onSubmit={(a) => console.log('a ', a)}
-            defaultValues={{
-              cep: '',
-              street: '',
-              number: '',
-              complement: '',
-              neighborhood: '',
-              city: ''
-            }}
-            resolver={zodResolver(address)}
-          >
+
             <div className="flex flex-col gap-4">
               <Input required name="cep" placeholder="CEP" />
               <Input required name="street" placeholder="Rua" />
@@ -76,9 +77,7 @@ const CheckoutRoute = () => {
                 <Input required name="neighborhood" placeholder="Bairro" />
                 <Input required name="city" placeholder="Cidade" />
               </span>
-              <button type='submit'>dd</button>
             </div>
-          </Formulary>
         </Card>
         <Card>
           <span className="flex items-start gap-2 mb-8">
@@ -126,6 +125,7 @@ const CheckoutRoute = () => {
         </Card>
       </aside>
     </div>
+    </Formulary>
   );
 };
 
