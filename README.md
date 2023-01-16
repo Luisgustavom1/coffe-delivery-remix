@@ -12,6 +12,7 @@ Design: https://www.figma.com/file/EqXcbvCjanYeM3kci6gDp6/Coffee-Delivery-(Copy)
 - Redux
 - Zod
 - React hook form
+- React Email
 
 ### Back-end stack
 - PostgreSQL
