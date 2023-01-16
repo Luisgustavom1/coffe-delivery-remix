@@ -1,7 +1,7 @@
 import { Outlet } from "@remix-run/react";
 import { Coffee, Package, ShoppingCart, Timer } from "phosphor-react";
 import { CircleIcon } from "@/components/UI/CircleIcon";
-import CoffeIlustration from "@/public/assets/svg/Coffe.svg";
+import CoffeIlustration from "public/assets/svg/Coffe.svg";
 
 export default function CoffesRoute() {
   return (

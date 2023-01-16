@@ -32,9 +32,9 @@ export const updateCartProduct = (productUpdated: CartProduct) => {
    }
 }
 
-export const cleaCartProduct = () => {
+export const clearCartProduct = () => {
    return {
-      type: CartActions.UPDATE_CART_PRODUCT,
+      type: CartActions.CLEAR_CART_PRODUCT,
       payload: [[]]
    }
 }

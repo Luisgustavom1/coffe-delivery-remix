@@ -35,5 +35,5 @@ func cartRoutes(r *chi.Mux) {
 }
 
 func checkoutRoutes(r *chi.Mux) {
-	r.Post("/checkout/{id}", checkout.Checkout)
+	r.Post("/checkout", checkout.Checkout)
 }

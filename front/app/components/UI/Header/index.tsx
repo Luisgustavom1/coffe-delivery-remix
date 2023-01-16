@@ -1,4 +1,4 @@
-import Logo from "@/public/assets/svg/Logo.svg";
+import Logo from "public/assets/svg/Logo.svg";
 import { cartSelector } from "@/features/cart/slice/selectors";
 import { MapPin, ShoppingCart } from "phosphor-react";
 import { useSelector } from "react-redux";

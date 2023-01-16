@@ -51,8 +51,8 @@ const CheckoutRoute = () => {
           message: render(<CheckoutDone />)
         })
 
-        dispatch(CartActions.cleaCartProduct())
-        navigate('/coffes')        
+        dispatch(CartActions.clearCartProduct())
+        navigate('/success')        
       }}
       defaultValues={{
         email: '',
