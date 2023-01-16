@@ -2,6 +2,7 @@ package checkout
 
 import (
 	"coffe-delivery-remix/api/models"
+	"coffe-delivery-remix/api/pkg/controller/cart/models"
 	"coffe-delivery-remix/api/pkg/serialize"
 	"coffe-delivery-remix/api/services/email"
 
@@ -11,12 +12,18 @@ import (
 )
 
 func Checkout(w http.ResponseWriter, request *http.Request) {
-	// TODO - delete all carts
-	var modelEmail models.EmailSimple
-	err := json.NewDecoder(request.Body).Decode(&modelEmail)
+	_, err := cart.DeleteAll()
+	if err != nil {
+		log.Printf("Erro deletar cart: %v", err)
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		return
+	}
 
+	var modelEmail models.EmailSimple
+	err = json.NewDecoder(request.Body).Decode(&modelEmail)
 	if err != nil {
 		log.Printf("Erro ao decodificar o json: %v", err)
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
@@ -24,7 +31,6 @@ func Checkout(w http.ResponseWriter, request *http.Request) {
 	serialize.Email(modelEmail, &emailSerialized)
 
 	err = email.SendMail(emailSerialized)
-
 	if err != nil {
 		log.Printf("Erro ao enviar o email: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
