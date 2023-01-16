@@ -3,7 +3,6 @@ import { Container } from '@react-email/container';
 import { Img } from '@react-email/img';
 import { Head } from '@react-email/head';
 import { Text } from '@react-email/text';
-import Logo from "@/assets/svg/Logo.svg";
 import { Preview } from '@react-email/preview';
 import { Section } from '@react-email/section';
 
@@ -21,7 +20,7 @@ export const CheckoutDone = () => {
       <Section>
         <Container>
           <Section style={{ marginBottom: '24px' }}>
-            <Img src={Logo} alt="Logo coffee delivery" width="85" height="40" />
+            <Img src="assets/svg/Logo.svg" alt="Logo coffee delivery" width="85" height="40" />
           </Section>
 
           <Text style={{

@@ -52,6 +52,14 @@ const cartSlice = createSlice({
       state.cart = state.cart.filter(({ id }) => id !== cartId)
       return;
     },
+    clearCartProduct: (state) => {
+      state.cart = []
+      state.cartTotal = {
+        freight: 0,
+        items: 0
+      }
+      return
+    },
     setCartProduct: (state, action: PayloadAction<Array<CartProduct>>) => {
       state.cart = action.payload
     },
