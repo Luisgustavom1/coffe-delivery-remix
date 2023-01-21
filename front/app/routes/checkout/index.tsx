@@ -13,6 +13,8 @@ import { cartActions } from "@/features/cart/slice";
 
 let didInit = false
 
+type UpdateCartQuantity = (cart: CartProduct) => void
+
 type LoaderResponse = Array<CartProduct>;
 
 export const loader: LoaderFunction = async () => {
@@ -30,6 +32,21 @@ const CheckoutIndexRoute = () => {
   if (!didInit) {
     didInit = true
     dispatch(cartActions.setCartProduct(cart));
+  }
+
+  const updateCartQuantity: UpdateCartQuantity = ({ id, product, quantity }) => {
+    if (quantity === 0) {
+      dispatch(cartActions.deleteCartProduct(id));
+      return
+    } 
+
+    dispatch(
+      cartActions.updateCartProduct({
+        id,
+        product,
+        quantity: Number(quantity),
+      })
+    );
   }
   return (
     <>
@@ -49,23 +66,15 @@ const CheckoutIndexRoute = () => {
             </p>
             <div className="flex gap-2 cursor-pointer">
               <InputNumber
-                min={1}
                 defaultValue={quantity}
                 onChange={(quantityUpdated) => {
-                  dispatch(
-                    cartActions.updateCartProduct({
-                      id,
-                      product,
-                      quantity: Number(quantityUpdated),
-                    })
-                  );
+                  updateCartQuantity({ product, id, quantity: quantityUpdated })
                 }}
               />
               <button
                 onClick={() => {
                   dispatch(cartActions.deleteCartProduct(id));
                 }}
-                disabled={quantity === 1}
                 className="disabled:brightness-75 disabled:opacity-80"
               >
                 <span className="p-2 flex gap-1 items-center bg-base-button rounded-md">
