@@ -1,12 +1,12 @@
 FROM golang:1.19
 
-WORKDIR /app
+WORKDIR /api
 
 COPY go.mod .
 COPY go.sum .
 RUN go mod download
 
-COPY . ./
+COPY . .
 
 RUN go build -o /coffe_delivery_remix_api
 
