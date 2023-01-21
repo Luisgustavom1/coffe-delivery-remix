@@ -6,18 +6,18 @@ var CONFIGS *config
 
 type config struct {
 	API APIConfig
-	DB DBConfig
-} 
+	DB  DBConfig
+}
 
 type APIConfig struct {
 	Port string
 }
 
 type DBConfig struct {
-	Host string
-	Port string
-	User string
-	Pass string
+	Host     string
+	Port     string
+	User     string
+	Pass     string
 	Database string
 }
 
@@ -46,10 +46,10 @@ func LoadConfigs() error {
 		Port: viper.GetString("api.port"),
 	}
 	CONFIGS.DB = DBConfig{
-		Host: viper.GetString("database.host"),
-		Port: viper.GetString("database.port"),
-		User: viper.GetString("database.user"),
-		Pass: viper.GetString("database.pass"),
+		Host:     viper.GetString("database.host"),
+		Port:     viper.GetString("database.port"),
+		User:     viper.GetString("database.user"),
+		Pass:     viper.GetString("database.pass"),
 		Database: viper.GetString("database.name"),
 	}
 
