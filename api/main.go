@@ -30,6 +30,6 @@ func main() {
 
 	r.Mount("/v1", routes.Routes())
 
-	fmt.Printf("Starting sever in the :%s\n\n", configs.GetApiServerPort())
+	fmt.Printf("Starting server in the :%s\n\n", configs.GetApiServerPort())
 	http.ListenAndServe(fmt.Sprintf(":%s", configs.GetApiServerPort()), r)
 }

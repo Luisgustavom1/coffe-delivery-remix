@@ -33,6 +33,11 @@ services:
       - "6000:6000"
     command: -p 6000
     
+networks:
+  default:
+    name: coffe_delivery_remix
+    external: true
+
 volumes:
   coffe_delivery_remix:
     external: true
