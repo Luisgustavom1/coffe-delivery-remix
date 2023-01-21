@@ -3,6 +3,7 @@ package routes
 import (
 	cart "coffe-delivery-remix/api/pkg/controller/cart/handlers"
 	coffes "coffe-delivery-remix/api/pkg/controller/coffes/handlers"
+	checkout "coffe-delivery-remix/api/pkg/controller/checkout/handlers"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -12,6 +13,7 @@ func Routes() *chi.Mux {
 
 	coffeRoutes(r)
 	cartRoutes(r)
+	checkoutRoutes(r)
 
 	return r
 }
@@ -30,4 +32,8 @@ func cartRoutes(r *chi.Mux) {
 	r.Delete("/cart/{id}", cart.Delete)
 	r.Put("/cart/{id}", cart.UpdateBy)
 	r.Get("/cart/{id}", cart.Get)
+}
+
+func checkoutRoutes(r *chi.Mux) {
+	r.Post("/checkout", checkout.Checkout)
 }

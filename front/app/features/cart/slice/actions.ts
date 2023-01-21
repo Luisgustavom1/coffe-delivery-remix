@@ -5,6 +5,7 @@ export enum CartActions {
    ADD_CART_PRODUCT = 'cart/addCartProduct',
    UPDATE_CART_PRODUCT = 'cart/updateCartProduct',
    DELETE_CART_PRODUCT = 'cart/deleteCartProduct',
+   CLEAR_CART_PRODUCT = 'cart/clearCartProduct',
    CALCULATE_CART_TOTAL = 'cart/calculateCartTotal'
 }
 
@@ -28,6 +29,13 @@ export const updateCartProduct = (productUpdated: CartProduct) => {
    return {
       type: CartActions.UPDATE_CART_PRODUCT,
       payload: productUpdated
+   }
+}
+
+export const clearCartProduct = () => {
+   return {
+      type: CartActions.CLEAR_CART_PRODUCT,
+      payload: [[]]
    }
 }
 

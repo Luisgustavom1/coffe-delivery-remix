@@ -21,7 +21,7 @@ func main() {
 
 	c := cors.New(cors.Options{
 		AllowCredentials: true,
-		AllowedMethods: []string{"POST", "PUT", "DELETE", "GET"},
+		AllowedMethods:   []string{"POST", "PUT", "DELETE", "GET"},
 	})
 
 	r := chi.NewRouter()
@@ -30,5 +30,6 @@ func main() {
 
 	r.Mount("/v1", routes.Routes())
 
+	fmt.Printf("Starting server in the :%s\n\n", configs.GetApiServerPort())
 	http.ListenAndServe(fmt.Sprintf(":%s", configs.GetApiServerPort()), r)
 }

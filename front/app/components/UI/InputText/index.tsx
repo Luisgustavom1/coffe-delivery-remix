@@ -7,7 +7,7 @@ interface IInputTextProps extends ComponentPropsWithoutRef<"input"> {
 
 export const InputText = ({ className, error, ...rest }: IInputTextProps) => {
   return (
-    <label className="w-auto h-min grid">
+    <label className="w-auto flex-1 h-min grid">
       <input
         className={classNames(
           className,

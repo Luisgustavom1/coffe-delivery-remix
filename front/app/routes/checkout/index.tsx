@@ -8,7 +8,7 @@ import { InputNumber } from "@/components/UI/InputNumber";
 import { formatPrice } from "@/utils/formats";
 import { Button } from "@/components/UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { cartSelector, cartTotalSelector } from "@/features/cart/selectors";
+import { cartSelector, cartTotalSelector } from "@/features/cart/slice/selectors";
 import { cartActions } from "@/features/cart/slice";
 
 let didInit = false
@@ -103,7 +103,7 @@ const CheckoutIndexRoute = () => {
           {' '}
           para fazer seu pedido
         </p> 
-        : <Button variant="secondary">Confirmar pedido</Button>
+        : <Button variant="secondary" type='submit'>Confirmar pedido</Button>
       }
     </>
   );

@@ -1,6 +1,6 @@
 import { Clock, CurrencyDollar, MapPin } from "phosphor-react";
 import { CircleIcon } from "@/components/UI/CircleIcon";
-import Illustration from "@/assets/svg/Illustration.svg";
+import Illustration from "public/assets/svg/Illustration.svg";
 
 interface ISuccessRow {
   title: string;

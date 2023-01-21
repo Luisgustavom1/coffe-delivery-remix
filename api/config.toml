@@ -3,7 +3,7 @@ port = "9000"
 
 [database]
 port = "6000"
-host = "localhost"
+host = "db"
 user = "user_coffe"
 pass = "1459"
 name = "api_coffe_delivery_remix"

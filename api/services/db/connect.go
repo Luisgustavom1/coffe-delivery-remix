@@ -12,11 +12,11 @@ import (
 func OpenConnection() (*sql.DB, error) {
 	cfg := configs.GetDB()
 
-	sc := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		cfg.Host,
-		cfg.Port,
+	sc := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		cfg.User,
 		cfg.Pass,
+		cfg.Host,
+		cfg.Port,
 		cfg.Database,
 	)
 
