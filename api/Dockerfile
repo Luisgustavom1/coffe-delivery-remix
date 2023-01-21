@@ -10,7 +10,5 @@ COPY . .
 
 RUN go build -o /coffe_delivery_remix_api
 
-EXPOSE 9000
-
 CMD [ "/coffe_delivery_remix_api" ]
 
