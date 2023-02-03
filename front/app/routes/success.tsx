@@ -1,6 +1,9 @@
 import { Clock, CurrencyDollar, MapPin } from "phosphor-react";
 import { CircleIcon } from "@/components/UI/CircleIcon";
 import Illustration from "public/assets/svg/Illustration.svg";
+import { useSelector } from "react-redux";
+import { checkoutDataSelector } from "@/features/checkout/slice/selectors";
+import type { PaymentType } from "@/@types/Api/Cart";
 
 interface ISuccessRow {
   title: string;
@@ -20,7 +23,15 @@ const SuccessRow = ({ title, subtitle, icon }: ISuccessRow) => {
   );
 };
 
+const PaymentTypeLabelMap: Record<PaymentType, string>  = {
+  cash: "Dinheiro",
+  credit_card: "Crédito",
+  debit_card: "Débito"
+}
+
 const Success = () => {
+  const { address, paymentType } = useSelector(checkoutDataSelector);
+
   return (
     <div className="mt-20 px-4 flex flex-wrap items-end justify-center gap-4 max-w-screen-xl mx-auto">
       <article className="flex-1 min-w-[340px]">
@@ -40,9 +51,9 @@ const Success = () => {
               </CircleIcon>
               <div className="typography-regular-m text-base-text">
                 <p>
-                  Entrega em <strong> Rua João Daniel Martinelli, 102</strong>
+                  Entrega em <strong> {address?.street}, {address?.number}</strong>
                 </p>
-                <p>Farrapos - Porto Alegre, RS</p>
+                <p>{address?.neighborhood} - {address?.city}</p>
               </div>
             </span>
             <SuccessRow
@@ -61,7 +72,7 @@ const Success = () => {
                 </CircleIcon>
               }
               title="Pagamento de entrega"
-              subtitle="Cartão de Crédito"
+              subtitle={PaymentTypeLabelMap[paymentType as PaymentType]}
             />
           </div>
         </section>
