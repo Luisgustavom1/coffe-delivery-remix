@@ -1,23 +1,22 @@
-import type { CartProduct } from '@/@types/Api';
+import type { Product } from '@/@types/Api/Cart';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { AxiosError } from 'axios';
 import { call, put, takeLatest } from 'redux-saga/effects'
 import api from '@/services/api';
 import { handleError } from '@/utils/handlers'
-import { CartActions } from './actions';
 import { toast } from 'react-toastify';
-import { cartActions } from '.';
+import { CartActions, CartActionsEnum } from '.';
 
 function* setCartProduct() {
    try {
-      yield put(cartActions.calculateCartTotal())
+      yield put(CartActions.calculateCartTotal())
    } catch (e) {
       const errorMessage: string = yield handleError(e as AxiosError<string>)      
       yield toast.error(errorMessage)
    }
 }
 
-function* addCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
+function* addCartProduct<T extends Product>(action: PayloadAction<T>) {
    try {
       if (!action.payload.quantity) return;
 
@@ -27,14 +26,14 @@ function* addCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
             productId: newProduct.product.id
          })
       }, action.payload);
-      yield put(cartActions.calculateCartTotal())
+      yield put(CartActions.calculateCartTotal())
    } catch (e) {
       const errorMessage: string = yield handleError(e as AxiosError<string>)      
       yield toast.error(errorMessage)
    }
 }
 
-function* updateCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
+function* updateCartProduct<T extends Product>(action: PayloadAction<T>) {
    try {
       yield call((productUpdated: T) => {
          return api.put(`/cart/${productUpdated.id}`, {
@@ -43,7 +42,7 @@ function* updateCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
             quantity: productUpdated.quantity,
          })
       }, action.payload);
-      yield put(cartActions.calculateCartTotal())
+      yield put(CartActions.calculateCartTotal())
    } catch (e) {
       const errorMessage: string = yield handleError(e as AxiosError<string>)      
       yield toast.error(errorMessage)
@@ -55,7 +54,7 @@ function* deleteCartProduct<T extends number>(action: PayloadAction<T>) {
       yield call((productId: T) => {
          return api.delete(`/cart/${productId}`)
       }, action.payload);
-      yield put(cartActions.calculateCartTotal())
+      yield put(CartActions.calculateCartTotal())
    } catch (e) {
       const errorMessage: string = yield handleError(e as AxiosError<string>)      
       yield toast.error(errorMessage)
@@ -63,8 +62,8 @@ function* deleteCartProduct<T extends number>(action: PayloadAction<T>) {
 }
 
 export function* cartSaga() {
-  yield takeLatest(CartActions.SET_CART_PRODUCT, setCartProduct);
-  yield takeLatest(CartActions.ADD_CART_PRODUCT, addCartProduct);
-  yield takeLatest(CartActions.UPDATE_CART_PRODUCT, updateCartProduct);
-  yield takeLatest(CartActions.DELETE_CART_PRODUCT, deleteCartProduct);
+  yield takeLatest(CartActionsEnum.SET_CART_PRODUCT, setCartProduct);
+  yield takeLatest(CartActionsEnum.ADD_CART_PRODUCT, addCartProduct);
+  yield takeLatest(CartActionsEnum.UPDATE_CART_PRODUCT, updateCartProduct);
+  yield takeLatest(CartActionsEnum.DELETE_CART_PRODUCT, deleteCartProduct);
 }

@@ -1,28 +1,37 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { CartProduct, } from '@/@types/Api';
+import type { Product } from '@/@types/Api/Cart';
 
-interface ICartState {
-  cart: Array<CartProduct>
+enum CartActionsEnum {
+  SET_CART_PRODUCT = 'cart/setCartProduct',
+  ADD_CART_PRODUCT = 'cart/addCartProduct',
+  UPDATE_CART_PRODUCT = 'cart/updateCartProduct',
+  DELETE_CART_PRODUCT = 'cart/deleteCartProduct',
+  CLEAR_CART_PRODUCT = 'cart/clearCartProduct',
+  CALCULATE_CART_TOTAL = 'cart/calculateCartTotal'
+}
+
+interface CartState {
+  cart: Array<Product>
   cartTotal: {
     items: number
     freight: number
-  }
+  },
 }
 
-const initialState: ICartState = {
+const initialState: CartState = {
   cart: [],
   cartTotal: {
     items: 0,
     freight: 0
-  }
+  },
 }
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addCartProduct: (state, action: PayloadAction<CartProduct>) => {      
+    addCartProduct: (state, action: PayloadAction<Product>) => {      
       const { product: currentProduct } = action.payload
 
       const productAlreadyExistsInCart = state.cart.find(
@@ -33,7 +42,7 @@ const cartSlice = createSlice({
 
       state.cart = state.cart.concat(action.payload)
     },
-    updateCartProduct: (state, action: PayloadAction<CartProduct>) => {      
+    updateCartProduct: (state, action: PayloadAction<Product>) => {      
       const { product } = action.payload
 
       state.cart = state.cart.map(
@@ -52,7 +61,7 @@ const cartSlice = createSlice({
       state.cart = state.cart.filter(({ id }) => id !== cartId)
       return;
     },
-    clearCartProduct: (state) => {
+    clearCart: (state) => {
       state.cart = []
       state.cartTotal = {
         freight: 0,
@@ -60,7 +69,7 @@ const cartSlice = createSlice({
       }
       return
     },
-    setCartProduct: (state, action: PayloadAction<Array<CartProduct>>) => {
+    setCartProduct: (state, action: PayloadAction<Array<Product>>) => {
       state.cart = action.payload
     },
     calculateCartTotal: (state) => {
@@ -73,8 +82,6 @@ const cartSlice = createSlice({
   },
 })
 
-const { actions: cartActions } = cartSlice
+const { actions: CartActions, reducer: cartReducer } = cartSlice
 
-export type { ICartState }
-export { cartActions, cartSlice }
-export default cartSlice.reducer
+export { CartActionsEnum, CartActions, cartSlice, cartReducer }
