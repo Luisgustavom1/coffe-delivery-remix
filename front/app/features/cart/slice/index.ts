@@ -52,7 +52,15 @@ const cartSlice = createSlice({
               ...action.payload
             }
             : c
-          )
+          );
+      state.cart = state.cart.map(
+        (c) => 
+          c.product.id === product.id 
+            ? {
+              ...action.payload
+            }
+            : c
+          );
       return;
     },
     deleteCartProduct: (state, action: PayloadAction<number>) => {      
