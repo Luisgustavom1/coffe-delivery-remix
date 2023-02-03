@@ -1,5 +1,5 @@
 import type { LoaderFunction } from "@remix-run/node";
-import type { CartProduct } from "@/@types/Api";
+import type { Product } from "@/@types/Api/Cart";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { Trash } from "phosphor-react";
@@ -9,13 +9,13 @@ import { formatPrice } from "@/utils/formats";
 import { Button } from "@/components/UI/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { cartSelector, cartTotalSelector } from "@/features/cart/slice/selectors";
-import { cartActions } from "@/features/cart/slice";
+import { CartActions } from "@/features/cart/slice";
 
 let didInit = false
 
-type UpdateCartQuantity = (cart: CartProduct) => void
+type UpdateCartQuantity = (cart: Product) => void
 
-type LoaderResponse = Array<CartProduct>;
+type LoaderResponse = Array<Product>;
 
 export const loader: LoaderFunction = async () => {
   const { data } = await api.get<LoaderResponse>("/cart");
@@ -31,17 +31,17 @@ const CheckoutIndexRoute = () => {
 
   if (!didInit) {
     didInit = true
-    dispatch(cartActions.setCartProduct(cart));
+    dispatch(CartActions.setCartProduct(cart));
   }
 
   const updateCartQuantity: UpdateCartQuantity = ({ id, product, quantity }) => {
     if (quantity === 0) {
-      dispatch(cartActions.deleteCartProduct(id));
+      dispatch(CartActions.deleteCartProduct(id));
       return
     } 
 
     dispatch(
-      cartActions.updateCartProduct({
+      CartActions.updateCartProduct({
         id,
         product,
         quantity: Number(quantity),
@@ -73,7 +73,7 @@ const CheckoutIndexRoute = () => {
               />
               <button
                 onClick={() => {
-                  dispatch(cartActions.deleteCartProduct(id));
+                  dispatch(CartActions.deleteCartProduct(id));
                 }}
                 className="disabled:brightness-75 disabled:opacity-80"
               >

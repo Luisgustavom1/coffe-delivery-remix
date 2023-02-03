@@ -1,5 +1,5 @@
-import type { Coffe } from "@/@types/Api";
-import * as CartActions from "@/features/cart/slice/actions";
+import type { Coffe } from "@/@types/Api/Cart";
+import { CartActions } from "@/features/cart/slice";
 import { cartSelector } from "@/features/cart/slice/selectors";
 import { formatPrice } from "@/utils/formats";
 import classNames from "classnames";
@@ -31,6 +31,7 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
     if (!productAlreadyExistsInCart) {
       dispatch(
         CartActions.addCartProduct({
+          ...coffe,
           product: coffe,
           quantity: quantityInputValue,
         })

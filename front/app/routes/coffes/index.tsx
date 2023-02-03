@@ -3,14 +3,14 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { CoffeCards } from "@/components/CoffeCards";
 import api from "@/services/api";
-import type { CartProduct, Coffe } from "@/@types/Api";
+import type { Product, Coffe } from "@/@types/Api/Cart";
 import { useDispatch } from "react-redux";
-import { cartActions } from "@/features/cart/slice";
+import { CartActions } from "@/features/cart/slice";
 
 let didInit = false;
 
 type ApiCoffesResponse = Array<Coffe>;
-type ApiCartResponse = Array<CartProduct>;
+type ApiCartResponse = Array<Product>;
 
 interface LoaderResponse {
   coffes: ApiCoffesResponse;
@@ -43,7 +43,7 @@ const CoffesIndexRoute = () => {
 
   if (!didInit) {
     didInit = true
-    dispatch(cartActions.setCartProduct(cart));
+    dispatch(CartActions.setCartProduct(cart));
   }
   return (
     <main className="mt-32">
