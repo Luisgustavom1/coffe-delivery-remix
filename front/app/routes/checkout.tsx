@@ -1,6 +1,5 @@
 import React from "react";
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CartPaymentType } from "@/@types/Api";
 import Formulary from "@/components/Form/Formulary";
 import Input from "@/components/Form/Input";
 import { Button } from "@/components/UI/Button";
@@ -13,34 +12,36 @@ import {
   MapPinLine,
   Money,
 } from "phosphor-react";
-import { formCheckout } from "@/features/cart/schemas/address";
+import { formCheckout } from "@/features/checkout/schemas";
 import api from "@/services/api";
 import { render } from "@react-email/render";
 import { CheckoutDone } from "@/features/checkout/emails/checkout-done";
 import { useDispatch } from "react-redux";
-import * as CartActions from "@/features/cart/slice/actions";
+import { PAYMENT_TYPE } from "@/@types/Api/Cart";
+import { CartActions } from "@/features/cart/slice";
+import { CheckoutActions } from "@/features/checkout/slice";
 
-interface ICheckoutPaymenyTypeButton extends React.ComponentPropsWithoutRef<'button'> {
-  active: boolean
+interface CheckoutPaymentTypeButtonProps extends React.ComponentPropsWithoutRef<'input'> {
   Icon: React.ElementType
 }
 
-const CheckoutPaymenyTypeButton = ({
-  active,
+const CheckoutPaymentTypeButton = ({
   Icon,
   children,
   ...rest
-}: React.PropsWithChildren<ICheckoutPaymenyTypeButton>) => (
-  <Button active={active} {...rest}>
-    <Icon size={16} color="#8047F8" />
-    {children}
-  </Button>
+}: React.PropsWithChildren<CheckoutPaymentTypeButtonProps>) => (
+  <label className="flex-1" htmlFor={rest.id}>
+    <input {...rest} className="sr-only peer/input" type='radio' name="paymentType" />
+    <Button as='div' className="peer-checked/input:button-active" type='button'>
+      <Icon size={16} color="#8047F8" />
+      {children}
+    </Button>
+  </label>
 )
 
 const CheckoutRoute = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [paymentType, setPaymentType] = React.useState<CartPaymentType>(CartPaymentType.Crédito)
 
   return (
     <Formulary
@@ -51,17 +52,24 @@ const CheckoutRoute = () => {
           message: render(<CheckoutDone />)
         })
 
-        dispatch(CartActions.clearCartProduct())
+        dispatch(CheckoutActions.setCheckoutData({
+          address: formValues.address,
+          paymentType: formValues.paymentType
+        }))
+        dispatch(CartActions.clearCart())
         navigate('/success')        
       }}
       defaultValues={{
         email: '',
-        cep: '',
-        street: '',
-        number: '',
-        complement: '',
-        neighborhood: '',
-        city: ''
+        paymentType: PAYMENT_TYPE.enum.CREDIT,
+        address: {
+          cep: '',
+          street: '',
+          number: '',
+          complement: '',
+          neighborhood: '',
+          city: '',
+        }
       }}
       resolver={zodResolver(formCheckout)}
     >
@@ -72,7 +80,7 @@ const CheckoutRoute = () => {
         </h1>
         <Card className="mb-3">
           <section className="mb-8">
-            <Input required name="email" placeholder="Digite seu email" />
+            <Input required name="email" type='email' placeholder="Digite seu email" />
           </section>
 
           <span className="flex items-start gap-2 mb-8">
@@ -88,15 +96,15 @@ const CheckoutRoute = () => {
           </span>
 
           <div className="flex flex-col gap-4">
-            <Input required name="cep" placeholder="CEP" />
-            <Input required name="street" placeholder="Rua" />
+            <Input required name="address.cep" placeholder="CEP" />
+            <Input required name="address.street" placeholder="Rua" />
             <span className="flex flex-wrap gap-3">
-              <Input required name="number" placeholder="Número" />
-              <Input required name="complement" placeholder="Complemento" />
+              <Input required name="address.number" placeholder="Número" />
+              <Input name="address.complement" placeholder="Complemento" />
             </span>
             <span className="flex flex-wrap gap-3">
-              <Input required name="neighborhood" placeholder="Bairro" />
-              <Input required name="city" placeholder="Cidade" />
+              <Input required name="address.neighborhood" placeholder="Bairro" />
+              <Input required name="address.city" placeholder="Cidade" />
             </span>
           </div>
         </Card>
@@ -113,27 +121,25 @@ const CheckoutRoute = () => {
             </div>
           </span>
           <section className="flex gap-3">
-            <CheckoutPaymenyTypeButton
-              active={paymentType === CartPaymentType.Crédito}
-              onClick={() => setPaymentType(CartPaymentType.Crédito)}
+            <CheckoutPaymentTypeButton 
+              id={PAYMENT_TYPE.enum.CREDIT}
               Icon={CreditCard}
+              defaultChecked
             >
               Crédito
-            </CheckoutPaymenyTypeButton>
-            <CheckoutPaymenyTypeButton
-              active={paymentType === CartPaymentType.Débito}
-              onClick={() => setPaymentType(CartPaymentType.Débito)}
+            </CheckoutPaymentTypeButton>
+            <CheckoutPaymentTypeButton 
+              id={PAYMENT_TYPE.enum.DEBIT}
               Icon={Bank}
             >
               Débito
-            </CheckoutPaymenyTypeButton>
-            <CheckoutPaymenyTypeButton
-              active={paymentType === CartPaymentType.Dinheiro}
-              onClick={() => setPaymentType(CartPaymentType.Dinheiro)}
+            </CheckoutPaymentTypeButton>
+            <CheckoutPaymentTypeButton 
+              id={PAYMENT_TYPE.enum.CASH}
               Icon={Money}
             >
               Dinheiro
-            </CheckoutPaymenyTypeButton>
+            </CheckoutPaymentTypeButton>
           </section>
         </Card>
       </section>
