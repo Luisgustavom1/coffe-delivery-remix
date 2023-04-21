@@ -4,6 +4,6 @@ port = "9000"
 [database]
 port = "6000"
 host = "db"
-user = "user_coffe"
+user = "user_coffee"
 pass = "1459"
-name = "api_coffe_delivery_remix"
+name = "coffee_delivery_remix_db"
