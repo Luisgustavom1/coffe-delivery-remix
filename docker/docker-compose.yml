@@ -8,6 +8,7 @@ services:
     build: ../api
     volumes:
       - coffee_delivery_remix:/var/lib/api
+      - ../api:/api
     ports:
       - "9000:9000"
     env_file:
