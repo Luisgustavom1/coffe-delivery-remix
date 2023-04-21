@@ -6,6 +6,7 @@ services:
     image: coffe_delivery_remix/front
     restart: always
     network_mode: "host"
-    build:
-      context: .
+    build: .
+    volumes:
+      - .:/front/
   
