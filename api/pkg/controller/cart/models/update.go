@@ -5,16 +5,16 @@ import (
 	"coffee-delivery-remix/api/services/db"
 )
 
-func UpdateBy(id int64, cartUpdate entities.CartSimple) (int64, error) {
+func UpdateProductByCartId(id int64, cartUpdate entities.CartProductSimple) (int64, error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return 0, err
 	}
 	defer connection.Close()
 
-	sql := `UPDATE cart SET quantity=$2 WHERE id=$1`
+	sql := `UPDATE cart_product SET quantity=$3 WHERE cart_id=$1 AND product_id=$2`
 
-	row, err := connection.Exec(sql, id, cartUpdate.Quantity)
+	row, err := connection.Exec(sql, id, cartUpdate.ProductId, cartUpdate.Quantity)
 	if err != nil {
 		return 0, err
 	}

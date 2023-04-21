@@ -2,7 +2,8 @@ package cart
 
 import (
 	"coffee-delivery-remix/api/entities"
-	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
+	"coffee-delivery-remix/api/pkg/controller/cart/models"
+	"coffee-delivery-remix/api/pkg/controller/errors"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -15,23 +16,23 @@ func UpdateBy(w http.ResponseWriter, request *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(request, "id"))
 	if err != nil {
 		log.Printf("Erro ao fazer o parser do query param id: %v\n", err)
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		http_error.HttpError(w, 500)
 		return
 	}
 
-	var cartUpdate entities.CartSimple
+	var cartUpdate entities.CartProductSimple
 
 	err = json.NewDecoder(request.Body).Decode(&cartUpdate)
 	if err != nil {
 		log.Printf("Erro ao fazer o decode do json: %v\n", err)
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		http_error.HttpError(w, 500)
 		return
 	}
 
-	rowsAffected, err := cart.UpdateBy(int64(id), cartUpdate)
+	rowsAffected, err := cart.UpdateProductByCartId(int64(id), cartUpdate)
 	if err != nil {
 		log.Printf("Erro ao atualizar registro: %v", id)
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		http_error.HttpError(w, 500)
 		return
 	}
 
