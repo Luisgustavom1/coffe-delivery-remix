@@ -1,15 +1,24 @@
 package entities
 
-// TODO
-// ALTERAR PARA ---> 1 para muitos com os produtos ---> 1 carrinho para muitos produtos
 type Cart struct {
-	ID       int64 `json:"id"`
-	Quantity int64 `json:"quantity"`
+	ID       int64         `json:"id"`
+	Products []CartProduct `json:"products"`
+}
+
+// TODO
+// Remove this struct
+type CartSimple struct {
+	ID        int64 `json:"id"`
+	Quantity  int64 `json:"quantity"`
+	ProductId int64 `json:"productId"`
+}
+
+type CartProduct struct {
+	Quantity int64   `json:"quantity"`
 	Product  Product `json:"product"`
 }
 
-type CartSimple struct {
-	ID        int64 `json:"id"`
+type CartProductSimple struct {
 	Quantity  int64 `json:"quantity"`
 	ProductId int64 `json:"productId"`
 }
