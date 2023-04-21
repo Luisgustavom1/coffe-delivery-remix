@@ -2,20 +2,31 @@ package checkout
 
 import (
 	"coffee-delivery-remix/api/entities"
-	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
+	"coffee-delivery-remix/api/pkg/controller/cart/models"
+	"coffee-delivery-remix/api/pkg/controller/errors"
 	"coffee-delivery-remix/api/pkg/serialize"
 	"coffee-delivery-remix/api/services/email"
+	"strconv"
 
 	"encoding/json"
 	"log"
 	"net/http"
+
+	"github.com/go-chi/chi/v5"
 )
 
 func Checkout(w http.ResponseWriter, request *http.Request) {
-	_, err := cart.DeleteAll()
+	cartId, err := strconv.Atoi(chi.URLParam(request, "id"))
 	if err != nil {
-		log.Printf("Erro deletar cart: %v", err)
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		log.Printf("Erro ao fazer o parse do query param id: %v", err)
+		errors.HttpError(w, 500)
+		return
+	}
+
+	_, err = cart.DeleteBy(int64(cartId))
+	if err != nil {
+		log.Printf("Erro ao fazer checkout: %v", err)
+		errors.HttpError(w, 500)
 		return
 	}
 
@@ -23,7 +34,7 @@ func Checkout(w http.ResponseWriter, request *http.Request) {
 	err = json.NewDecoder(request.Body).Decode(&modelEmail)
 	if err != nil {
 		log.Printf("Erro ao decodificar o json: %v", err)
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		errors.HttpError(w, 500)
 		return
 	}
 
@@ -33,7 +44,7 @@ func Checkout(w http.ResponseWriter, request *http.Request) {
 	err = email.SendMail(emailSerialized)
 	if err != nil {
 		log.Printf("Erro ao enviar o email: %v", err)
-		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		errors.HttpError(w, 500)
 		return
 	}
 
