@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 )
 
-func Cart(jsonProduct []byte, cartSerialized *entities.Cart) (err error) {
+func Cart(jsonProduct []byte, cartSerialized *entities.Product) (err error) {
 	var product entities.ProductSimple
 	json.Unmarshal([]byte(jsonProduct), &product)
 
-	err = Product(product, &cartSerialized.Product)
+	err = Product(product, cartSerialized)
 
 	return err
 }

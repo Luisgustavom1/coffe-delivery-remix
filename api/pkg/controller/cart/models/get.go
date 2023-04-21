@@ -4,6 +4,7 @@ import (
 	"coffee-delivery-remix/api/entities"
 	"coffee-delivery-remix/api/pkg/serialize"
 	"coffee-delivery-remix/api/services/db"
+	"log"
 )
 
 func GetById(id int64) (cart entities.Cart, err error) {
@@ -13,33 +14,43 @@ func GetById(id int64) (cart entities.Cart, err error) {
 	}
 	defer connection.Close()
 
-	sql := `SELECT cart.id, cart.quantity, json_build_object('id', coffes.id, 'img', coffes.img, 'price', coffes.price, 'title', coffes.title, 'description', coffes.description, 'stok', coffes.stok, 'categories', coffes.categories) FROM cart JOIN coffes ON cart.productId = coffes.id WHERE cart.id=$1`
+	sql := `
+		SELECT 
+			cp.cart_id, 
+			cp.quantity, 
+			json_build_object(
+				'id', p.id, 
+				'img', p.img, 
+				'price', p.price, 
+				'title', p.title, 
+				'description', p.description, 
+				'type', p.type,
+				'stok', p.stok, 
+				'categories', p.categories
+			) 
+		FROM cart 
+			JOIN cart_product cp ON cp.cart_id = cart.id 
+			JOIN product p ON cp.product_id = p.id 
+		WHERE cart.id=$1`
 
-	row := connection.QueryRow(sql, id)
-
-	var jsonProduct []byte
-	err = row.Scan(&cart.ID, &cart.Quantity, &jsonProduct)
-
-	err = serialize.Cart(jsonProduct, &cart)
-
-	return cart, err
-}
-
-func GetByProductId(id int64) (cart entities.Cart, err error) {
-	connection, err := db.OpenConnection()
+	rows, err := connection.Query(sql, id)
 	if err != nil {
-		return
+		return cart, err
 	}
-	defer connection.Close()
 
-	sql := `SELECT cart.id, cart.quantity, json_build_object('id', coffes.id, 'img', coffes.img, 'price', coffes.price, 'title', coffes.title, 'description', coffes.description, 'stok', coffes.stok, 'categories', coffes.categories) FROM cart JOIN coffes ON cart.productId = coffes.id WHERE product.id=$1`
+	for rows.Next() {
+		var cartProduct entities.CartProduct
+		var jsonProduct []byte
 
-	row := connection.QueryRow(sql, id)
+		err = rows.Scan(&cart.ID, &cartProduct.Quantity, &jsonProduct)
+		if err != nil {
+			log.Printf("Error: %v\n", err.Error())
+			continue
+		}
+		serialize.Cart(jsonProduct, &cartProduct.Product)
 
-	var jsonProduct []byte
-	err = row.Scan(&cart.ID, &cart.Quantity, &jsonProduct)
-
-	err = serialize.Cart(jsonProduct, &cart)
+		cart.Products = append(cart.Products, cartProduct)
+	}
 
 	return cart, err
 }
