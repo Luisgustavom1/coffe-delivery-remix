@@ -2,14 +2,12 @@ version: "3.0"
 
 services:
   api:
-    container_name: coffe_delivery_remix_api
-    image: coffe_delivery_remix/api
+    container_name: coffee_delivery_remix_api
+    image: coffee_delivery_remix/api
     restart: always
-    build:
-      context: ../api
-      dockerfile: Dockerfile
+    build: ../api
     volumes:
-      - coffe_delivery_remix:/var/lib/api
+      - coffee_delivery_remix:/var/lib/api
     ports:
       - "9000:9000"
     env_file:
@@ -18,26 +16,24 @@ services:
       - db
 
   db: 
-    container_name: coffe_delivery_remix_db
-    image: coffe_delivery_remix/db
+    container_name: coffee_delivery_remix_db
+    image: coffee_delivery_remix/db
     restart: always
-    build:
-      context: ../db
-      dockerfile: Dockerfile
+    build: ../db
     environment:
       POSTGRES_PASSWORD: "1459"
-      POSTGRES_USER: "user_coffe"
+      POSTGRES_USER: "user_coffee"
     volumes:
-      - coffe_delivery_remix:/var/lib/postgresql/data
+      - coffee_delivery_remix:/var/lib/postgresql/data
     ports:
       - "6000:6000"
     command: -p 6000
     
 networks:
   default:
-    name: coffe_delivery_remix
+    name: coffee_delivery_remix
     external: true
 
 volumes:
-  coffe_delivery_remix:
+  coffee_delivery_remix:
     external: true
