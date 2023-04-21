@@ -9,7 +9,6 @@ type InsertCartInputDTO struct {
 	Products []entities.CartProductSimple `json:"products"`
 }
 
-
 func Insert(cart InsertCartInputDTO) (id int64, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
@@ -24,7 +23,7 @@ func Insert(cart InsertCartInputDTO) (id int64, err error) {
 	for _, product := range cart.Products {
 		sql := `INSERT INTO cart_product (cart_id, product_id, quantity) VALUES ($1, $2, $3)`
 
-		err = connection.QueryRow(sql, id, product.ProductId, product.Quantity).Scan()
+		_, err = connection.Exec(sql, id, product.ProductId, product.Quantity)
 	}
 
 	return id, err
