@@ -1,14 +1,24 @@
--- psql -U user_coffe
-CREATE DATABASE api_coffe_delivery_remix;
--- CREATE user user_coffe;
-ALTER user user_coffe WITH ENCRYPTED PASSWORD '1459';
-GRANT ALL privileges ON DATABASE api_coffe_delivery_remix TO user_coffe;
-\c api_coffe_delivery_remix;
-CREATE TABLE coffes (id serial primary key, img varchar, price bigint, title varchar, description text, stok bigint, categories varchar);
-GRANT ALL privileges ON ALL tables IN SCHEMA public TO user_coffe;
+-- psql -U user_coffee
+CREATE DATABASE coffee_delivery_remix_db;
+-- CREATE user user_coffee;
+ALTER user user_coffee WITH ENCRYPTED PASSWORD '1459';
+GRANT ALL privileges ON DATABASE coffee_delivery_remix_db TO user_coffee;
+\c coffee_delivery_remix_db;
+CREATE TABLE product (
+  id serial primary key, 
+  img varchar, 
+  price integer, 
+  title varchar, 
+  description text, 
+  stok integer, 
+  categories varchar,
+  type varchar
+);
+GRANT ALL privileges ON ALL tables IN SCHEMA public TO user_coffee;
 
 CREATE TABLE cart (
   id serial PRIMARY KEY,
+  product_id INT NOT NULL,
   quantity integer,
-  productId integer REFERENCES coffes
+  CONSTRAINT fk_product FOREIGN KEY(product_id) REFERENCES product(id)
 );
