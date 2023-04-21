@@ -1,7 +1,6 @@
 package cart
 
 import (
-	"coffee-delivery-remix/api/entities"
 	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
 	products "coffee-delivery-remix/api/pkg/controller/products/models"
 	"encoding/json"
@@ -11,9 +10,9 @@ import (
 )
 
 func Create(w http.ResponseWriter, request *http.Request) {
-	var Cart entities.CartSimple
+	var input cart.InsertCartInputDTO
 
-	err := json.NewDecoder(request.Body).Decode(&Cart)
+	err := json.NewDecoder(request.Body).Decode(&input)
 	if err != nil {
 		log.Printf("Error ao decodificar o json: %v", err)
 		return
@@ -22,36 +21,28 @@ func Create(w http.ResponseWriter, request *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
 	var response map[string]any
-	coffe, _ := products.GetById(Cart.ProductId)
-	if coffe.ID == 0 {
-		response = map[string]any{
-			"Message": "Produto não encontrado",
+	for _, item := range input.Products {
+		product, _ := products.GetById(item.ProductId)
+		if product.ID == 0 {
+			response = map[string]any{
+				"Message": "Produto não encontrado",
+			}
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(response)
+			return
 		}
-		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(response)
-		return
 	}
 
-	productAlreadyExistsInCart, _ := cart.GetByProductId(Cart.ProductId)
-	if productAlreadyExistsInCart.ID != 0 {
-		response = map[string]any{
-			"Message": "Produto ja existente no carrinho",
-		}
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(response)
-		return
-	}
-
-	id, err := cart.Insert(Cart)
+	id, err := cart.Insert(input)
 
 	if err != nil {
 		response = map[string]any{
-			"Message": fmt.Sprintf("Ocorreu um erro ao inserir o produto no carrinho - %v", err),
+			"Message": fmt.Sprintf("Ocorreu um erro criar o carrinho - %v", err),
 		}
 		w.WriteHeader(http.StatusInternalServerError)
 	} else {
 		response = map[string]any{
-			"Message": fmt.Sprintf("Produto inserido no carrinho com sucesso! ID: %d", id),
+			"Message": fmt.Sprintf("Carrinho criado com sucesso! ID: %d", id),
 		}
 		w.WriteHeader(http.StatusCreated)
 	}

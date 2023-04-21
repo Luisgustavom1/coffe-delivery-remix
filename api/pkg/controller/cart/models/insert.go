@@ -5,16 +5,27 @@ import (
 	"coffee-delivery-remix/api/services/db"
 )
 
-func Insert(cart entities.CartSimple) (id int64, err error) {
+type InsertCartInputDTO struct {
+	Products []entities.CartProductSimple `json:"products"`
+}
+
+
+func Insert(cart InsertCartInputDTO) (id int64, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return
 	}
 	defer connection.Close()
 
-	sql := `INSERT INTO cart (quantity, productId) VALUES ($1, $2) RETURNING id`
+	sql := `INSERT INTO cart DEFAULT VALUES RETURNING id`
 
-	err = connection.QueryRow(sql, cart.Quantity, cart.ProductId).Scan(&id)
+	err = connection.QueryRow(sql).Scan(&id)
+
+	for _, product := range cart.Products {
+		sql := `INSERT INTO cart_product (cart_id, product_id, quantity) VALUES ($1, $2, $3)`
+
+		err = connection.QueryRow(sql, id, product.ProductId, product.Quantity).Scan()
+	}
 
 	return id, err
 }
