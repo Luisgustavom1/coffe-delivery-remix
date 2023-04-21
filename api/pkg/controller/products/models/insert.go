@@ -14,7 +14,7 @@ func Insert(product entities.Product) (id int64, err error) {
 	}
 	defer connection.Close()
 
-	sql := `INSERT INTO product (img, price, title, description, stok, categories) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`
+	sql := `INSERT INTO product (img, price, title, description, stok, categories, type) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`
 
 	categoriesSerialized, err := json.Marshal(product.Categories)
 	if err != nil {
@@ -22,7 +22,7 @@ func Insert(product entities.Product) (id int64, err error) {
 		return
 	}
 
-	err = connection.QueryRow(sql, product.Img, product.Price, product.Title, product.Description, product.Stok, categoriesSerialized).Scan(&id)
+	err = connection.QueryRow(sql, product.Img, product.Price, product.Title, product.Description, product.Stok, categoriesSerialized, product.Type).Scan(&id)
 
 	return id, err
 }

@@ -26,7 +26,7 @@ func GetAll() ([]entities.Product, error) {
 		var product entities.ProductSimple
 		var productSerialized entities.Product
 
-		err = rows.Scan(&product.ID, &product.Img, &product.Price, &product.Title, &product.Description, &product.Stok, &product.Categories)
+		err = rows.Scan(&product.ID, &product.Img, &product.Price, &product.Title, &product.Description, &product.Stok, &product.Categories, &product.Type)
 		if err != nil {
 			log.Printf("ERRO: %s\n", err.Error())
 			continue

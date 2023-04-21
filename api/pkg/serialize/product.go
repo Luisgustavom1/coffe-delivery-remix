@@ -18,6 +18,7 @@ func Product(product entities.ProductSimple, productSerialized *entities.Product
 		Description: product.Description,
 		Stok:        product.Stok,
 		Categories:  productCategoriesAsArray,
+		Type:        product.Type,
 	}
 
 	return err

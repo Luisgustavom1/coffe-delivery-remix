@@ -15,8 +15,8 @@ type Product struct {
 	Title       string   `json:"title"`
 	Description string   `json:"description"`
 	Stok        int64    `json:"stok"`
-	Product     string   `json:"product"`
 	Categories  []string `json:"categories"`
+	Type        string   `json:"type"`
 }
 
 type ProductSimple struct {
@@ -26,6 +26,6 @@ type ProductSimple struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	Stok        int64  `json:"stok"`
-	Product     string `json:"product"`
 	Categories  string `json:"categories"`
+	Type        string `json:"type"`
 }
