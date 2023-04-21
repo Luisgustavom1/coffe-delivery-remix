@@ -1,4 +1,4 @@
-package errors
+package http_error
 
 import "net/http"
 
