@@ -18,7 +18,7 @@ func Insert(product entities.Product) (id int64, err error) {
 
 	categoriesSerialized, err := json.Marshal(product.Categories)
 	if err != nil {
-		log.Printf("Erro ao fazer o decode do json: %v", err)
+		log.Printf("Erro ao fazer o decode das categories: %v", err)
 		return
 	}
 
