@@ -1,11 +1,11 @@
-package models
+package entities
 
 // TODO
 // ALTERAR PARA ---> 1 para muitos com os produtos ---> 1 carrinho para muitos produtos
 type Cart struct {
 	ID       int64 `json:"id"`
 	Quantity int64 `json:"quantity"`
-	Product  Coffe `json:"product"`
+	Product  Product `json:"product"`
 }
 
 type CartSimple struct {

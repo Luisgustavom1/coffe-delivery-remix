@@ -1,4 +1,4 @@
-package coffes
+package products
 
 import "coffee-delivery-remix/api/services/db"
 
@@ -9,7 +9,7 @@ func DeleteBy(id int64) (int64, error) {
 	}
 	defer connection.Close()
 
-	res, err := connection.Exec("DELETE FROM coffes WHERE id=$1", id)
+	res, err := connection.Exec("DELETE FROM product WHERE id=$1", id)
 	if err != nil {
 		return 0, err
 	}

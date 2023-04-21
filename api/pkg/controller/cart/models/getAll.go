@@ -1,14 +1,14 @@
 package cart
 
 import (
-	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/entities"
 	"coffee-delivery-remix/api/pkg/serialize"
 	"coffee-delivery-remix/api/services/db"
 	"log"
 )
 
-func GetAll() ([]models.Cart, error) {
-	cart := []models.Cart{}
+func GetAll() ([]entities.Cart, error) {
+	cart := []entities.Cart{}
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return cart, err
@@ -23,7 +23,7 @@ func GetAll() ([]models.Cart, error) {
 	}
 
 	for rows.Next() {
-		var Cart models.Cart
+		var Cart entities.Cart
 		var jsonProduct []byte
 
 		err = rows.Scan(&Cart.ID, &Cart.Quantity, &jsonProduct)

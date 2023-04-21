@@ -1,8 +1,8 @@
-package coffes
+package products
 
 import (
-	"coffee-delivery-remix/api/models"
-	coffes "coffee-delivery-remix/api/pkg/controller/coffes/models"
+	"coffee-delivery-remix/api/entities"
+	products "coffee-delivery-remix/api/pkg/controller/products/models"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -10,16 +10,16 @@ import (
 )
 
 func Create(w http.ResponseWriter, request *http.Request) {
-	var coffe models.Coffe
+	var product entities.Product
 
-	err := json.NewDecoder(request.Body).Decode(&coffe)
+	err := json.NewDecoder(request.Body).Decode(&product)
 	if err != nil {
 		log.Printf("Erro ao fazer o decode do json: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
-	id, err := coffes.Insert(coffe)
+	id, err := products.Insert(product)
 
 	var response map[string]any
 
@@ -30,7 +30,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 	} else {
 		response = map[string]any{
-			"Message": fmt.Sprintf("Café inserido com sucesso! ID: %d", id),
+			"Message": fmt.Sprintf("Produto inserido com sucesso! ID: %d", id),
 		}
 		w.WriteHeader(http.StatusCreated)
 	}

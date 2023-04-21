@@ -1,13 +1,13 @@
 package email
 
 import (
-	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/entities"
 	"fmt"
 	"net/smtp"
 	"os"
 )
 
-func SendMail(email models.Email) error {
+func SendMail(email entities.Email) error {
 	from := os.Getenv("EMAIL_SENDER")
 	password := os.Getenv("EMAIL_PASSWORD")
 
@@ -29,6 +29,6 @@ func SendMail(email models.Email) error {
 	return err
 }
 
-func generateEmailMessage(e models.Email, from string) []byte {
+func generateEmailMessage(e entities.Email, from string) []byte {
 	return []byte(fmt.Sprintf("From: %s\nTo: %s\nSubject: %s\n\n\n%s", from, e.To, e.Subject, e.Message))
 }

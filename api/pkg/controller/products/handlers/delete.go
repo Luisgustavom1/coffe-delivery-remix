@@ -1,8 +1,7 @@
-package coffes
+package products
 
 import (
-	"coffee-delivery-remix/api/models"
-	coffes "coffee-delivery-remix/api/pkg/controller/coffes/models"
+	products "coffee-delivery-remix/api/pkg/controller/products/models"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -11,7 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func Get(w http.ResponseWriter, request *http.Request) {
+func Delete(w http.ResponseWriter, request *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(request, "id"))
 	if err != nil {
 		log.Printf("Erro ao fazer o parse do query param id: %v", err)
@@ -19,21 +18,22 @@ func Get(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	coffe, err := coffes.GetById(int64(id))
-	var response *models.Coffe
-
-	if err != nil && coffe.ID != 0 {
-		log.Printf("Erro ao trazer registro: %v", err)
+	rowsAffected, err := products.DeleteBy(int64(id))
+	if err != nil {
+		log.Printf("Erro ao deletar registro: %v", id)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
-	if coffe.ID != 0 {
-		response = &coffe
-	} else {
-		response = (*models.Coffe)(nil)
+	if rowsAffected > 1 {
+		log.Printf("Error: foram deletados %d registros", rowsAffected)
+	}
+
+	response := map[string]any{
+		"Message": "registro foi deletado com sucesso!",
 	}
 
 	w.Header().Add("Content-type", "application/json")
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
 }

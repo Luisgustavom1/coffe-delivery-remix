@@ -1,4 +1,4 @@
-package models
+package entities
 
 const (
 	SPECIAL     = "especial"
@@ -8,23 +8,24 @@ const (
 	ICE_COLD    = "gelado"
 )
 
-type Coffe struct {
-	ID          int64  `json:"id"`
-	Img         string `json:"img"`
-	Price       int64  `json:"price"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Stok        int64  `json:"stok"`
+type Product struct {
+	ID          int64    `json:"id"`
+	Img         string   `json:"img"`
+	Price       int64    `json:"price"`
+	Title       string   `json:"title"`
+	Description string   `json:"description"`
+	Stok        int64    `json:"stok"`
+	Product     string   `json:"product"`
 	Categories  []string `json:"categories"`
 }
 
-type CoffeSimple struct {
+type ProductSimple struct {
 	ID          int64  `json:"id"`
 	Img         string `json:"img"`
 	Price       int64  `json:"price"`
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	Stok        int64  `json:"stok"`
+	Product     string `json:"product"`
 	Categories  string `json:"categories"`
 }
-

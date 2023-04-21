@@ -1,15 +1,15 @@
 package serialize
 
 import (
-	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/entities"
 	"encoding/json"
 )
 
-func Cart(jsonProduct []byte, cartSerialized *models.Cart) (err error) {
-	var coffe models.CoffeSimple
-	json.Unmarshal([]byte(jsonProduct), &coffe)
+func Cart(jsonProduct []byte, cartSerialized *entities.Cart) (err error) {
+	var product entities.ProductSimple
+	json.Unmarshal([]byte(jsonProduct), &product)
 
-	err = Coffe(coffe, &cartSerialized.Product)
+	err = Product(product, &cartSerialized.Product)
 
 	return err
 }

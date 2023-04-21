@@ -1,8 +1,8 @@
 package checkout
 
 import (
-	"coffee-delivery-remix/api/models"
-	"coffee-delivery-remix/api/pkg/controller/cart/models"
+	"coffee-delivery-remix/api/entities"
+	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
 	"coffee-delivery-remix/api/pkg/serialize"
 	"coffee-delivery-remix/api/services/email"
 
@@ -19,7 +19,7 @@ func Checkout(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	var modelEmail models.EmailSimple
+	var modelEmail entities.EmailSimple
 	err = json.NewDecoder(request.Body).Decode(&modelEmail)
 	if err != nil {
 		log.Printf("Erro ao decodificar o json: %v", err)
@@ -27,7 +27,7 @@ func Checkout(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	var emailSerialized models.Email
+	var emailSerialized entities.Email
 	serialize.Email(modelEmail, &emailSerialized)
 
 	err = email.SendMail(emailSerialized)

@@ -1,7 +1,7 @@
 package cart
 
 import (
-	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/entities"
 	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
 	"encoding/json"
 	"log"
@@ -19,7 +19,7 @@ func UpdateBy(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	var cartUpdate models.CartSimple
+	var cartUpdate entities.CartSimple
 
 	err = json.NewDecoder(request.Body).Decode(&cartUpdate)
 	if err != nil {

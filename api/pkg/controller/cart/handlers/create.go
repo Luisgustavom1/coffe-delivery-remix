@@ -1,9 +1,9 @@
 package cart
 
 import (
-	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/entities"
 	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
-	coffes "coffee-delivery-remix/api/pkg/controller/coffes/models"
+	products "coffee-delivery-remix/api/pkg/controller/products/models"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -11,7 +11,7 @@ import (
 )
 
 func Create(w http.ResponseWriter, request *http.Request) {
-	var Cart models.CartSimple
+	var Cart entities.CartSimple
 
 	err := json.NewDecoder(request.Body).Decode(&Cart)
 	if err != nil {
@@ -22,10 +22,10 @@ func Create(w http.ResponseWriter, request *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
 	var response map[string]any
-	coffe, _ := coffes.GetById(Cart.ProductId)
+	coffe, _ := products.GetById(Cart.ProductId)
 	if coffe.ID == 0 {
 		response = map[string]any{
-			"Message": "Café não encontrado",
+			"Message": "Produto não encontrado",
 		}
 		w.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(w).Encode(response)

@@ -1,11 +1,11 @@
 package serialize
 
 import (
-	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/entities"
 )
 
-func Email(email models.EmailSimple, emailSerialized *models.Email) {
-	*emailSerialized = models.Email{
+func Email(email entities.EmailSimple, emailSerialized *entities.Email) {
+	*emailSerialized = entities.Email{
 		Message: []byte(email.Message),
 		To:      email.To,
 		Subject: email.Subject,

@@ -1,11 +1,11 @@
 package cart
 
 import (
-	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/entities"
 	"coffee-delivery-remix/api/services/db"
 )
 
-func Insert(cart models.CartSimple) (id int64, err error) {
+func Insert(cart entities.CartSimple) (id int64, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return

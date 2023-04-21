@@ -1,7 +1,7 @@
 package cart
 
 import (
-	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/entities"
 	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
 	"encoding/json"
 	"log"
@@ -20,7 +20,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 	}
 
 	cart, err := cart.GetById(int64(id))
-	var response *models.Cart
+	var response *entities.Cart
 
 	if err != nil && cart.ID != 0 {
 		log.Printf("Erro ao trazer registro: %v", err)
@@ -31,7 +31,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 	if cart.ID != 0 {
 		response = &cart
 	} else {
-		response = (*models.Cart)(nil)
+		response = (*entities.Cart)(nil)
 	}
 
 	w.Header().Add("Content-type", "application/json")
