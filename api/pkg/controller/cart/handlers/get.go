@@ -2,7 +2,7 @@ package cart
 
 import (
 	"coffee-delivery-remix/api/entities"
-	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
+	cart_models "coffee-delivery-remix/api/pkg/controller/cart/models"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -19,7 +19,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	cart, err := cart.GetById(int64(id))
+	cart, err := cart_models.GetById(int64(id))
 	var response *entities.Cart
 
 	if err != nil && cart.ID != 0 {

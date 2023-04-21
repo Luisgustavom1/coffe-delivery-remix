@@ -17,6 +17,8 @@ type Product struct {
 	Stok        int64    `json:"stok"`
 	Categories  []string `json:"categories"`
 	Type        string   `json:"type"`
+	CreatedAt   string   `json:"created_at"`
+	UpdatedAt   string   `json:"updated_at"`
 }
 
 type ProductSimple struct {
@@ -28,4 +30,6 @@ type ProductSimple struct {
 	Stok        int64  `json:"stok"`
 	Categories  string `json:"categories"`
 	Type        string `json:"type"`
+	CreatedAt   string `json:"created_at"`
+	UpdatedAt   string `json:"updated_at"`
 }

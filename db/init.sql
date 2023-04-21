@@ -26,7 +26,9 @@ CREATE TABLE product (
 );
 
 CREATE TABLE cart (
-  id serial primary key
+  id serial primary key,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE cart_product (

@@ -17,7 +17,18 @@ func GetById(id int64) (productSerialized entities.Product, err error) {
 	row := connection.QueryRow(sql, id)
 	var product entities.ProductSimple
 
-	err = row.Scan(&product.ID, &product.Img, &product.Price, &product.Title, &product.Description, &product.Stok, &product.Categories, &product.Type)
+	err = row.Scan(
+		&product.ID, 
+		&product.Img, 
+		&product.Price, 
+		&product.Title, 
+		&product.Description, 
+		&product.Stok, 
+		&product.Categories, 
+		&product.Type, 
+		&product.CreatedAt,
+		&product.UpdatedAt,
+	)
 
 	err = serialize.Product(product, &productSerialized)
 
