@@ -6,7 +6,7 @@ import (
 	"coffe-delivery-remix/api/services/db"
 )
 
-func GetById(id int64) (cart models.ProductCart, err error) {
+func GetById(id int64) (cart models.Cart, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return
@@ -25,7 +25,7 @@ func GetById(id int64) (cart models.ProductCart, err error) {
 	return cart, err
 }
 
-func GetByProductId(id int64) (cart models.ProductCart, err error) {
+func GetByProductId(id int64) (cart models.Cart, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return

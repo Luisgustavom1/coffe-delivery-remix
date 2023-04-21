@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 )
 
-func Cart(jsonProduct []byte, cartSerialized *models.ProductCart) (err error) {
+func Cart(jsonProduct []byte, cartSerialized *models.Cart) (err error) {
 	var coffe models.CoffeSimple
 	json.Unmarshal([]byte(jsonProduct), &coffe)
 

@@ -5,7 +5,7 @@ import (
 	"coffe-delivery-remix/api/services/db"
 )
 
-func Insert(cart models.ProductCartSimple) (id int64, err error) {
+func Insert(cart models.CartSimple) (id int64, err error) {
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return

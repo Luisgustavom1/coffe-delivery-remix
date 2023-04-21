@@ -11,9 +11,9 @@ import (
 )
 
 func Create(w http.ResponseWriter, request *http.Request) {
-	var ProductCart models.ProductCartSimple
+	var Cart models.CartSimple
 
-	err := json.NewDecoder(request.Body).Decode(&ProductCart)
+	err := json.NewDecoder(request.Body).Decode(&Cart)
 	if err != nil {
 		log.Printf("Error ao decodificar o json: %v", err)
 		return
@@ -22,7 +22,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
 	var response map[string]any
-	coffe, _ := coffes.GetById(ProductCart.ProductId)
+	coffe, _ := coffes.GetById(Cart.ProductId)
 	if coffe.ID == 0 {
 		response = map[string]any{
 			"Message": "Café não encontrado",
@@ -32,7 +32,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	productAlreadyExistsInCart, _ := cart.GetByProductId(ProductCart.ProductId)
+	productAlreadyExistsInCart, _ := cart.GetByProductId(Cart.ProductId)
 	if productAlreadyExistsInCart.ID != 0 {
 		response = map[string]any{
 			"Message": "Produto ja existente no carrinho",
@@ -42,7 +42,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	id, err := cart.Insert(ProductCart)
+	id, err := cart.Insert(Cart)
 
 	if err != nil {
 		response = map[string]any{

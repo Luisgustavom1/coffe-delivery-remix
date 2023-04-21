@@ -7,8 +7,8 @@ import (
 	"log"
 )
 
-func GetAll() ([]models.ProductCart, error) {
-	cart := []models.ProductCart{}
+func GetAll() ([]models.Cart, error) {
+	cart := []models.Cart{}
 	connection, err := db.OpenConnection()
 	if err != nil {
 		return cart, err
@@ -23,17 +23,17 @@ func GetAll() ([]models.ProductCart, error) {
 	}
 
 	for rows.Next() {
-		var productCart models.ProductCart
+		var Cart models.Cart
 		var jsonProduct []byte
 
-		err = rows.Scan(&productCart.ID, &productCart.Quantity, &jsonProduct)
+		err = rows.Scan(&Cart.ID, &Cart.Quantity, &jsonProduct)
 		if err != nil {
 			log.Printf("Error: %v\n", err.Error())
 			continue
 		}
-		serialize.Cart(jsonProduct, &productCart)
+		serialize.Cart(jsonProduct, &Cart)
 
-		cart = append(cart, productCart)
+		cart = append(cart, Cart)
 	}
 
 	return cart, err
