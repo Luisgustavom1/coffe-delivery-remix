@@ -1,6 +1,6 @@
 package cart
 
-import "coffe-delivery-remix/api/services/db"
+import "coffee-delivery-remix/api/services/db"
 
 func DeleteAll() (int64, error) {
 	connection, err := db.OpenConnection()

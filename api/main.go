@@ -1,8 +1,8 @@
 package main
 
 import (
-	"coffe-delivery-remix/api/cmd/routes"
-	"coffe-delivery-remix/api/configs"
+	"coffee-delivery-remix/api/cmd/routes"
+	"coffee-delivery-remix/api/configs"
 
 	"fmt"
 	"log"

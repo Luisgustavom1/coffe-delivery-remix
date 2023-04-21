@@ -1,9 +1,9 @@
 package cart
 
 import (
-	"coffe-delivery-remix/api/models"
-	"coffe-delivery-remix/api/pkg/serialize"
-	"coffe-delivery-remix/api/services/db"
+	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/pkg/serialize"
+	"coffee-delivery-remix/api/services/db"
 )
 
 func GetById(id int64) (cart models.Cart, err error) {

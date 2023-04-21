@@ -1,10 +1,10 @@
 package checkout
 
 import (
-	"coffe-delivery-remix/api/models"
-	"coffe-delivery-remix/api/pkg/controller/cart/models"
-	"coffe-delivery-remix/api/pkg/serialize"
-	"coffe-delivery-remix/api/services/email"
+	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/pkg/controller/cart/models"
+	"coffee-delivery-remix/api/pkg/serialize"
+	"coffee-delivery-remix/api/services/email"
 
 	"encoding/json"
 	"log"

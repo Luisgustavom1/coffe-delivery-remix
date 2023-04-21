@@ -1,7 +1,7 @@
 package db
 
 import (
-	"coffe-delivery-remix/api/configs"
+	"coffee-delivery-remix/api/configs"
 
 	"database/sql"
 	"fmt"

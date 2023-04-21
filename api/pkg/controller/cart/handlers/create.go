@@ -1,9 +1,9 @@
 package cart
 
 import (
-	"coffe-delivery-remix/api/models"
-	cart "coffe-delivery-remix/api/pkg/controller/cart/models"
-	coffes "coffe-delivery-remix/api/pkg/controller/coffes/models"
+	"coffee-delivery-remix/api/models"
+	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
+	coffes "coffee-delivery-remix/api/pkg/controller/coffes/models"
 	"encoding/json"
 	"fmt"
 	"log"

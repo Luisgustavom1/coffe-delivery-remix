@@ -1,8 +1,8 @@
 package cart
 
 import (
-	"coffe-delivery-remix/api/models"
-	"coffe-delivery-remix/api/services/db"
+	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/services/db"
 )
 
 func Insert(cart models.CartSimple) (id int64, err error) {

@@ -1,8 +1,8 @@
 package coffes
 
 import (
-	"coffe-delivery-remix/api/models"
-	"coffe-delivery-remix/api/services/db"
+	"coffee-delivery-remix/api/models"
+	"coffee-delivery-remix/api/services/db"
 	"encoding/json"
 	"log"
 )

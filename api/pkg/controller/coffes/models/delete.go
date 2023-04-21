@@ -1,6 +1,6 @@
 package coffes
 
-import "coffe-delivery-remix/api/services/db"
+import "coffee-delivery-remix/api/services/db"
 
 func DeleteBy(id int64) (int64, error) {
 	connection, err := db.OpenConnection()

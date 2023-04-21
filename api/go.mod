@@ -1,4 +1,4 @@
-module coffe-delivery-remix/api
+module coffee-delivery-remix/api
 
 go 1.19
 

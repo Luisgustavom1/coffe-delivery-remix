@@ -1,7 +1,7 @@
 package email
 
 import (
-	"coffe-delivery-remix/api/models"
+	"coffee-delivery-remix/api/models"
 	"fmt"
 	"net/smtp"
 	"os"

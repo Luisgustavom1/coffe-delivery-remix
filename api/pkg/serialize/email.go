@@ -1,7 +1,7 @@
 package serialize
 
 import (
-	"coffe-delivery-remix/api/models"
+	"coffee-delivery-remix/api/models"
 )
 
 func Email(email models.EmailSimple, emailSerialized *models.Email) {
