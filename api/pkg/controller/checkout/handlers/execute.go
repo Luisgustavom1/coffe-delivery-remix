@@ -23,7 +23,7 @@ func Checkout(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	_, err = cart.DeleteBy(int64(cartId))
+	_, err = cart.DeleteById(int64(cartId))
 	if err != nil {
 		log.Printf("Erro ao fazer checkout: %v", err)
 		http_error.HttpError(w, 500)

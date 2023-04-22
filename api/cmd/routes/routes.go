@@ -28,9 +28,10 @@ func productsRoutes(r *chi.Mux) {
 
 func cartRoutes(r *chi.Mux) {
 	r.Post("/cart", cart.Create)
-	r.Delete("/cart/{id}", cart.Delete)
+	r.Delete("/cart/{id}", cart.DeleteCart)
 	r.Put("/cart/{id}", cart.UpdateBy)
 	r.Get("/cart/{id}", cart.Get)
+	r.Delete("/cart/{id}/product/{productId}", cart.DeleteCartProduct)
 }
 
 func checkoutRoutes(r *chi.Mux) {
