@@ -57,10 +57,7 @@ function* deleteCartProduct<T extends number>(action: PayloadAction<T>) {
 
    try {
       yield call((productId: T) => {
-         return api.put(`/cart/${cart.id}`, {
-            productId,
-            quantity: 0
-         })
+         return api.delete(`/cart/${cart.id}/product/${productId}`)
       }, action.payload);
       yield put(CartActions.calculateCartTotal())
    } catch (e) {
