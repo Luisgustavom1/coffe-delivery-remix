@@ -1,4 +1,4 @@
-package cart
+package repository
 
 import "database/sql"
 

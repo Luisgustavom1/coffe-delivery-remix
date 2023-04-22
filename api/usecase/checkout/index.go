@@ -1,7 +1,7 @@
 package checkout
 
 import (
-	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
+	cart "coffee-delivery-remix/api/infra/repository/cart"
 )
 
 type CheckoutUseCase struct {

@@ -1,4 +1,4 @@
-package products
+package repository
 
 func (p *ProductRepository) DeleteBy(id int64) (int64, error) {
 	res, err := p.Conn.Exec("DELETE FROM product WHERE id=$1", id)

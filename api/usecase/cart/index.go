@@ -1,8 +1,8 @@
 package cart
 
 import (
-	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
-	products "coffee-delivery-remix/api/pkg/controller/products/models"
+	cart "coffee-delivery-remix/api/infra/repository/cart"
+	products "coffee-delivery-remix/api/infra/repository/products"
 )
 
 type CartUseCase struct {

@@ -1,8 +1,8 @@
-package products
+package repository
 
 import (
 	"coffee-delivery-remix/api/entities"
-	"coffee-delivery-remix/api/pkg/serialize"
+	"coffee-delivery-remix/api/infra/adapters"
 )
 
 func (p *ProductRepository) GetById(id int64) (productSerialized entities.Product, err error) {
@@ -27,7 +27,7 @@ func (p *ProductRepository) GetById(id int64) (productSerialized entities.Produc
 		return productSerialized, err
 	}
 
-	err = serialize.Product(product, &productSerialized)
+	err = adapters.Product(product, &productSerialized)
 
 	return productSerialized, err
 }

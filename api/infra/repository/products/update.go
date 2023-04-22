@@ -1,4 +1,4 @@
-package products
+package repository
 
 import (
 	"coffee-delivery-remix/api/entities"

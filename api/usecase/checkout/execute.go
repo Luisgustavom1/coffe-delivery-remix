@@ -2,8 +2,8 @@ package checkout
 
 import (
 	"coffee-delivery-remix/api/entities"
-	http_error "coffee-delivery-remix/api/pkg/errors"
-	"coffee-delivery-remix/api/pkg/serialize"
+	serialize "coffee-delivery-remix/api/infra/adapters"
+	http_error "coffee-delivery-remix/api/infra/errors"
 	"coffee-delivery-remix/api/services/email"
 	"strconv"
 

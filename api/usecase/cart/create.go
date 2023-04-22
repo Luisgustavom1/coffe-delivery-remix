@@ -1,7 +1,7 @@
 package cart
 
 import (
-	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
+	"coffee-delivery-remix/api/infra/repository/cart"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -9,7 +9,7 @@ import (
 )
 
 func (c *CartUseCase) Create(w http.ResponseWriter, request *http.Request) {
-	var input cart.InsertCartInputDTO
+	var input repository.InsertCartInputDTO
 
 	err := json.NewDecoder(request.Body).Decode(&input)
 	if err != nil {

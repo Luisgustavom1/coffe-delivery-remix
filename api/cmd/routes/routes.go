@@ -1,11 +1,11 @@
 package routes
 
 import (
-	cart_usecase "coffee-delivery-remix/api/pkg/controller/cart/handlers"
-	cart_repo "coffee-delivery-remix/api/pkg/controller/cart/models"
-	checkout "coffee-delivery-remix/api/pkg/controller/checkout/handlers"
-	product_usecase "coffee-delivery-remix/api/pkg/controller/products/handlers"
-	product_repo "coffee-delivery-remix/api/pkg/controller/products/models"
+	repository_cart "coffee-delivery-remix/api/infra/repository/cart"
+	repository_product "coffee-delivery-remix/api/infra/repository/products"
+	cart_usecase "coffee-delivery-remix/api/usecase/cart"
+	checkout "coffee-delivery-remix/api/usecase/checkout"
+	product_usecase "coffee-delivery-remix/api/usecase/products"
 	"database/sql"
 
 	"github.com/go-chi/chi/v5"
@@ -14,8 +14,8 @@ import (
 func Routes(conn *sql.DB) *chi.Mux {
 	r := chi.NewRouter()
 
-	cartRepository := *cart_repo.NewCartRepository(conn)
-	productRepository := *product_repo.NewProductRepository(conn)
+	cartRepository := *repository_cart.NewCartRepository(conn)
+	productRepository := *repository_product.NewProductRepository(conn)
 
 	productUsecase := *product_usecase.NewProductUseCase(productRepository)
 	cartUsecase := *cart_usecase.NewCartUseCase(cartRepository, productRepository)

@@ -1,8 +1,8 @@
-package cart
+package repository
 
 import (
 	"coffee-delivery-remix/api/entities"
-	"coffee-delivery-remix/api/pkg/serialize"
+	"coffee-delivery-remix/api/infra/adapters"
 	"log"
 )
 
@@ -40,7 +40,7 @@ func (db *CartRepository) GetById(id int64) (cart entities.Cart, err error) {
 			log.Printf("Error: %v\n", err.Error())
 			continue
 		}
-		serialize.Cart(jsonProduct, &cartProduct.Product)
+		adapters.Cart(jsonProduct, &cartProduct.Product)
 
 		cart.Products = append(cart.Products, cartProduct)
 	}

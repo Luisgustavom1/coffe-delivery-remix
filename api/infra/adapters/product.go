@@ -1,4 +1,4 @@
-package serialize
+package adapters
 
 import (
 	"coffee-delivery-remix/api/entities"

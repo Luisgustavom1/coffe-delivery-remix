@@ -1,4 +1,4 @@
-package cart
+package repository
 
 func (db *CartRepository) DeleteById(id int64) (int64, error) {
 	sql := `DELETE FROM cart WHERE id=$1`
