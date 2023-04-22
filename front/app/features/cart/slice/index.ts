@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { Product } from '@/@types/Api/Cart';
+import type { Cart, CartProduct } from '@/@types/Api/Cart';
 
 enum CartActionsEnum {
   SET_CART_PRODUCT = 'cart/setCartProduct',
@@ -12,7 +12,7 @@ enum CartActionsEnum {
 }
 
 interface CartState {
-  cart: Array<Product>
+  cart: Cart
   cartTotal: {
     items: number
     freight: number
@@ -20,7 +20,11 @@ interface CartState {
 }
 
 const initialState: CartState = {
-  cart: [],
+  // FIX THIS, TO NOT USE Type Assertions
+  cart: {
+    id: -1,
+    products: []
+  } as Cart,
   cartTotal: {
     items: 0,
     freight: 0
@@ -31,21 +35,21 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addCartProduct: (state, action: PayloadAction<Product>) => {      
+    addCartProduct: (state, action: PayloadAction<CartProduct>) => {      
       const { product: currentProduct } = action.payload
 
-      const productAlreadyExistsInCart = state.cart.find(
-        ({product}) => product.id === currentProduct.id
+      const productAlreadyExistsInCart = state.cart.products.find(
+        ({ product }) => product.id === currentProduct.id
       )
 
       if (productAlreadyExistsInCart) return
 
-      state.cart = state.cart.concat(action.payload)
+      state.cart.products = state.cart.products.concat(action.payload)
     },
-    updateCartProduct: (state, action: PayloadAction<Product>) => {      
+    updateCartProduct: (state, action: PayloadAction<CartProduct>) => {      
       const { product } = action.payload
 
-      state.cart = state.cart.map(
+      state.cart.products = state.cart.products.map(
         (c) => 
           c.product.id === product.id 
             ? {
@@ -58,26 +62,27 @@ const cartSlice = createSlice({
     deleteCartProduct: (state, action: PayloadAction<number>) => {      
       const cartId = action.payload
       
-      state.cart = state.cart.filter(({ id }) => id !== cartId)
+      state.cart.products = state.cart.products.filter(({ product: { id } }) => id !== cartId)
       return;
     },
     clearCart: (state) => {
-      state.cart = []
+      // FIX THIS, TO NOT USE Type Assertions
+      state.cart = {} as Cart
       state.cartTotal = {
         freight: 0,
         items: 0
       }
       return
     },
-    setCartProduct: (state, action: PayloadAction<Array<Product>>) => {
+    setCartProduct: (state, action: PayloadAction<CartState['cart']>) => {
       state.cart = action.payload
     },
     calculateCartTotal: (state) => {
       const cart = state.cart
-      const totalItems = cart.reduce((acc, currentProduct) => acc + (currentProduct.product.price * currentProduct.quantity), 0)
+      const totalItems = cart.products.reduce((acc, currentProduct) => acc + (currentProduct.product.price * currentProduct.quantity), 0)
 
       state.cartTotal.items = totalItems;
-      state.cartTotal.freight = 350 * cart.length;
+      state.cartTotal.freight = 350 * cart.products.length;
     }
   },
 })

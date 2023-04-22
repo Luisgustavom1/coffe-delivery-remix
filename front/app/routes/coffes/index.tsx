@@ -1,19 +1,19 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { CoffeCards } from "@/components/CoffeCards";
+import { CoffeeCards } from "@/components/CoffeeCards";
 import api from "@/services/api";
-import type { Product, Coffe } from "@/@types/Api/Cart";
+import type { Cart, Product } from "@/@types/Api/Cart";
 import { useDispatch } from "react-redux";
 import { CartActions } from "@/features/cart/slice";
 
 let didInit = false;
 
-type ApiCoffesResponse = Array<Coffe>;
-type ApiCartResponse = Array<Product>;
+type ApiProductsResponse = Array<Product>;
+type ApiCartResponse = Cart;
 
 interface LoaderResponse {
-  coffes: ApiCoffesResponse;
+  products: ApiProductsResponse;
   cart: ApiCartResponse;
 }
 
@@ -28,17 +28,17 @@ export function ErrorBoundary({ error }: { error: Error }) {
 }
 
 export const loader: LoaderFunction = async () => {
-  const { data: allCoffes } = await api.get<ApiCoffesResponse>("/coffes");
-  const { data: cartProducts } = await api.get<ApiCartResponse>("/cart");
-  
+  const { data: products } = await api.get<ApiProductsResponse>("/products");
+  const { data: cart } = await api.get<ApiCartResponse>("/cart/101");
+
   return json<LoaderResponse>({
-    coffes: allCoffes,
-    cart: cartProducts,
+    products,
+    cart,
   });
 };
 
-const CoffesIndexRoute = () => {
-  const { cart, coffes } = useLoaderData<LoaderResponse>();
+const ProductsIndexRoute = () => {
+  const { cart, products } = useLoaderData<LoaderResponse>();
   const dispatch = useDispatch();
 
   if (!didInit) {
@@ -50,12 +50,12 @@ const CoffesIndexRoute = () => {
       <h2 className="typography-title-l text-base-subtitle">Nossos cafés</h2>
 
       <div className="mt-14 flex flex-wrap justify-center gap-x-8 gap-y-10">
-        {coffes.map((coffe) => (
-          <CoffeCards key={coffe.id} coffe={coffe} />
+        {products.map((coffee) => (
+          <CoffeeCards key={coffee.id} coffee={coffee} />
         ))}
       </div>
     </main>
   );
 };
 
-export default CoffesIndexRoute;
+export default ProductsIndexRoute;

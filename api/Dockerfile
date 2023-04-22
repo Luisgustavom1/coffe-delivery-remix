@@ -8,7 +8,7 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o /coffe_delivery_remix_api
+RUN go build -o /coffee_delivery_remix_api
 
-CMD [ "/coffe_delivery_remix_api" ]
+CMD [ "/coffee_delivery_remix_api" ]
 

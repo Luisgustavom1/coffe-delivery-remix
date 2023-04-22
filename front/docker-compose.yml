@@ -2,8 +2,8 @@ version: "1.0"
 
 services:
   front: 
-    container_name: coffe_delivery_remix_front
-    image: coffe_delivery_remix/front
+    container_name: coffee_delivery_remix_front
+    image: coffee_delivery_remix/front
     restart: always
     network_mode: "host"
     build: .
