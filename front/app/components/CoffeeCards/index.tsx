@@ -1,4 +1,4 @@
-import type { Coffe } from "@/@types/Api/Cart";
+import type { Product } from "@/@types/Api/Cart";
 import { CartActions } from "@/features/cart/slice";
 import { cartSelector } from "@/features/cart/slice/selectors";
 import { formatPrice } from "@/utils/formats";
@@ -8,15 +8,15 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { InputNumber } from "@/components/UI/InputNumber";
 
-interface ICoffeCardsProps {
-  coffe: Coffe;
+interface ICoffeeCardsProps {
+  coffee: Product;
 }
 
-export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
+export const CoffeeCards = ({ coffee }: ICoffeeCardsProps) => {
   const dispatch = useDispatch();
   const cart = useSelector(cartSelector);
   
-  const productAlreadyExistsInCart = cart.find(({ product }) => product?.id === coffe.id);
+  const productAlreadyExistsInCart = cart.products.find(({ product }) => product?.id === coffee.id);
 
   const [quantityInputValue, setQuantityInputValue] = useState(productAlreadyExistsInCart?.quantity || 0)
 
@@ -24,15 +24,14 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
     e.preventDefault();
 
     if (productAlreadyExistsInCart && !quantityInputValue) {
-      dispatch(CartActions.deleteCartProduct(productAlreadyExistsInCart.id));
+      dispatch(CartActions.deleteCartProduct(productAlreadyExistsInCart.product.id));
       return;
     }
 
     if (!productAlreadyExistsInCart) {
       dispatch(
         CartActions.addCartProduct({
-          ...coffe,
-          product: coffe,
+          product: coffee,
           quantity: quantityInputValue,
         })
       );
@@ -41,9 +40,8 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
     if (productAlreadyExistsInCart) {
       dispatch(
         CartActions.updateCartProduct({
+          ...productAlreadyExistsInCart,
           quantity: quantityInputValue,
-          id: productAlreadyExistsInCart.id,
-          product: coffe,
         })
       );
     }
@@ -58,12 +56,12 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
     >
       <header className="-mt-14 mb-4">
         <img
-          src={coffe.img}
-          alt={`Foto do ${coffe.title} - ${coffe.description}`}
+          src={coffee.img}
+          alt={`Foto do ${coffee.title} - ${coffee.description}`}
           className="mx-auto"
         />
         <div className="flex justify-center gap-1 select-none">
-          {coffe.categories.map((categorie, i) => (
+          {coffee.categories.map((categorie, i) => (
             <span
               key={i}
               className="bg-yellow-light text-yellow-dark inline-flex justify-center rounded-full py-1 px-2 mt-3"
@@ -78,17 +76,17 @@ export const CoffeCards = ({ coffe }: ICoffeCardsProps) => {
 
       <article className="text-center mb-8">
         <h3 className="typography-title-s text-base-subtitle mb-2">
-          {coffe.title}
+          {coffee.title}
         </h3>
         <p className="typography-regular-s text-base-label">
-          {coffe.description}
+          {coffee.description}
         </p>
       </article>
 
       <footer className="flex items-center gap-6">
         <div className="text-base-text flex gap-1">
           <p className="typography-regular-s">R$</p>
-          <h6 className="typography-title-m">{formatPrice(coffe.price)}</h6>
+          <h6 className="typography-title-m">{formatPrice(coffee.price)}</h6>
         </div>
 
         <form className="flex gap-4" onSubmit={handleSubmit}>

@@ -1,11 +1,14 @@
-import type { Product } from '@/@types/Api/Cart';
+import type { CartProduct } from '@/@types/Api/Cart';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { AxiosError } from 'axios';
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest, select } from 'redux-saga/effects'
 import api from '@/services/api';
 import { handleError } from '@/utils/handlers'
 import { toast } from 'react-toastify';
 import { CartActions, CartActionsEnum } from '.';
+import { cartSelector } from './selectors';
+
+type CartSelector = ReturnType<typeof cartSelector>
 
 function* setCartProduct() {
    try {
@@ -16,7 +19,7 @@ function* setCartProduct() {
    }
 }
 
-function* addCartProduct<T extends Product>(action: PayloadAction<T>) {
+function* addCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
    try {
       if (!action.payload.quantity) return;
 
@@ -33,13 +36,13 @@ function* addCartProduct<T extends Product>(action: PayloadAction<T>) {
    }
 }
 
-function* updateCartProduct<T extends Product>(action: PayloadAction<T>) {
+function* updateCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
+   const cart: CartSelector = yield select(cartSelector)
    try {
-      yield call((productUpdated: T) => {
-         return api.put(`/cart/${productUpdated.id}`, {
-            id: productUpdated.id,
-            productId: productUpdated.product.id,
-            quantity: productUpdated.quantity,
+      yield call(({ quantity, product: productUpdated }: T) => {
+         return api.put(`/cart/${cart.id}`, {
+            productId: productUpdated.id,
+            quantity: quantity,
          })
       }, action.payload);
       yield put(CartActions.calculateCartTotal())
@@ -50,9 +53,14 @@ function* updateCartProduct<T extends Product>(action: PayloadAction<T>) {
 }
 
 function* deleteCartProduct<T extends number>(action: PayloadAction<T>) {
+   const cart: CartSelector = yield select(cartSelector)
+
    try {
       yield call((productId: T) => {
-         return api.delete(`/cart/${productId}`)
+         return api.put(`/cart/${cart.id}`, {
+            productId,
+            quantity: 0
+         })
       }, action.payload);
       yield put(CartActions.calculateCartTotal())
    } catch (e) {

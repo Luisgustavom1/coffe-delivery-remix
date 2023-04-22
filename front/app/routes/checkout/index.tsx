@@ -1,5 +1,5 @@
 import type { LoaderFunction } from "@remix-run/node";
-import type { Product } from "@/@types/Api/Cart";
+import type { Cart, CartProduct } from "@/@types/Api/Cart";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { Trash } from "phosphor-react";
@@ -8,49 +8,50 @@ import { InputNumber } from "@/components/UI/InputNumber";
 import { formatPrice } from "@/utils/formats";
 import { Button } from "@/components/UI/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { cartSelector, cartTotalSelector } from "@/features/cart/slice/selectors";
+import {
+  cartSelector,
+  cartTotalSelector,
+} from "@/features/cart/slice/selectors";
 import { CartActions } from "@/features/cart/slice";
 
-let didInit = false
-
-type UpdateCartQuantity = (cart: Product) => void
-
-type LoaderResponse = Array<Product>;
+let didInit = false;
 
 export const loader: LoaderFunction = async () => {
-  const { data } = await api.get<LoaderResponse>("/cart");
+  const { data } = await api.get<Cart>("/cart/101");
 
-  return json<LoaderResponse>(data);
+  return json<Cart>(data);
 };
 
-const CheckoutIndexRoute = () => {
-  const cart = useLoaderData<LoaderResponse>();
+const CheckoutIndex = () => {
+  const cart = useLoaderData<Cart>();
   const dispatch = useDispatch();
   const cartState = useSelector(cartSelector);
   const cartTotal = useSelector(cartTotalSelector);
 
   if (!didInit) {
-    didInit = true
-    dispatch(CartActions.setCartProduct(cart));
+    didInit = true;
+    if (cart) dispatch(CartActions.setCartProduct(cart));
   }
 
-  const updateCartQuantity: UpdateCartQuantity = ({ id, product, quantity }) => {
+  const updateCartQuantity = ({
+    product,
+    quantity
+  }: CartProduct) => {
     if (quantity === 0) {
-      dispatch(CartActions.deleteCartProduct(id));
-      return
-    } 
+      dispatch(CartActions.deleteCartProduct(product.id));
+      return;
+    }
 
     dispatch(
       CartActions.updateCartProduct({
-        id,
         product,
-        quantity: Number(quantity),
+        quantity,
       })
     );
-  }
+  };
   return (
     <>
-      {(cartState || cart).map(({ product, quantity, id }) => (
+      {cartState.products.map(({ product, quantity }) => (
         <section
           key={product.id}
           className="flex pb-8 border-b border-base-button mb-6"
@@ -68,12 +69,15 @@ const CheckoutIndexRoute = () => {
               <InputNumber
                 defaultValue={quantity}
                 onChange={(quantityUpdated) => {
-                  updateCartQuantity({ product, id, quantity: quantityUpdated })
+                  updateCartQuantity({
+                    product,
+                    quantity: quantityUpdated,
+                  });
                 }}
               />
               <button
                 onClick={() => {
-                  dispatch(CartActions.deleteCartProduct(id));
+                  dispatch(CartActions.deleteCartProduct(product.id));
                 }}
                 className="disabled:brightness-75 disabled:opacity-80"
               >
@@ -103,19 +107,24 @@ const CheckoutIndexRoute = () => {
           <p>R$ {formatPrice(cartTotal.items + cartTotal.freight)}</p>
         </span>
       </article>
-      {cartState.length === 0 ? 
+      {cartState.products.length === 0 ? (
         <p className="typography-bold-m text-yellow-dark text-center mt-2">
-          Ops! Parece que você não tem produtos no carrinho{' '}
-          <Link to="/coffes" className="typography-bold-m text-purple hover:underline"> 
-            clique aqui 
-          </Link>
-          {' '}
+          Ops! Parece que você não tem produtos no carrinho{" "}
+          <Link
+            to="/coffes"
+            className="typography-bold-m text-purple hover:underline"
+          >
+            clique aqui
+          </Link>{" "}
           para fazer seu pedido
-        </p> 
-        : <Button variant="secondary" type='submit'>Confirmar pedido</Button>
-      }
+        </p>
+      ) : (
+        <Button variant="secondary" type="submit">
+          Confirmar pedido
+        </Button>
+      )}
     </>
   );
 };
 
-export default CheckoutIndexRoute;
+export default CheckoutIndex;

@@ -22,7 +22,6 @@ const checkoutSlice = createSlice({
   initialState,
   reducers: {
     setCheckoutData: (state, action: PayloadAction<CheckoutState>) => {      
-      console.log(action.payload)
       state.address = action.payload.address
       state.paymentType = action.payload.paymentType
     },
