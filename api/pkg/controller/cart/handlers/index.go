@@ -2,14 +2,17 @@ package cart
 
 import (
 	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
+	products "coffee-delivery-remix/api/pkg/controller/products/models"
 )
 
 type CartUseCase struct {
-	cartRepository cart.CartRepository
+	cartRepository    cart.CartRepository
+	productRepository products.ProductRepository
 }
 
-func NewCartUseCase(repo cart.CartRepository) *CartUseCase {
+func NewCartUseCase(c cart.CartRepository, p products.ProductRepository) *CartUseCase {
 	return &CartUseCase{
-		cartRepository: repo,
+		cartRepository:    c,
+		productRepository: p,
 	}
 }

@@ -2,14 +2,13 @@ package products
 
 import (
 	"coffee-delivery-remix/api/entities"
-	products "coffee-delivery-remix/api/pkg/controller/products/models"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 )
 
-func Create(w http.ResponseWriter, request *http.Request) {
+func (p *ProductUseCase) Create(w http.ResponseWriter, request *http.Request) {
 	var product entities.Product
 
 	err := json.NewDecoder(request.Body).Decode(&product)
@@ -19,7 +18,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	id, err := products.Insert(product)
+	id, err := p.productRepository.Insert(product)
 
 	var response map[string]any
 

@@ -1,7 +1,6 @@
 package products
 
 import (
-	products "coffee-delivery-remix/api/pkg/controller/products/models"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -10,7 +9,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func Delete(w http.ResponseWriter, request *http.Request) {
+func (p *ProductUseCase) Delete(w http.ResponseWriter, request *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(request, "id"))
 	if err != nil {
 		log.Printf("Erro ao fazer o parse do query param id: %v", err)
@@ -18,7 +17,7 @@ func Delete(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	rowsAffected, err := products.DeleteBy(int64(id))
+	rowsAffected, err := p.productRepository.DeleteBy(int64(id))
 	if err != nil {
 		log.Printf("Erro ao deletar registro: %v", id)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)

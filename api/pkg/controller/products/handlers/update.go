@@ -2,7 +2,6 @@ package products
 
 import (
 	"coffee-delivery-remix/api/entities"
-	products "coffee-delivery-remix/api/pkg/controller/products/models"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -11,7 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func Update(w http.ResponseWriter, request *http.Request) {
+func (p *ProductUseCase) Update(w http.ResponseWriter, request *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(request, "id"))
 	if err != nil {
 		log.Printf("Erro ao fazer o parse do query param id: %v", err)
@@ -28,7 +27,7 @@ func Update(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	rowsAffected, err := products.UpdateBy(int64(id), product)
+	rowsAffected, err := p.productRepository.UpdateBy(int64(id), product)
 	if err != nil {
 		log.Printf("Erro ao atualizar registro: %v", id)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)

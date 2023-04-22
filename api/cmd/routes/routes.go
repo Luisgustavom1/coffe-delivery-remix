@@ -4,7 +4,8 @@ import (
 	cart_usecase "coffee-delivery-remix/api/pkg/controller/cart/handlers"
 	cart_repo "coffee-delivery-remix/api/pkg/controller/cart/models"
 	checkout "coffee-delivery-remix/api/pkg/controller/checkout/handlers"
-	products "coffee-delivery-remix/api/pkg/controller/products/handlers"
+	product_usecase "coffee-delivery-remix/api/pkg/controller/products/handlers"
+	product_repo "coffee-delivery-remix/api/pkg/controller/products/models"
 	"database/sql"
 
 	"github.com/go-chi/chi/v5"
@@ -13,23 +14,26 @@ import (
 func Routes(conn *sql.DB) *chi.Mux {
 	r := chi.NewRouter()
 
-	cartRepository := cart_repo.NewCartRepository(conn)
-	cartUsecase := *cart_usecase.NewCartUseCase(*cartRepository)
-	checkoutUsecase := *checkout.NewCheckoutUseCase(*cartRepository)
+	cartRepository := *cart_repo.NewCartRepository(conn)
+	productRepository := *product_repo.NewProductRepository(conn)
 
-	productsRoutes(r)
+	productUsecase := *product_usecase.NewProductUseCase(productRepository)
+	cartUsecase := *cart_usecase.NewCartUseCase(cartRepository, productRepository)
+	checkoutUsecase := *checkout.NewCheckoutUseCase(cartRepository)
+
+	productsRoutes(r, productUsecase)
 	cartRoutes(r, cartUsecase)
 	checkoutRoutes(r, checkoutUsecase)
 
 	return r
 }
 
-func productsRoutes(r *chi.Mux) {
-	r.Post("/products", products.Create)
-	r.Put("/products/{id}", products.Update)
-	r.Delete("/products/{id}", products.Delete)
-	r.Get("/products", products.List)
-	r.Get("/products/{id}", products.Get)
+func productsRoutes(r *chi.Mux, p product_usecase.ProductUseCase) {
+	r.Post("/products", p.Create)
+	r.Put("/products/{id}", p.Update)
+	r.Delete("/products/{id}", p.Delete)
+	r.Get("/products", p.List)
+	r.Get("/products/{id}", p.Get)
 }
 
 func cartRoutes(r *chi.Mux, c cart_usecase.CartUseCase) {

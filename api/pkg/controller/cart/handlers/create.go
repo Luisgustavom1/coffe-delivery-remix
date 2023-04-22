@@ -2,7 +2,6 @@ package cart
 
 import (
 	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
-	products "coffee-delivery-remix/api/pkg/controller/products/models"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -22,7 +21,7 @@ func (c *CartUseCase) Create(w http.ResponseWriter, request *http.Request) {
 
 	var response map[string]any
 	for _, item := range input.Products {
-		product, _ := products.GetById(item.ProductId)
+		product, _ := c.productRepository.GetById(item.ProductId)
 		if product.ID == 0 {
 			response = map[string]any{
 				"Message": "Produto não encontrado",
