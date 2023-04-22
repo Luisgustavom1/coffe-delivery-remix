@@ -3,7 +3,7 @@ package main
 import (
 	"coffee-delivery-remix/api/cmd/routes"
 	"coffee-delivery-remix/api/configs"
-	"coffee-delivery-remix/api/services/db"
+	"coffee-delivery-remix/api/infra/db"
 
 	"fmt"
 	"log"
