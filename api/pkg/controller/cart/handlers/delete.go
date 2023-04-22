@@ -1,7 +1,7 @@
 package cart
 
 import (
-	http_error "coffee-delivery-remix/api/pkg/controller/errors"
+	http_error "coffee-delivery-remix/api/pkg/errors"
 	"encoding/json"
 	"log"
 	"net/http"

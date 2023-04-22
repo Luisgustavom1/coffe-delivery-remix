@@ -2,7 +2,7 @@ package checkout
 
 import (
 	"coffee-delivery-remix/api/entities"
-	http_error "coffee-delivery-remix/api/pkg/controller/errors"
+	http_error "coffee-delivery-remix/api/pkg/errors"
 	"coffee-delivery-remix/api/pkg/serialize"
 	"coffee-delivery-remix/api/services/email"
 	"strconv"
