@@ -2,7 +2,7 @@ package checkout
 
 import (
 	"coffee-delivery-remix/api/entities"
-	serialize "coffee-delivery-remix/api/infra/adapters"
+	"coffee-delivery-remix/api/infra/adapters"
 	"coffee-delivery-remix/api/infra/email"
 	http_error "coffee-delivery-remix/api/infra/errors"
 	"strconv"
@@ -38,7 +38,7 @@ func (c *CheckoutUseCase) Checkout(w http.ResponseWriter, request *http.Request)
 	}
 
 	var emailSerialized entities.Email
-	serialize.Email(modelEmail, &emailSerialized)
+	adapters.Email(modelEmail, &emailSerialized)
 
 	err = email.SendMail(emailSerialized)
 	if err != nil {
