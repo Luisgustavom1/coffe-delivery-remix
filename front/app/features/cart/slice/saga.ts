@@ -19,7 +19,7 @@ function* setCartProduct() {
    }
 }
 
-function* addCartProduct<T extends CartProduct>(action: PayloadAction<T>) {
+function* createCart<T extends CartProduct>(action: PayloadAction<T>) {
    try {
       if (!action.payload.quantity) return;
 
@@ -68,7 +68,7 @@ function* deleteCartProduct<T extends number>(action: PayloadAction<T>) {
 
 export function* cartSaga() {
   yield takeLatest(CartActionsEnum.SET_CART_PRODUCT, setCartProduct);
-  yield takeLatest(CartActionsEnum.ADD_CART_PRODUCT, addCartProduct);
+  yield takeLatest(CartActionsEnum.ADD_CART_PRODUCT, createCart);
   yield takeLatest(CartActionsEnum.UPDATE_CART_PRODUCT, updateCartProduct);
   yield takeLatest(CartActionsEnum.DELETE_CART_PRODUCT, deleteCartProduct);
 }
