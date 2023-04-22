@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-func Create(w http.ResponseWriter, request *http.Request) {
+func (c *CartUseCase) Create(w http.ResponseWriter, request *http.Request) {
 	var input cart.InsertCartInputDTO
 
 	err := json.NewDecoder(request.Body).Decode(&input)
@@ -33,7 +33,7 @@ func Create(w http.ResponseWriter, request *http.Request) {
 		}
 	}
 
-	id, err := cart.Insert(input)
+	id, err := c.cartRepository.Insert(input)
 
 	if err != nil {
 		response = map[string]any{

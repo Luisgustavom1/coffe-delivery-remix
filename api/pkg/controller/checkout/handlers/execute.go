@@ -2,8 +2,7 @@ package checkout
 
 import (
 	"coffee-delivery-remix/api/entities"
-	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
-	"coffee-delivery-remix/api/pkg/controller/errors"
+	http_error "coffee-delivery-remix/api/pkg/controller/errors"
 	"coffee-delivery-remix/api/pkg/serialize"
 	"coffee-delivery-remix/api/services/email"
 	"strconv"
@@ -15,7 +14,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func Checkout(w http.ResponseWriter, request *http.Request) {
+func (c *CheckoutUseCase) Checkout(w http.ResponseWriter, request *http.Request) {
 	cartId, err := strconv.Atoi(chi.URLParam(request, "id"))
 	if err != nil {
 		log.Printf("Erro ao fazer o parse do query param id: %v", err)
@@ -23,7 +22,7 @@ func Checkout(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	_, err = cart.DeleteById(int64(cartId))
+	_, err = c.cartRepository.DeleteById(int64(cartId))
 	if err != nil {
 		log.Printf("Erro ao fazer checkout: %v", err)
 		http_error.HttpError(w, 500)

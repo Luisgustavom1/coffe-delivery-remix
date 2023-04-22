@@ -3,6 +3,7 @@ package main
 import (
 	"coffee-delivery-remix/api/cmd/routes"
 	"coffee-delivery-remix/api/configs"
+	"coffee-delivery-remix/api/services/db"
 
 	"fmt"
 	"log"
@@ -24,11 +25,16 @@ func main() {
 		AllowedMethods:   []string{"POST", "PUT", "DELETE", "GET"},
 	})
 
+	connection, err := db.OpenConnection()
+	if err != nil {
+		log.Fatalf("Error on db connection: %v", err)
+		return
+	}
+	defer connection.Close()
+
 	r := chi.NewRouter()
-
 	r.Use(c.Handler)
-
-	r.Mount("/v1", routes.Routes())
+	r.Mount("/v1", routes.Routes(connection))
 
 	fmt.Printf("Starting server in the :%s\n\n", configs.GetApiServerPort())
 	http.ListenAndServe(fmt.Sprintf(":%s", configs.GetApiServerPort()), r)

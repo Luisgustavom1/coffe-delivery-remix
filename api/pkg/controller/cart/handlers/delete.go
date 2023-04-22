@@ -1,7 +1,6 @@
 package cart
 
 import (
-	cart "coffee-delivery-remix/api/pkg/controller/cart/models"
 	http_error "coffee-delivery-remix/api/pkg/controller/errors"
 	"encoding/json"
 	"log"
@@ -11,7 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func DeleteCart(w http.ResponseWriter, request *http.Request) {
+func (c *CartUseCase) DeleteCart(w http.ResponseWriter, request *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(request, "id"))
 	if err != nil {
 		log.Printf("Erro ao fazer o parse do query param id: %v", err)
@@ -19,7 +18,7 @@ func DeleteCart(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	rowsAffected, err := cart.DeleteById(int64(id))
+	rowsAffected, err := c.cartRepository.DeleteById(int64(id))
 	if err != nil {
 		log.Printf("Erro ao deletar registro: %v", id)
 		http_error.HttpError(w, 500)
@@ -38,7 +37,7 @@ func DeleteCart(w http.ResponseWriter, request *http.Request) {
 }
 
 // Turn delete methods more generic
-func DeleteCartProduct(w http.ResponseWriter, request *http.Request) {
+func (c *CartUseCase) DeleteCartProduct(w http.ResponseWriter, request *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(request, "id"))
 	productId, err := strconv.Atoi(chi.URLParam(request, "productId"))
 	if err != nil {
@@ -47,7 +46,7 @@ func DeleteCartProduct(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	rowsAffected, err := cart.DeleteCartProductById(int64(id), int64(productId))
+	rowsAffected, err := c.cartRepository.DeleteCartProductById(int64(id), int64(productId))
 	if err != nil {
 		log.Printf("Erro ao deletar registro: %v", id)
 		http_error.HttpError(w, 500)

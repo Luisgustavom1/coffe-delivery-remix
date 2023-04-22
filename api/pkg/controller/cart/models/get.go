@@ -3,17 +3,10 @@ package cart
 import (
 	"coffee-delivery-remix/api/entities"
 	"coffee-delivery-remix/api/pkg/serialize"
-	"coffee-delivery-remix/api/services/db"
 	"log"
 )
 
-func GetById(id int64) (cart entities.Cart, err error) {
-	connection, err := db.OpenConnection()
-	if err != nil {
-		return
-	}
-	defer connection.Close()
-
+func (db *CartRepository) GetById(id int64) (cart entities.Cart, err error) {
 	sql := `
 		SELECT 
 			cp.cart_id, 
@@ -33,7 +26,7 @@ func GetById(id int64) (cart entities.Cart, err error) {
 			JOIN product p ON cp.product_id = p.id 
 		WHERE cart.id=$1`
 
-	rows, err := connection.Query(sql, id)
+	rows, err := db.Conn.Query(sql, id)
 	if err != nil {
 		return cart, err
 	}

@@ -2,7 +2,6 @@ package cart
 
 import (
 	"coffee-delivery-remix/api/entities"
-	cart_models "coffee-delivery-remix/api/pkg/controller/cart/models"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -11,7 +10,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func Get(w http.ResponseWriter, request *http.Request) {
+func (c *CartUseCase) Get(w http.ResponseWriter, request *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(request, "id"))
 	if err != nil {
 		log.Printf("Erro ao fazer o parse do query param id: %v", err)
@@ -19,7 +18,7 @@ func Get(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	cart, err := cart_models.GetById(int64(id))
+	cart, err := c.cartRepository.GetById(int64(id))
 	var response *entities.Cart
 
 	if err != nil && cart.ID != 0 {
