@@ -47,3 +47,18 @@ func (db *CartRepository) GetById(id int64) (cart entities.Cart, err error) {
 
 	return cart, err
 }
+
+
+func (db *CartRepository) GetCartProductById(cartId int64, productId int64) (output entities.CartProductSimple, err error) {
+	sql := `SELECT product_id, quantity FROM cart_product WHERE product_id=$1 AND cart_id=$1`
+
+	err = db.Conn.QueryRow(sql, cartId, productId).Scan(
+		&output.ProductId,
+		&output.Quantity,
+	)
+	if err != nil {
+		return output, err
+	}
+
+	return output, err
+}

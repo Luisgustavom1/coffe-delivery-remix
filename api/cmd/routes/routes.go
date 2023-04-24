@@ -3,9 +3,10 @@ package routes
 import (
 	repository_cart "coffee-delivery-remix/api/infra/repository/cart"
 	repository_product "coffee-delivery-remix/api/infra/repository/products"
-	cart_usecase "coffee-delivery-remix/api/usecase/cart"
-	checkout "coffee-delivery-remix/api/usecase/checkout"
-	product_usecase "coffee-delivery-remix/api/usecase/products"
+	
+	"coffee-delivery-remix/api/usecase/cart"
+	"coffee-delivery-remix/api/usecase/products"
+	"coffee-delivery-remix/api/usecase/checkout"
 	"database/sql"
 
 	"github.com/go-chi/chi/v5"
@@ -17,8 +18,8 @@ func Routes(conn *sql.DB) *chi.Mux {
 	cartRepository := *repository_cart.NewCartRepository(conn)
 	productRepository := *repository_product.NewProductRepository(conn)
 
-	productUsecase := *product_usecase.NewProductUseCase(productRepository)
-	cartUsecase := *cart_usecase.NewCartUseCase(cartRepository, productRepository)
+	productUsecase := *products.NewProductUseCase(productRepository)
+	cartUsecase := *cart.NewCartUseCase(cartRepository, productRepository)
 	checkoutUsecase := *checkout.NewCheckoutUseCase(cartRepository)
 
 	productsRoutes(r, productUsecase)
@@ -28,7 +29,7 @@ func Routes(conn *sql.DB) *chi.Mux {
 	return r
 }
 
-func productsRoutes(r *chi.Mux, p product_usecase.ProductUseCase) {
+func productsRoutes(r *chi.Mux, p products.ProductUseCase) {
 	r.Post("/products", p.Create)
 	r.Put("/products/{id}", p.Update)
 	r.Delete("/products/{id}", p.Delete)
@@ -36,12 +37,14 @@ func productsRoutes(r *chi.Mux, p product_usecase.ProductUseCase) {
 	r.Get("/products/{id}", p.Get)
 }
 
-func cartRoutes(r *chi.Mux, c cart_usecase.CartUseCase) {
+func cartRoutes(r *chi.Mux, c cart.CartUseCase) {
 	r.Post("/cart", c.Create)
 	r.Delete("/cart/{id}", c.DeleteCart)
-	r.Put("/cart/{id}", c.UpdateBy)
 	r.Get("/cart/{id}", c.Get)
+	
+	r.Put("/cart/{id}/product/{productId}", c.UpdateCartProduct)
 	r.Delete("/cart/{id}/product/{productId}", c.DeleteCartProduct)
+	r.Post("/cart/{id}/product", c.CreateCartProduct)
 }
 
 func checkoutRoutes(r *chi.Mux, c checkout.CheckoutUseCase) {
