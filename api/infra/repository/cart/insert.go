@@ -21,3 +21,11 @@ func (db *CartRepository) Insert(cart InsertCartInputDTO) (id int64, err error) 
 
 	return id, err
 }
+
+func (db *CartRepository) InsertCartProductByCartId(cartId int64, cart_product entities.CartProductSimple) (id int64, err error) {
+	sql := `INSERT INTO cart_product (cart_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING id`
+
+	err = db.Conn.QueryRow(sql, cartId, cart_product.ProductId, cart_product.Quantity).Scan(&id)
+
+	return id, err
+}
