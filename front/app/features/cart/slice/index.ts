@@ -51,12 +51,10 @@ const cartSlice = createSlice({
 
       state.cart.products = state.cart.products.map(
         (c) => 
-          c.product.id === product.id 
-            ? {
-              ...action.payload
-            }
-            : c
-          )
+        ({
+          ...action.payload
+        })
+          );
       return;
     },
     deleteCartProduct: (state, action: PayloadAction<number>) => {      
